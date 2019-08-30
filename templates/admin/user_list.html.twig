@@ -6,7 +6,7 @@
 
     <h1>liste User</h1>
 
-    <table class="table table-dark">
+    <table class="table text-center table-bordered table-dark">
     <thead>
     <tr>
     <th>id user</th>
@@ -19,10 +19,10 @@
     <th>location</th>
     <th>date de naissance</th>
     <th>newsletter</th>
-    <th>action</th>
+    <th colspan="2">action</th>
     <tr>
     <thead>
-    <tbody>
+    <tbody class="text-center">
     {% for u in user %}
         <tr>
         <td>{{u.id}}</td>
@@ -36,10 +36,10 @@
         <td>{{u.birthDate | date('d/m/Y')}}</td>
         <td>{{u.newsletter}}</td>
         <td>
-            <a href="{{ path('admin_user_delete',{id:u.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt"></i></a>
-            <a href="{{ path('admin_user_update', {id:u.id}) }}"><i class="fas fa-edit"></i></a>
+            <a href="{{ path('admin_user_delete',{id:u.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt text-white"></i></a> </td> 
+           <td> <a href="{{ path('admin_user_update', {id:u.id}) }}"><i class="fas fa-edit text-white"></i></a></td>
             {# <a href="{{ path('admin_user_fiche',{id:u.id}) }}"><i class="fas fa-glasses"></i></a> #}
-        </td> 
+       
         </tr>
     {% endfor %}
     </tbody>

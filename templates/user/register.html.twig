@@ -50,20 +50,21 @@
         </div>
         <div class="row">
             <div class="col-6 row">
-                    <div class="col-4">{{ form_label(userForm.birthDate.day) }}</div>
-                    <div class="col-4">{{ form_label(userForm.birthDate.month) }}</div>
-                    <div class="col-4">{{ form_label(userForm.birthDate.year) }}</div>    
+                    <div class="col-4">{{ form_widget(userForm.birthDate.day) }}</div>
+                    <div class="col-4">{{ form_widget(userForm.birthDate.month) }}</div>
+                    <div class="col-4">{{ form_widget(userForm.birthDate.year) }}</div>    
                 </div>
-                <div class="col-6 ">{{ form_label(userForm.kind) }}</div>
+                <div class="col-6 ">{{ form_widget(userForm.kind) }}</div>
         </div>
             {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
                     <div class="col-12 d-flex">
 						
                         <div class="col-1">{{ form_widget(userForm.cgu) }}{{form_label(userForm.cgu)}}</div>
                         <div class="col-11">En vous incrivant, vous accepter les
-                            <a href='#'>Conditions Générales d'Utilisation (CGU)</a>
+                            <a href='{{path('cgu')}}'>Conditions Générales d'Utilisation (CGU)</a>
                         </div>
                         
+
                     </div>
 			{% endif %}
                 </div>
