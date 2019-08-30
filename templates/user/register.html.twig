@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <br><br>
+
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
         <h2 class="display-4 text-center">MODIFICATIONS</h2><hr>
@@ -13,40 +13,50 @@
 
     {% endif %}
     {{ form_start(userForm) }}
-    <form class="form">
+    <div class="form">
         <div class="row">
-            <div class="col-6">
-                {{ form_row(userForm.username) }}
-                <div class="row">
-                    <div class="col-6">
-                        {{ form_row(userForm.firstName) }}
-                    </div>
-                    <div class="col-6">
-                        {{ form_row(userForm.lastName) }}
-                    </div>
-                </div>
-                {{ form_row(userForm.email) }}
-                {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
-                 {{ form_row(userForm.password) }} 
-                 {% endif %}
-
+            <div class="col-6">{{ form_label(userForm.username) }}</div > 
+            <div class="col-6"> {{ form_label(userForm.email) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-6">{{ form_widget(userForm.username) }}</div>
+            <div class="col-6">{{ form_widget(userForm.email) }}</div> 
+        </div>
+        <div class="row">
+            <div class="col-6">{{ form_label(userForm.lastName) }}</div>
+            <div class="col-6">{{ form_label(userForm.firstName) }}</div> 
+        </div>
+        <div class="row">
+            <div class="col-6">{{ form_widget(userForm.lastName) }}</div>
+            <div class="col-6">{{ form_widget(userForm.firstName) }}</div> 
+        </div>
+        {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
+        <div class="row">
+            <div class="col-6">{{ form_label(userForm.password.first) }}</div>
+            <div class="col-6">{{ form_label(userForm.password.second) }}</div> 
+        </div>
+        <div class="row">
+            <div class="col-6">{{ form_widget(userForm.password.first) }}</div>
+            <div class="col-6">{{ form_widget(userForm.password.second) }}</div> 
+        </div>
+        {% endif %}      
+        <div class="row">
+            <div class="col-6 row">
+                <div class="col-4">{{ form_label(userForm.birthDate.day) }}</div>
+                <div class="col-4">{{ form_label(userForm.birthDate.month) }}</div>
+                <div class="col-4">{{ form_label(userForm.birthDate.year) }}</div>    
             </div>
-
-            <div class="col-6">
-                {{ form_row(userForm.location) }}
-                {{ form_row(userForm.kind) }}
-                <div class="row">
-                    <div class="col-4">
-                        {{ form_row(userForm.birthDate.day, {label : 'Jour'}) }}
-                    </div>
-                    <div class="col-4">
-                        {{ form_row(userForm.birthDate.month,  {label : 'Mois'}) }}
-                    </div>
-                    <div class="col-4">
-                        {{ form_row(userForm.birthDate.year, {label : 'Année'}) }}
-                    </div> 
-                    {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
-					<div></div>
+            <div class="col-6 ">{{ form_label(userForm.kind) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-6 row">
+                    <div class="col-4">{{ form_label(userForm.birthDate.day) }}</div>
+                    <div class="col-4">{{ form_label(userForm.birthDate.month) }}</div>
+                    <div class="col-4">{{ form_label(userForm.birthDate.year) }}</div>    
+                </div>
+                <div class="col-6 ">{{ form_label(userForm.kind) }}</div>
+        </div>
+            {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
                     <div class="col-12 d-flex">
 						
                         <div class="col-1">{{ form_widget(userForm.cgu) }}{{form_label(userForm.cgu)}}</div>
@@ -55,7 +65,7 @@
                         </div>
                         
                     </div>
-					{% endif %}
+			{% endif %}
                 </div>
                 {# {{ form_row(userForm.submit, { 'label' : action } ) }} #}
             </div>

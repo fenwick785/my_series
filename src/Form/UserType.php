@@ -25,15 +25,14 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
-                'constraints' => [
+                'constraints'=>[
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez renseigner ce champ !']),
                     new Assert\Length([
                         'min' => 3,
                         'max' => 60,
                         'minMessage' => 'Minimum 3 caractères',
                         'maxMessage' => 'Maximum 60 caractères',
-                    ]),
-                    new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner ce champ !',
                     ]),
                 ]
             ])
@@ -97,6 +96,7 @@ class UserType extends AbstractType
 
 
             ->add('location', CountryType::class,[
+                'label'=>'Pays',
                 'preferred_choices' => array('FR','US','IT','ES','JP')])
 
 
@@ -108,11 +108,8 @@ class UserType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank([
                         'message' => 'Veuillez renseigner ce champ !',
-                    ]),
-                    new Assert\Regex([
-                        'pattern'=>"/^(?=S{8,})(?=S*[a-z])(?=S*[A-Z])(?=S*[d])(?=S*[W])S*$/",
-                        'message'=>'Veuillez renseigner au moins 8 caractéres avec au moins un chiffre, une majuscule , une minuscule, et un caractère special'
                     ])
+                   
                 ]
             ])
 
@@ -142,12 +139,9 @@ class UserType extends AbstractType
                         'required' => true,
                         'first_options' => ['label' => 'Mot de passe'],
                         'second_options' => ['label' => 'Confirmer Mot de passe'],
-                        'constraints' => [
-                                new Assert\NotBlank([
-                                    'message' => 'Veuillez renseigner ce champ !']),
-
+                       
                         ]
-                ])
+                )
                     ->add('cgu', CheckboxType::class,[
                         'label' => false,
                         'mapped'=>false,
