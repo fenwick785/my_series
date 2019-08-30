@@ -118,7 +118,10 @@ class UserType extends AbstractType
             ])
 
 
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class,[
+                'label' => 'Valider',
+                'attr'=>['class'=>'btn btn-danger']
+            ]);
 
 
         if ($options['admin'] == true) {

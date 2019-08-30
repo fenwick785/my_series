@@ -14,7 +14,7 @@
     {% endif %}
     {{ form_start(userForm) }}
     <div class="form">
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-6">{{ form_label(userForm.username) }}</div > 
             <div class="col-6"> {{ form_label(userForm.email) }}</div>
         </div>
@@ -22,7 +22,7 @@
             <div class="col-6">{{ form_widget(userForm.username) }}</div>
             <div class="col-6">{{ form_widget(userForm.email) }}</div> 
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-6">{{ form_label(userForm.lastName) }}</div>
             <div class="col-6">{{ form_label(userForm.firstName) }}</div> 
         </div>
@@ -31,7 +31,7 @@
             <div class="col-6">{{ form_widget(userForm.firstName) }}</div> 
         </div>
         {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-6">{{ form_label(userForm.password.first) }}</div>
             <div class="col-6">{{ form_label(userForm.password.second) }}</div> 
         </div>
@@ -40,39 +40,48 @@
             <div class="col-6">{{ form_widget(userForm.password.second) }}</div> 
         </div>
         {% endif %}      
-        <div class="row">
-            <div class="col-6 row">
+        <div class="row mt-2">
+            <div class="col-6 d-flex">
                 <div class="col-4">{{ form_label(userForm.birthDate.day) }}</div>
                 <div class="col-4">{{ form_label(userForm.birthDate.month) }}</div>
                 <div class="col-4">{{ form_label(userForm.birthDate.year) }}</div>    
             </div>
-            <div class="col-6 ">{{ form_label(userForm.kind) }}</div>
+            <div class="col-6">{{ form_label(userForm.kind) }}</div>
         </div>
         <div class="row">
-            <div class="col-6 row">
-                    <div class="col-4">{{ form_widget(userForm.birthDate.day) }}</div>
-                    <div class="col-4">{{ form_widget(userForm.birthDate.month) }}</div>
-                    <div class="col-4">{{ form_widget(userForm.birthDate.year) }}</div>    
-                </div>
-                <div class="col-6 ">{{ form_widget(userForm.kind) }}</div>
+            <div class="col-6 d-flex">
+                <div class="col-4 pl-1">{{ form_widget(userForm.birthDate.day) }}</div>
+                <div class="col-4 pl-1">{{ form_widget(userForm.birthDate.month) }}</div>
+                <div class="col-4 pl-1">{{ form_widget(userForm.birthDate.year) }}</div>
+            </div>
+            <div class="col-6">{{ form_widget(userForm.kind) }}</div>
         </div>
-            {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
-                    <div class="col-12 d-flex">
-						
-                        <div class="col-1">{{ form_widget(userForm.cgu) }}{{form_label(userForm.cgu)}}</div>
-                        <div class="col-11">En vous incrivant, vous accepter les
-                            <a href='{{path('cgu')}}'>Conditions Générales d'Utilisation (CGU)</a>
-                        </div>
-                        
-
-                    </div>
-			{% endif %}
-                </div>
-                {# {{ form_row(userForm.submit, { 'label' : action } ) }} #}
+        <div class="row mt-2">
+            <div class="col-6">{{ form_label(userForm.location)}}</div>
+            <div class="col-6 d-flex align-items-center">
+                {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                <div>{{ form_label(userForm.newsletter) }}</div>
+                {% endif %}
+           </div>
+        </div>
+        <div class="row">
+            <div class="col-6">{{ form_widget(userForm.location)}}</div>
+            <div class="col-6 d-flex align-items-center">
+                {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                <div>{{ form_widget(userForm.newsletter) }}</div>
+                {% endif %}
+           </div>
+        </div>
+           
+            <div class="col-12 text-center mt-4">
+                <div>En vous incrivant, vous accepter les <a href='#'>Conditions Générales d'Utilisation (CGU)</a></div>
+                {{ form_row(userForm.cgu) }} 
+            </div>
+            <div class="col-12 d-flex justify-content-center text-center">
+                {{form_row(userForm.submit)}}
             </div>
         </div>
-        <form>
-            {{ form_end(userForm) }}
-
-
-        {% endblock %}
+                
+                
+        {{ form_end(userForm) }}
+{% endblock %}
