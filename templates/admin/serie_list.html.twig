@@ -2,10 +2,11 @@
 
 {% block content %}
 <h1>Liste des series</h1>
-
-
-<a class="btn btn-success col-md-4 offset-md-4" href="{{ path('admin_add_serie') }}" role="button">Ajouter une serie</a>
 <hr>
+
+<a class="btn btn-success col-md-4 offset-md-4" href="{{ path('admin_add_serie') }}" role="button"><i class="fas fa-plus"></i> Ajouter une serie</a>
+<br>
+<br>
  
 
 <table class="table table-bordered table-dark">
@@ -21,7 +22,7 @@
     <th class="text-center">synopsis</th>
     <th class="text-center">nationalité</th>
     <th class="text-center" colspan="3">action</th>
-    <tr>
+    </tr>
     <thead>
     <tbody class="text-center">
     {% for sr in serie %}
