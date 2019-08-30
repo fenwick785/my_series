@@ -22,7 +22,7 @@ class FakerFixtures extends Fixture
         {
             $user = new User();
             $user -> setUsername($faker -> userName);
-            $user -> setPassword('$argon2id$v=19$m=65536,t=4,p=1$amxqZXdEekJuaEFLWHpLWQ$ncGqO3KdTi6qLpEDiiP6JpksPGqunIKWZNleC9x4EQI');
+            $user -> setPassword('$argon2i$v=19$m=65536,t=4,p=1$VmFmVDdsdEQ2VjZkSlFyVA$k8Lm6kkt05XvlnMFX2NAkQ1G3tKanpnfQfuIjRQKGp0');
             $user -> setEmail($faker -> email);
             $user -> setFirstName($faker -> firstName($gender = 'male'|'female'));
             $user -> setLastName($faker -> lastName);
