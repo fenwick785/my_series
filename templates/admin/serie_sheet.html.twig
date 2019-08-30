@@ -42,10 +42,9 @@
         <td>{{sea.synopsis}}</td>
         <td>{{sea.year}}</td>
         <td>
-        <a href="{{ path('admin_season_sheet',{id:sea.id}) }}"><i class="fas fa-edit"></i></a>
-        {# <a href="{{ path('admin_user_delete',{id:u.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt"></i></a>
-            
-            <a href="{{ path('admin_user_fiche',{id:u.id}) }}"><i class="fas fa-glasses"></i></a></td> #}
+        <a href="{{ path('admin_season_sheet',{id:sea.id}) }}"><i class="fas fa-glasses"></i></a>
+        <a href="{{ path('admin_delete_season',{id:sea.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt"></i></a>
+        <a href="{{ path('admin_update_season',{id:sea.id}) }}"><i class="fas fa-edit"></i></a></td> 
         <td>
             
         </td> 

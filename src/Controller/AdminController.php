@@ -216,7 +216,7 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'La serie n°' . $season->getId() . ' a bien été enregistré en BDD');
 
-            return $this->redirectToRoute('admin_add_serie');
+            return $this->redirectToRoute('admin_add_season');
         }
 
 
@@ -226,7 +226,55 @@ class AdminController extends AbstractController
         ]);
     }
 
+        // ------------- DELETE SAISON ----------------------
 
+
+    /**
+     * @Route("admin/delete/season/{id}", name="admin_delete_season")
+     */
+    public function adminDeleteSeason($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $season = $manager->find(Season::class, $id);
+
+        $manager->remove($season);
+        $manager->flush();
+
+        $this->addFlash('success', 'La saison n°' . $id . ' a bien été supprimée !');
+        return $this->redirectToRoute('admin_serie_list');
+    }
+
+    // ------------- UPDATE SEASON -----------------------
+
+
+    /**
+     * @Route("/admin/update/season/{id}", name="admin_update_season")
+     *
+     */
+    public function adminUpdateSeason($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $season = $manager->find(Season::class, $id); //objet rempli
+
+        $form = $this->createForm(SeasonType::class, $season);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($season);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'La serie n°' . $id . ' a bien été modifiée !');
+            return $this->redirectToRoute('admin_serie_list');
+        }
+
+        return $this->render('admin/update_season.html.twig', [
+            'seasonForm' => $form->createView()
+        ]);
+    }
 
 
     /// ----------- ADD EPISODE ---------------------
