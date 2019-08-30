@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>INSCRIPTION (ADMIN)</h1><hr>
+    {{ form_start(userForm) }}
+<form class="form">
+		<div class="row">
+			<div class="col-6">
+				{{ form_row(userForm.username) }}
+				<div class="row">
+				<div class="col-6">
+				{{ form_row(userForm.firstName) }}
+				</div>
+				<div class="col-6">
+				{{ form_row(userForm.lastName) }}
+				</div>
+				</div>
+				{{ form_row(userForm.email) }}
+			
+				{# {{ form_row(userForm.password) }} #}
+			
+			
+				
+		
+				
+			</div>
+
+			<div class="col-6">
+				{{ form_row(userForm.location) }}
+				{{ form_row(userForm.kind) }}
+				<div class="row">
+					<div class="col-4">
+					{{ form_row(userForm.birthDate.day, {label : 'Jour'}) }}
+					</div>
+					<div class="col-4">
+					{{ form_row(userForm.birthDate.month,  {label : 'Mois'}) }}
+					</div>
+					<div class="col-4">
+					{{ form_row(userForm.birthDate.year, {label : 'Année'}) }}
+					</div>
+				</div>
+				{# {{ form_row(userForm.submit, { 'label' : action } ) }} #}
+			</div>
+		</div>
+    <form>
+	{{ form_end(userForm) }}
+
+{% endblock %}

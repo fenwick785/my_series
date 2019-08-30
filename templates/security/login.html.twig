@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<br>
+<br>
+
+    <h1 class="display-4 text-center">Connexion</h1><hr>
+
+    <form method="POST" action="{{ path('login_check') }}" class="col-md-4 offset-md-4">
+
+    <div class="form-group">
+        <input Type="text" class="form-control" name="_username" value="{{ lastUsername }}" placeholder="Pseudo" />
+    </div>
+
+    <div class="form-group">
+        <input Type="text" class="form-control" name="_password" placeholder="Mot de passe"/>
+    </div>
+
+    <div class="form-group">
+        <input Type="submit" class="btn btn-primary col-md-12" value="Connexion" />
+    </div>
+
+    </form>
+
+    
+
+{% endblock %}

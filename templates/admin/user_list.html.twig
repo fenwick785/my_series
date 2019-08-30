@@ -1,0 +1,48 @@
+
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+
+    <h1>liste User</h1>
+
+    <table class="table table-dark">
+    <thead>
+    <tr>
+    <th>id user</th>
+    <th>username</th>
+    <th>email</th>
+    <th>prenom</th>
+    <th>nom</th>
+    <th>genre</th>
+    <th>role</th>
+    <th>location</th>
+    <th>date de naissance</th>
+    <th>newsletter</th>
+    <th>action</th>
+    <tr>
+    <thead>
+    <tbody>
+    {% for u in user %}
+        <tr>
+        <td>{{u.id}}</td>
+        <td>{{u.username}}</td>
+        <td>{{u.email}}</td>
+        <td>{{u.firstName}}</td>
+        <td>{{u.lastName}}</td>
+        <td>{{u.kind}}</td>
+        <td>{{u.role}}</td>
+        <td>{{u.location}}</td>
+        <td>{{u.birthDate | date('d/m/Y')}}</td>
+        <td>{{u.newsletter}}</td>
+        <td>
+            <a href="{{ path('admin_user_delete',{id:u.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt"></i></a>
+            <a href="{{ path('admin_user_update', {id:u.id}) }}"><i class="fas fa-edit"></i></a>
+            {# <a href="{{ path('admin_user_fiche',{id:u.id}) }}"><i class="fas fa-glasses"></i></a> #}
+        </td> 
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    
+{% endblock %}

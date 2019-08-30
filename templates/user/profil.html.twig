@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+
+    <h1 class="display-4 text-center">
+        <i class="fas fa-user"></i>
+        Bonjour
+        {{ app.user.username }}
+    </h1>
+    <hr>
+    <br>
+    <h4>
+        Informations générales
+    </h4>
+
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Prenom :
+            {{ app.user.firstName }}</li>
+        <li class="list-group-item">Nom :
+            {{ app.user.lastName }}</li>
+        <li class="list-group-item">Email :
+            {{ app.user.email }}</li>
+        <li class="list-group-item">
+            Localisation :
+            {{ app.user.location }}</li>
+        <li class="list-group-item">
+            Genre :
+            {{ app.user.kind }}</li>
+        <li class="list-group-item">
+            Date de naissance :
+            {{ app.user.birthDate | date('d/m/Y') }}</li>
+    </ul>
+    <br>
+
+    <a href="{{ path('profil_update') }}">
+        <button class="btn btn-danger">
+            Modifier mon profil
+        </button>
+    </a>
+
+    <br>
+    <br>
+    <br>
+    <h4>
+        Vos séries préférées
+    </h4>
+    <hr>
+    afficher les séries de l'utilisateur...
+
+
+{% endblock %}
