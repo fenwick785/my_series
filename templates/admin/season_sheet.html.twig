@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block content %}
+
+
+    <h1 class="display-4">{{season.title}}</h1>
+    
+    
+    <a href="{{path('admin_add_episode')}}">
+        <input Type="submit" class="btn btn-warning col-md-4 offset-md-4" value="ajouter un episode"/>
+    </a><hr>
+
+    <ul>
+        <li>photo: {{season.photo}}</li>
+        <li>id: {{season.id}}</li>
+        <li>titre: {{season.title}}</li>
+        <li>nombre n°: {{season.orderSeason}}</li>
+        <li>nombre d'épisode: {{season.totalEpisodes}}</li>
+        <li>date de début: {{season.year}}</li>
+        <li>synopsis: {{season.synopsis | slice(0, 15)}}...</li>
+        <li>episodes:</li>
+    </ul>
+
+ <table class="table table-dark">
+    <thead>
+    <tr>
+    <th>id:</th>
+    <th>titre</th>
+    <th>episode n°</th>
+    <th>synopsis</th>
+    <th>action</th>
+    <tr>
+    <thead>
+    <tbody>
+    {% for ep in seasons.episodes %}
+        <tr>
+        <td>{{ep.id}}</td>
+        <td>{{ep.title}}</td>
+        <td>{{ep.orderEpisode}}</td>
+        <td>{{ep.synopsis}}</td>
+        {# <td><a href="{{ path('admin_user_delete',{id:u.id})}}" onclick="return confirm('Etes vous sur de vouloir supprimer le membre?')"><i class="fas fa-trash-alt"></i></a>
+            <a href="{{ path('admin_user_update', {id:u.id}) }}"><i class="fas fa-edit"></i></a>
+            <a href="{{ path('admin_user_fiche',{id:u.id}) }}"><i class="fas fa-glasses"></i></a></td> #}
+        <td>
+            
+        </td> 
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+
+
+    
+
+
+{% endblock %}

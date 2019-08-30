@@ -19,219 +19,252 @@ class AdminController extends AbstractController
 {
 
     // ------
-            //--------- CRUD SERIE ----------
-                    //-----------------------------------------
-    
-        // ------------ LIST SERIE ---------------------
+    //--------- CRUD SERIE ----------
+    //-----------------------------------------
 
-    
-   /**
-   * @Route("/admin/serie", name="admin_serie_list")
-   * 
-   * Affiche la liste des series
-   */
-   public function adminSerie(){
-    //1 : Récupérer tous les serie
-    $repo = $this -> getDoctrine() -> getRepository(Serie::class);
-    $serie = $repo -> findAll();
-    
-    
-    //2 : Afficher une vue (admin/produit_list.html.twig), dans laquelle on va faire un dump() de tous les serie
-    return $this -> render('admin/serie_list.html.twig', [
-        'serie' => $serie
-    ]);
-}
+    // ------------ LIST SERIE ---------------------
 
 
-        // -------------- FICHE SERIE -------------------
+    /**
+     * @Route("/admin/serie", name="admin_serie_list")
+     * 
+     * Affiche la liste des series
+     */
+    public function adminSerie()
+    {
+        //1 : Récupérer tous les serie
+        $repo = $this->getDoctrine()->getRepository(Serie::class);
+        $serie = $repo->findAll();
 
-        /**
-        * @route("/admin/serie_sheet/{id}", name="admin_serie_sheet")
-        */
-        public function adminSerieSheet($id){
 
-        $manager = $this -> getDoctrine() -> getManager();
-        $serie = $manager -> find(Serie::class, $id);
+        //2 : Afficher une vue (admin/produit_list.html.twig), dans laquelle on va faire un dump() de tous les serie
+        return $this->render('admin/serie_list.html.twig', [
+            'serie' => $serie
+        ]);
+    }
 
 
-  
+    // -------------- FICHE SERIE -------------------
+
+    /**
+     * @Route("/admin/serie_sheet/{id}", name="admin_serie_sheet")
+     */
+    public function adminSerieSheet($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $serie = $manager->find(Serie::class, $id);
+
+
+
         return $this->render("admin/serie_sheet.html.twig", [
-            'serie'=>$serie,
+            'serie' => $serie,
         ]);
     }
 
 
 
-        // --------------- ADD SERIE ------------------
+    // --------------- ADD SERIE ------------------
 
     /**
      * @Route("/admin/add/serie", name="admin_add_serie")
      */
     public function adminAddSerie(Request $request)
     {
-        try{
-        $serie=new Serie;
+        try {
+            $serie = new Serie;
 
-        $form=$this->createForm(SerieType::class, $serie);
-        $form -> handleRequest($request);
+            $form = $this->createForm(SerieType::class, $serie);
+            $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
 
-			$manager = $this -> getDoctrine() -> getManager();
-			$manager -> persist($serie);
-			// Enregistrer la $serie dans le système 
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($serie);
+                // Enregistrer la $serie dans le système 
 
-			// On enregistre la photo en BDD et sur le serveur. 
-			// if($serie -> getFile() != NULL){
-			//     $serie -> uploadFile();
-			// }
-			
-			$manager -> flush();
-			// va enregistrer $serie en BDD
-	   
-			$this -> addFlash('success', 'La serie n°' . $serie -> getId() . ' a bien été enregistré en BDD');
-	   
-            return $this -> redirectToRoute('admin_serie_list');
+                // On enregistre la photo en BDD et sur le serveur. 
+                // if($serie -> getFile() != NULL){
+                //     $serie -> uploadFile();
+                // }
+
+                $manager->flush();
+                // va enregistrer $serie en BDD
+
+                $this->addFlash('success', 'La serie n°' . $serie->getId() . ' a bien été enregistré en BDD');
+
+                return $this->redirectToRoute('admin_serie_list');
+            }
+        } catch (UniqueConstraintViolationException $e) {
+            $this->addFlash('errors', 'Votre serie n\'a pas été crée, le titre utilisé existe déjà');
         }
-	   }catch (UniqueConstraintViolationException $e) {
-        $this->addFlash('errors', 'Votre serie n\'a pas été crée, le titre utilisé existe déjà');
-    }
 
 
         return $this->render('admin/add_serie.html.twig', [
-            'serieForm' => $form -> createView()
+            'serieForm' => $form->createView()
         ]);
     }
 
 
-        // ------------- DELETE SERIE ----------------------
+    // ------------- DELETE SERIE ----------------------
 
 
-        /**
-        * @route("admin/delete/serie/{id}", name="admin_delete_serie")
-        */
-        public function adminDeleteSerie($id){
-	   
-        $manager = $this -> getDoctrine() -> getManager();
-        $serie = $manager -> find(Serie::class, $id);
-        
-        $manager -> remove($serie);
-        $manager -> flush();
-        
-        $this -> addFlash('success', 'La série n°' . $id . ' a bien été supprimée !');
-        return $this -> redirectToRoute('admin_serie_list');
+    /**
+     * @Route("admin/delete/serie/{id}", name="admin_delete_serie")
+     */
+    public function adminDeleteSerie($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $serie = $manager->find(Serie::class, $id);
+
+        $manager->remove($serie);
+        $manager->flush();
+
+        $this->addFlash('success', 'La série n°' . $id . ' a bien été supprimée !');
+        return $this->redirectToRoute('admin_serie_list');
     }
 
 
-        // ------------- UPDATE SERIE -----------------------
+    // ------------- UPDATE SERIE -----------------------
 
-         
-   /**
-   * @Route("/admin/update/serie/{id}", name="admin_update_serie")
-   *
-   */
-   public function adminUpdateSerie($id, Request $request){
-	   
-    $manager = $this -> getDoctrine() -> getManager();   
-    $serie = $manager -> find(Serie::class, $id); //objet rempli
-    
-    $form = $this -> createForm(SerieType::class, $serie);
-    $form -> handleRequest($request);
-    
-    if($form -> isSubmitted() && $form -> isValid()){
-    
-        $manager -> persist($serie);
-        
-        $manager -> flush(); 
-        
-        $this -> addFlash('success', 'La serie n°' . $id . ' a bien été modifiée !');
-        return $this -> redirectToRoute('admin_serie_list');
+
+    /**
+     * @Route("/admin/update/serie/{id}", name="admin_update_serie")
+     *
+     */
+    public function adminUpdateSerie($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $serie = $manager->find(Serie::class, $id); //objet rempli
+
+        $form = $this->createForm(SerieType::class, $serie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($serie);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'La serie n°' . $id . ' a bien été modifiée !');
+            return $this->redirectToRoute('admin_serie_list');
+        }
+
+        return $this->render('admin/update_serie.html.twig', [
+            'serieForm' => $form->createView()
+        ]);
     }
-    
-    return $this -> render('admin/update_serie.html.twig', [
-     'serieForm' => $form -> createView()
-    ]);
-    
-}
 
-            /// ----------- ADD SAISON ---------------------
+
+    //------------------- 
+
+
+    //--------- SAISON -----------------
+
+
+    //--------------------
+
+
+    // -------------- FICHE SAISON -------------------
+
+    /**
+     * @Route("/admin/season_sheet/{id}", name="admin_season_sheet")
+     */
+    public function adminSeasonSheet($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $season = $manager->find(Season::class, $id);
+
+
+
+        return $this->render("admin/season_sheet.html.twig", [
+            'season' => $season,
+        ]);
+    }
+
+
+
+    /// ----------- ADD SAISON ---------------------
 
     /**
      * @Route("/admin/add/season", name="admin_add_season")
      */
     public function adminAddSeason(Request $request)
     {
-        
-        $season=new Season;
 
-        $form=$this->createForm(SeasonType::class, $season);
-        $form -> handleRequest($request);
+        $season = new Season;
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        $form = $this->createForm(SeasonType::class, $season);
+        $form->handleRequest($request);
 
-			$manager = $this -> getDoctrine() -> getManager();
-			$manager -> persist($season);
-			// Enregistrer la $saeson dans le système 
+        if ($form->isSubmitted() && $form->isValid()) {
 
-			// On enregistre la photo en BDD et sur le serveur. 
-			// if($serie -> getFile() != NULL){
-			//     $serie -> uploadFile();
-			// }
-			
-			$manager -> flush();
-			// va enregistrer $serie en BDD
-	   
-			$this -> addFlash('success', 'La serie n°' . $season -> getId() . ' a bien été enregistré en BDD');
-	   
-            return $this -> redirectToRoute('admin_add_serie');
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($season);
+            // Enregistrer la $saeson dans le système 
+
+            // On enregistre la photo en BDD et sur le serveur. 
+            // if($serie -> getFile() != NULL){
+            //     $serie -> uploadFile();
+            // }
+
+            $manager->flush();
+            // va enregistrer $serie en BDD
+
+            $this->addFlash('success', 'La serie n°' . $season->getId() . ' a bien été enregistré en BDD');
+
+            return $this->redirectToRoute('admin_add_serie');
         }
-	   
+
 
 
         return $this->render('admin/add_season.html.twig', [
-            'seasonForm' => $form -> createView()
+            'seasonForm' => $form->createView()
         ]);
     }
 
 
 
 
-       /// ----------- ADD EPISODE ---------------------
+    /// ----------- ADD EPISODE ---------------------
 
     /**
      * @Route("/admin/add/episode", name="admin_add_episode")
      */
     public function adminAddEpisode(Request $request)
     {
-        
-        $episode=new Episode;
 
-        $form=$this->createForm(EpisodeType::class, $episode);
-        $form -> handleRequest($request);
+        $episode = new Episode;
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        $form = $this->createForm(EpisodeType::class, $episode);
+        $form->handleRequest($request);
 
-			$manager = $this -> getDoctrine() -> getManager();
-			$manager -> persist($episode);
-			// Enregistrer la $saeson dans le système 
+        if ($form->isSubmitted() && $form->isValid()) {
 
-			// On enregistre la photo en BDD et sur le serveur. 
-			// if($serie -> getFile() != NULL){
-			//     $serie -> uploadFile();
-			// }
-			
-			$manager -> flush();
-			// va enregistrer $serie en BDD
-	   
-			$this -> addFlash('success', 'L\'episode n°' . $episode -> getId() . ' a bien été enregistré en BDD');
-	   
-            return $this -> redirectToRoute('admin_add_episode');
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($episode);
+            // Enregistrer la $saeson dans le système 
+
+            // On enregistre la photo en BDD et sur le serveur. 
+            // if($serie -> getFile() != NULL){
+            //     $serie -> uploadFile();
+            // }
+
+            $manager->flush();
+            // va enregistrer $serie en BDD
+
+            $this->addFlash('success', 'L\'episode n°' . $episode->getId() . ' a bien été enregistré en BDD');
+
+            return $this->redirectToRoute('admin_add_episode');
         }
-	   
+
 
 
         return $this->render('admin/add_episode.html.twig', [
-            'episodeForm' => $form -> createView()
+            'episodeForm' => $form->createView()
         ]);
     }
 
@@ -241,8 +274,8 @@ class AdminController extends AbstractController
 
 
     //
-        //-------- CRUD USER -----------
-                //
+    //-------- CRUD USER -----------
+    //
 
 
 
@@ -252,70 +285,72 @@ class AdminController extends AbstractController
 
 
     /**
-    * @route("/admin/user", name="admin_user_list")
-    */
-    public function adminUser(){
-    //1 : Récupérer tous les user
-    $repo = $this -> getDoctrine() -> getRepository(User::class);
-    $user = $repo -> findAll();
-    
-    
-    //2 : Afficher une vue (admin/user_list.html.twig), dans laquelle on va faire un dump() de tous les user
-    return $this -> render('admin/user_list.html.twig', [
-     'user' => $user,
-    ]);
-}
+     * @route("/admin/user", name="admin_user_list")
+     */
+    public function adminUser()
+    {
+        //1 : Récupérer tous les user
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->findAll();
+
+
+        //2 : Afficher une vue (admin/user_list.html.twig), dans laquelle on va faire un dump() de tous les user
+        return $this->render('admin/user_list.html.twig', [
+            'user' => $user,
+        ]);
+    }
 
     // --------------- DELETE USER -----------------
 
     /**
-    * @route("admin/user/delete{id}", name="admin_user_delete")
-    */
-    public function adminUserDelete($id){
-	   
-	$manager = $this -> getDoctrine() -> getManager();
-	$user = $manager -> find(User::class, $id);
-	
-	$manager -> remove($user);
-	$manager -> flush();
-	
-	$this -> addFlash('success', 'Le membre n°' . $id . ' a bien été supprimé !');
-	return $this -> redirectToRoute('admin_user_list');
-}
+     * @route("admin/user/delete{id}", name="admin_user_delete")
+     */
+    public function adminUserDelete($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->find(User::class, $id);
+
+        $manager->remove($user);
+        $manager->flush();
+
+        $this->addFlash('success', 'Le membre n°' . $id . ' a bien été supprimé !');
+        return $this->redirectToRoute('admin_user_list');
+    }
 
 
     // ----------------- UPDATE USER -------------
 
     /**
-    * @route("admin/user/update{id}", name="admin_user_update")
-    */
-            
-    public function adminUserUpdate($id, Request $request){
-	   
-	$manager = $this -> getDoctrine() -> getManager();   
-	$user = $manager -> find(User::class, $id); //objet rempli
-	
-	$form = $this -> createForm(UserType::class, $user, [
-		'admin'=>true,
-	]);
-	$form -> handleRequest($request);
-	
-	if($form -> isSubmitted() && $form -> isValid()){
-	
-		$manager -> persist($user);
-		
-		$manager -> flush(); 
-		
-		$this -> addFlash('success', 'Le membre n°' . $id . ' a bien été modifié !');
-		return $this -> redirectToRoute('admin_user_list');
-	}
-	
-	return $this -> render('admin/user_form.html.twig', [
-	 'userForm' => $form -> createView(),
-	 'action' => 'update_user',
-	]);
-	
-}
+     * @route("admin/user/update{id}", name="admin_user_update")
+     */
+
+    public function adminUserUpdate($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->find(User::class, $id); //objet rempli
+
+        $form = $this->createForm(UserType::class, $user, [
+            'admin' => true,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($user);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Le membre n°' . $id . ' a bien été modifié !');
+            return $this->redirectToRoute('admin_user_list');
+        }
+
+        return $this->render('admin/user_form.html.twig', [
+            'userForm' => $form->createView(),
+            'action' => 'update_user',
+        ]);
+    }
 
 
     //------------------ FICHE USER ----------------
