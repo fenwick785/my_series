@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<h1>Liste des series</h1>
+<hr>
+
+{# <a class="btn btn-success col-md-4 offset-md-4" href="{{ path('admin_add_serie') }}" role="button"><i class="fas fa-plus"></i> Ajouter une serie</a> #}
+<br>
+<br>
+ 
+<div class="table-responsive">
+<table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+    <th class="text-center">photo</th>
+    <th class="text-center">id</th>
+    <th class="text-center">titre</th>
+    <th class="text-center">nombre de saison</th>
+    <th class="text-center">nombre d'épisode</th>
+    <th class="text-center">date de début</th>
+    <th class="text-center">public</th>
+    <th class="text-center">synopsis</th>
+    <th class="text-center">nationalité</th>
+    <th class="text-center" colspan="3">action</th>
+    </tr>
+    <thead>
+    <tbody class="text-center">
+    {% for sr in serie %}
+        <tr>
+        <td><img class="" height="70px" src="{{ asset('/photo/' ~ sr.photo) }}" alt=""></td>
+        <td>{{sr.id}}</td>
+        <td>{{sr.title}}</td>
+        <td>{{sr.nbSeason}}</td>
+        <td>{{sr.nbEpisode}}</td>
+        <td>{{sr.startDate}}</td>
+        <td>{{sr.public}}</td>
+        <td>{{sr.synopsis | slice(0, 15)}}...</td>
+        <td>{{sr.nationality}}</td>
+        <th>
+        <a href="{{ path('contributor_serie_sheet',{id:sr.id}) }}"><i class="fas fa-eye text-white"></i></a></th>
+       <th>
+        <a href="{{ path('contributor_update_serie', {id:sr.id}) }}"><i class="fas fa-edit text-white"></i></a></th>
+        
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}
