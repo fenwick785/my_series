@@ -277,6 +277,34 @@ class AdminController extends AbstractController
     }
 
 
+        //------------------- 
+
+
+    //--------- EPISODE -----------------
+
+
+    //--------------------
+
+
+    // -------------- FICHE EPISODE -------------------
+
+    /**
+     * @Route("/admin/episode_sheet/{id}", name="admin_episode_sheet")
+     */
+    public function adminEpisodeSheet($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $episode = $manager->find(Episode::class, $id);
+
+
+
+        return $this->render("admin/episode_sheet.html.twig", [
+            'episode' => $episode,
+        ]);
+    }
+
+
     /// ----------- ADD EPISODE ---------------------
 
     /**
@@ -316,6 +344,55 @@ class AdminController extends AbstractController
         ]);
     }
 
+            // ------------- DELETE EPIDSODE ----------------------
+
+
+    /**
+     * @Route("admin/delete/episode/{id}", name="admin_delete_episode")
+     */
+    public function adminDeleteEpisode($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $episode = $manager->find(Episode::class, $id);
+
+        $manager->remove($episode);
+        $manager->flush();
+
+        $this->addFlash('success', 'L\'épisode n°' . $id . ' a bien été supprimée !');
+        return $this->redirectToRoute('admin_serie_list');
+    }
+
+        // ------------- UPDATE EPISODE -----------------------
+
+
+    /**
+     * @Route("/admin/update/episode/{id}", name="admin_update_episode")
+     *
+     */
+    public function adminUpdateEpisode($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $episode = $manager->find(Episode::class, $id); //objet rempli
+
+        $form = $this->createForm(EpisodeType::class, $episode);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($episode);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'L\'episode n°' . $id . ' a bien été modifiée !');
+            return $this->redirectToRoute('admin_serie_list');
+        }
+
+        return $this->render('admin/update_episode.html.twig', [
+            'episodeForm' => $form->createView()
+        ]);
+    }
 
 
 

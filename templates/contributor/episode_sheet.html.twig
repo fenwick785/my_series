@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block content %}
+
+
+    <h1 class="display-4">{{episode.title}}</h1>
+    
+    
+
+    <ul>
+        <li>id: {{episode.id}}</li>
+        <li>titre: {{episode.title}}</li>
+        <li>episode n°: {{episode.orderEpisode}}</li>
+        <li>synopsis: {{episode.synopsis}}</li>
+    </ul>
+
+{% endblock %}

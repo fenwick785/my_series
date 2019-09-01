@@ -84,4 +84,123 @@ class ContributorController extends AbstractController
         ]);
     }
 
+
+        //------------------- 
+
+
+    //--------- SAISON -----------------
+
+
+    //--------------------
+
+
+    // -------------- FICHE SAISON -------------------
+
+    /**
+     * @Route("/contributor/season_sheet/{id}", name="contributor_season_sheet")
+     */
+    public function contributorSeasonSheet($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $season = $manager->find(Season::class, $id);
+
+
+
+        return $this->render("contributor/season_sheet.html.twig", [
+            'season' => $season,
+        ]);
+    }
+
+        // ------------- UPDATE SEASON -----------------------
+
+
+    /**
+     * @Route("/contributor/update/season/{id}", name="contributor_update_season")
+     *
+     */
+    public function contributorUpdateSeason($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $season = $manager->find(Season::class, $id); //objet rempli
+
+        $form = $this->createForm(SeasonType::class, $season);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($season);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'La serie n°' . $id . ' a bien été modifiée !');
+            return $this->redirectToRoute('contributor_serie_list');
+        }
+
+        return $this->render('contributor/update_season.html.twig', [
+            'seasonForm' => $form->createView()
+        ]);
+    }
+
+
+        //------------------- 
+
+
+    //--------- EPISODE -----------------
+
+
+    //--------------------
+
+
+    // -------------- FICHE EPISODE -------------------
+
+    /**
+     * @Route("/contributor/episode_sheet/{id}", name="contributor_episode_sheet")
+     */
+    public function contributorEpisodeSheet($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $episode = $manager->find(Episode::class, $id);
+
+
+
+        return $this->render("contributor/episode_sheet.html.twig", [
+            'episode' => $episode,
+        ]);
+    }
+
+
+
+           // ------------- UPDATE EPISODE -----------------------
+
+
+    /**
+     * @Route("/contributor/update/episode/{id}", name="contributor_update_episode")
+     *
+     */
+    public function contributorUpdateEpisode($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $episode = $manager->find(Episode::class, $id); //objet rempli
+
+        $form = $this->createForm(EpisodeType::class, $episode);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($episode);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'L\'episode n°' . $id . ' a bien été modifiée !');
+            return $this->redirectToRoute('contributor_serie_list');
+        }
+
+        return $this->render('contributor/update_episode.html.twig', [
+            'episodeForm' => $form->createView()
+        ]);
+    }
 }
