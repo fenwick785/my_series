@@ -80,7 +80,7 @@
                            
                         {% endif %}
 
-                        {% if is_granted('ROLE_CONTRIBUTOR') %}
+                        {% if is_granted('ROLE_CONTRIBUTOR') and not is_granted('ROLE_ADMIN') %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <span class="badge badge-pill badge-success  p-2">
