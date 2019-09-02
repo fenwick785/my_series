@@ -20,10 +20,13 @@ class BaseController extends AbstractController
        
         $Commentaryrepository = $this->getDoctrine()->getRepository(Commentary::class);
         $commentPopulaire = $Commentaryrepository -> findCommentaryPopulaire();
-    
+        
+        $commentUnpopulaire = $Commentaryrepository -> findCommentaryUnpopulaire();
+
         return $this -> render('base/home.html.twig', [
             'serie' => $serie,
-            'commentPopulaire' => $commentPopulaire
+            'commentPopulaire' => $commentPopulaire,
+            'commentUnpopulaire' => $commentUnpopulaire,
            ]);
 
 

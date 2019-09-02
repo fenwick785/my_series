@@ -31,6 +31,17 @@ class CommentaryRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findCommentaryUnpopulaire()
+    {
+        return $this->createQueryBuilder('c')
+        ->groupBy('c.idSerie')
+        ->orderBy('SUM(c.rating)', 'ASC')
+        ->setMaxResults(3)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Commentary[] Returns an array of Commentary objects
     //  */
