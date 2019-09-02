@@ -4,25 +4,25 @@
 
     <h1>INSCRIPTION (ADMIN)</h1><hr>
     {{ form_start(userForm) }}
-<form class="form">
+		{# <form class="form"> #}
 		<div class="row">
 			<div class="col-6">
-				{{ form_row(userForm.username) }}
+					{{ form_row(userForm.username) }}
+					
+					
+					
 				<div class="row">
-				<div class="col-6">
-				{{ form_row(userForm.firstName) }}
+					<div class="col-6">
+					{{ form_row(userForm.firstName) }}
+					</div>
+					<div class="col-6">
+							{{ form_row(userForm.lastName) }}
+					</div>
 				</div>
-				<div class="col-6">
-				{{ form_row(userForm.lastName) }}
-				</div>
-				</div>
-				{{ form_row(userForm.email) }}
+						{{ form_row(userForm.email) }}
+				
 			
 				{# {{ form_row(userForm.password) }} #}
-			
-			
-				
-		
 				
 			</div>
 
@@ -43,7 +43,19 @@
 				{# {{ form_row(userForm.submit, { 'label' : action } ) }} #}
 			</div>
 		</div>
-    <form>
+		<div class="row">
+			<div class="col-12">
+			 {{ form_row(userForm.role)}}
+			 </div>
+		</div>
+		<div id="hidden_newsletter">
+		{{ form_row(userForm.newsletter) }}
+		</div>
+		
+		
+		
+
+    {# </form> #}
 	{{ form_end(userForm) }}
 
 {% endblock %}

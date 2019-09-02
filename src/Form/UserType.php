@@ -114,7 +114,9 @@ class UserType extends AbstractType
             ])
 
             ->add('newsletter', CheckboxType::class,[
-                'label' => 'Voulez-vous vous abonnez à la newsletter ?'
+                'label' => 'Voulez-vous vous abonnez à la newsletter ?',
+                'required' => false,
+
             ])
 
 
