@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+<h3>Les Nouveautés :</h3>
+
+
+    {% for s in serie  %}
+    <!-- debut vignette produit -->
+
+			<div class="col-lg-4 col-md-6 mb-4">
+				<div class="card h-100">
+					<a href=""><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+						<a href="#" class="text-dark">{{ s.title | upper }}</a>
+						</h4>
+						<h5>{{ s.startDate }}</h5>
+						<p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
+					</div>
+					<div class="card-footer">
+						<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+					</div>
+					 <div class="card-footer">
+						<a class="btn btn-secondary" href="#"><i class="fas fa-eye"></i> Voir les détails</a>
+					</div>
+				</div>
+			</div>
+
+    <!-- fin vignette produit -->
+    {% endfor %}
+
+
+    <h3>Les series les plus populaires (en nombre de like)</h3>
+    <ul>
+    {% for c in commentPopulaire  %}
+    
+    <div class="col-lg-4 col-md-6 mb-4">
+				<div class="card h-100">
+					<a href=""><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+						<a href="#" class="text-dark">{{ c.idSerie.title | upper }}</a>
+						</h4>
+						<h5>{{ c.idSerie.startDate }}</h5>
+						<p class="card-text">{{ c.idSerie.synopsis | slice(0, 40) }}...</p>
+					</div>
+					<div class="card-footer">
+						<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+					</div>
+					 <div class="card-footer">
+						<a class="btn btn-secondary" href="#"><i class="fas fa-eye"></i> Voir les détails</a>
+					</div>
+				</div>
+			</div>
+    
+    {% endfor %}
+    </ul>
+{% endblock %}

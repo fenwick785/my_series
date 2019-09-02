@@ -19,6 +19,18 @@ class CommentaryRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentary::class);
     }
 
+
+    public function findCommentaryPopulaire()
+    {
+        return $this->createQueryBuilder('c')
+            -> groupBy('c.idSerie')
+            -> orderBy('SUM(c.rating)', 'DESC')
+            -> setMaxResults(3)
+            -> getQuery()
+            -> getResult()
+        ;
+    }
+
     // /**
     //  * @return Commentary[] Returns an array of Commentary objects
     //  */
