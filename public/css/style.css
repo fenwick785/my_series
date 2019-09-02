@@ -1,6 +1,4 @@
-body{
-    
-
+body{ 
     margin-top:108.75px;
     padding-top: 20px;
 }
@@ -17,19 +15,83 @@ body{
     font-size:1rem  !important;
 }
 
-
-#hidden_newsletter{
-    display:none;
+.btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 6px 0px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.42857;
 }
 
-/* Opacité hover image categorie */
-figure img {
-	opacity: 1;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-}
-figure:hover img {
-	opacity: .5;
+.social-network {
+    display: flex;
+    justify-content: center;
+    padding: 0;
 }
 
 
+.social-network div {
+    background-image: url(../css/social.svg);
+    height: 32px;
+    width: 32px;
+    display: block;
+    margin: 10px;
+}
+
+.social-network div a{
+    display: block;
+    height: 100%;
+}
+
+.social-network span {
+    display: none;
+}
+
+.fb{
+    background-position: -32px 0 !important;
+}
+
+.fb :hover{
+    background-position: -96px -96px !important;
+}
+
+.yt{
+    background-position: -160px -96px !important;
+}
+
+.yt:hover{
+    background-position: -160px -128px;
+}
+
+.tw{
+    background-position: -128px -64px;
+}
+
+.pt{
+    background-position: 0px -96px;
+}
+
+.insta{
+    background-position: -64px 0;
+}
+
+.googleplus {
+    background-position: 0 -32px; 
+}
+
+.linkedin{
+    background-position: -96px -32px;
+}
+
+.yt:hover{
+    background-position: -160px -128px;
+}
+
+.inputiD {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
