@@ -416,7 +416,10 @@ class AdminController extends AbstractController
     {
         //1 : Récupérer tous les user
         $repo = $this->getDoctrine()->getRepository(User::class);
-        $user = $repo->findAll();
+        $user = $repo->findBy(
+            ['role'=> 'ROLE_USER'],
+            ['username' => 'ASC']
+        );
 
 
         //2 : Afficher une vue (admin/user_list.html.twig), dans laquelle on va faire un dump() de tous les user
@@ -481,6 +484,73 @@ class AdminController extends AbstractController
     //------------------ FICHE USER ----------------
 
 
+    //--------------- FICHE CONTRIBUTOR
+
+    /**
+     * @Route("/admin/contributor", name="admin_contributor_list")
+     */
+    public function adminContributor()
+    {
+        //1 : Récupérer tous les contributor
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $contributor = $repo->findBy(
+            ['role' => 'ROLE_CONTRIBUTOR'],
+            ['firstName' => 'ASC']
+        );
+
+
+        //2 : Afficher une vue (admin/contributor_list.html.twig), dans laquelle on va faire un dump() de tous les contributor
+        return $this->render('admin/contributor_list.html.twig', [
+            'contributor' => $contributor,
+        ]);
+    }
+
+
+    /**
+     * @route("admin/contributor/delete{id}", name="admin_contributor_delete")
+     */
+    public function adminContributorDelete($id)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->find(User::class, $id);
+
+        $manager->remove($user);
+        $manager->flush();
+
+        $this->addFlash('success', 'Le contributeur n°' . $id . ' a bien été supprimé !');
+        return $this->redirectToRoute('admin_contributor_list');
+    }
+     /**
+     * @route("admin/user/update{id}", name="admin_user_update")
+     */
+
+    public function adminContributorUpdate($id, Request $request)
+    {
+
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->find(User::class, $id); //objet rempli
+
+        $form = $this->createForm(UserType::class, $user, [
+            'admin' => true,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($user);
+
+            $manager->flush();
+
+            $this->addFlash('success', 'Le contributeur n°' . $id . ' a bien été modifié !');
+            return $this->redirectToRoute('admin_contributor_list');
+        }
+
+        return $this->render('admin/user_form.html.twig', [
+            'userForm' => $form->createView(),
+            'action' => 'update_user',
+        ]);
+    }
 
 
 
