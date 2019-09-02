@@ -15,6 +15,26 @@ body{
     font-size:1rem  !important;
 }
 
+
+#hidden_newsletter{
+    display:none;
+}
+
+/* Opacité hover image categorie */
+figure img {
+	opacity: 1;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+figure:hover img {
+	opacity: .5;
+}
+
+
+
+
+/*----------*/
+
 .btn-circle {
     width: 40px;
     height: 40px;
