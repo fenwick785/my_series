@@ -115,13 +115,15 @@
                             </li>
                         {% endif %}
                     </ul>
-                    <form class="form-inline my-2 my-lg-0 ">
-                        <input class="form-control mr-sm-2 bg-primary text-white d-none d-md-block" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0 bg-primary text-white d-none d-md-block" type="submit">
-                            <i class="fas fa-search text-info"></i>
-                            Search</button>
+                    <form class="form-group my-lg-0 d-flex align-items-center">
+                        <div class="input-group cr d-flex align-items-center">
+                           
+                            <input class="form-control form-control-sm rounded-pill my-auto mr-2" type="text" placeholder="Recherche">
+                            <div class="input-group-append text-dark p-2 loupe">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </div>
                     </form>
-                </div>
             </nav>
 
 
@@ -167,7 +169,7 @@
                             <!-- Links -->
                             <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white ">Pour mieux nous connaître</h5>
                             <ul class="list-unstyled">
-                                <li class="nav-item">
+                                <li class="nav-item m-0">
                                     <a class="text-secondary" href="{{path('apropos')}}">
                                         A propos de nous
                                     </a>
@@ -246,12 +248,12 @@
                     <!-- Call to action -->
                     <ul class="list-unstyled list-inline text-center py-2">
                         <li class="list-inline-item">
-                            <h5 class="mb-1 text-white">
+                            <h5 class="mb-1 text-white ">
                                 Inscrivez-vous gratuitement
                             </h5>
                         </li>
                         <li class="list-inline-item">
-                            <a href="{{path('register')}}" class="btn btn-danger btn-rounded">
+                            <a href="{{path('register')}}" class="btn btn-danger btn-rounded mt-3 mt-sm-0 ">
                                 <i class="fas fa-user-plus"></i>
                                 S'inscrire
                             </a>
@@ -277,34 +279,24 @@
                 class="bg-info">
 
                 <!-- Social buttons -->
-                <ul class="list-unstyled list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="https://fr-fr.facebook.com" target="_blank" class="btn-floating btn-fb mx-1">
-                            <i class="fab fa-facebook-f text-info"></i>
-                        </a>
-                    </li>
+                <div class="social-network text-center">
+                    <p class="text-center">Retrouvez-nous sur les réseaux sociaux</p>
+                    <div class="d-flex justify-content-center flex-wrap">
+                        <a class="fb" href="https://fr-fr.facebook.com" target="_blank" ></a>
 
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=fr" target="_blank" class="btn-floating btn-tw mx-1">
-                            <i class="fab fa-twitter text-info"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/about?hl=fr" target="_blank" class="btn-floating btn-gplus mx-1">
-                            <i class="fab fa-google-plus-g text-info"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://fr.linkedin.com/" target="_blank" class="btn-floating btn-li mx-1">
-                            <i class="fab fa-linkedin-in text-info"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://www.pinterest.fr" target="_blank" class="btn-floating btn-dribbble mx-1">
-                            <i class="fab fa-dribbble text-info"></i>
-                        </a>
-                    </li>
-                </ul>
+                        <a class="tw" href="https://twitter.com/?lang=fr" target="_blank" ></a>
+                   
+                        <a class="googleplus" href="https://plus.google.com/about?hl=fr" target="_blank"></a>
+                    
+                        <a class="linkedin" href="https://fr.linkedin.com/" target="_blank" ></a>
+
+                        <a class="pt" href="https://www.pinterest.fr" target="_blank" ></a>
+                        
+                        <a class="yt" href="https://www.youtube.fr" target="_blank" ></a>
+                        
+                        <a class="insta" href="https://www.instagram.com" target="_blank" ></a>
+                    </div>
+                </div>
 
                 <!-- Social buttons -->
                 <!-- Copyright -->

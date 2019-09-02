@@ -23,6 +23,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=30, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -103,7 +104,7 @@ class User implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 

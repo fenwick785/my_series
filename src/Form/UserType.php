@@ -25,9 +25,10 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
-                'constraints'=>[
+                'constraints' => [
                     new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner ce champ !']),
+                        'message' => 'Veuillez renseigner ce champ !',
+                    ]),
                     new Assert\Length([
                         'min' => 3,
                         'max' => 60,

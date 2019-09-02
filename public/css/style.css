@@ -34,39 +34,28 @@ figure:hover img {
 
 
 /*----------*/
+.cr{
+    position: relative;
+}
 
-.btn-circle {
-    width: 40px;
-    height: 40px;
-    padding: 6px 0px;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.42857;
+.loupe{
+    position: absolute;
+    right: 5px;
+    top:2px;
 }
 
 .social-network {
-    display: flex;
-    justify-content: center;
+
     padding: 0;
 }
 
 
-.social-network div {
+.social-network a {
     background-image: url(../css/social.svg);
     height: 32px;
     width: 32px;
     display: block;
     margin: 10px;
-}
-
-.social-network div a{
-    display: block;
-    height: 100%;
-}
-
-.social-network span {
-    display: none;
 }
 
 .fb{
@@ -115,3 +104,4 @@ figure:hover img {
     font-weight: normal;
     text-decoration: inherit;
 }
+
