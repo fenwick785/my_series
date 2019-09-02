@@ -5,16 +5,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+        <script src="script.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.min.css">
+
         <link rel="stylesheet" href="{{ asset('css/_bootswatch.scss') }}">
         <link rel="stylesheet" href="{{ asset('css/_variables.scss') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/social.css') }}">
-        <script src="script.js"></script>
+
         <title>My Series</title>
     </head>
 
@@ -27,24 +29,24 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="">
                             <i class="fas fa-tv text-info"></i>
                             Séries
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{path('category')}}">
                             <i class="fas fa-th text-info"></i>
                             Catégories
                         </a>
                     </li>
-                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('profil')}}">
-                            <i class="fas fa-users text-info "></i>
-                            {{app.user.username}}</a>
-                    </li>
-                      {% endif %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('profil')}}">
+                                <i class="fas fa-users text-info "></i>
+                                {{app.user.username}}</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
                 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -77,7 +79,7 @@
                                     </span>
                                 </a>
                             </li>
-                           
+
                         {% endif %}
 
                         {% if is_granted('ROLE_CONTRIBUTOR') and not is_granted('ROLE_ADMIN') %}
@@ -154,7 +156,7 @@
                             <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-light">Dashboard Series</h5>
                             <p>
                                 Le meilleur allié de vos séries : Gérez votre planning, partagez vos derniers épisodes, et
-                                                                                            découvrez des nouveautés !</p>
+                                                                                                                            découvrez des nouveautés !</p>
                         </div>
                         <!-- Grid column -->
                         <hr
@@ -172,7 +174,7 @@
                                 </li>
                                 <li>
                                     <a class="text-secondary" href="{{path('souteneznous')}}">
-                                       Soutenez MySERIES
+                                        Soutenez MySERIES
                                     </a>
                                 </li>
                             </ul>
@@ -238,43 +240,42 @@
                     <!-- Grid row -->
                 </div>
                 <!-- Footer Links -->
-                 <hr
-                class="bg-info">
+                <hr class="bg-info">
                 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            
-                <!-- Call to action -->
-                <ul class="list-unstyled list-inline text-center py-2">
-                    <li class="list-inline-item">
-                        <h5 class="mb-1 text-white">
-                            Inscrivez-vous gratuitement
-                        </h5>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{path('register')}}" class="btn btn-danger btn-rounded">
-                            <i class="fas fa-user-plus"></i>
-                            S'inscrire
-                        </a>
-                    </li>
-                </ul>
+
+                    <!-- Call to action -->
+                    <ul class="list-unstyled list-inline text-center py-2">
+                        <li class="list-inline-item">
+                            <h5 class="mb-1 text-white">
+                                Inscrivez-vous gratuitement
+                            </h5>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{path('register')}}" class="btn btn-danger btn-rounded">
+                                <i class="fas fa-user-plus"></i>
+                                S'inscrire
+                            </a>
+                        </li>
+                    </ul>
                 {% else %}
-                 <ul class="list-unstyled list-inline text-center py-2">
-                    <li class="list-inline-item">
-                        <h5 class="mb-1 text-white">
-                           Abonnez-vous à notre Newsletter
-                        </h5>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{{path('register')}}" class="btn btn-success btn-rounded">
-                            <i class="fas fa-user-plus"></i>
-                            S'abonner
-                        </a>
-                    </li>
-                </ul>
-                <!-- Call to action -->
-                   {% endif %}
+                    <ul class="list-unstyled list-inline text-center py-2">
+                        <li class="list-inline-item">
+                            <h5 class="mb-1 text-white">
+                                Abonnez-vous à notre Newsletter
+                            </h5>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{path('register')}}" class="btn btn-success btn-rounded">
+                                <i class="fas fa-user-plus"></i>
+                                S'abonner
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Call to action -->
+                {% endif %}
                 <hr
                 class="bg-info">
-             
+
                 <!-- Social buttons -->
                 <ul class="list-unstyled list-inline text-center">
                     <li class="list-inline-item">

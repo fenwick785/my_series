@@ -14,4 +14,12 @@ class SerieController extends AbstractController
     {
         return $this->render('serie/index.html.twig', []);
     }
+
+     /**
+     * @Route("/category", name="category")
+     */
+    public function category()
+    {
+        return $this->render('serie/category.html.twig', []);
+    }
 }
