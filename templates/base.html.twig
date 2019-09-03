@@ -34,12 +34,12 @@
                             Séries
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {# <li class="nav-item">
                         <a class="nav-link" href="{{path('category')}}">
                             <i class="fas fa-th text-info"></i>
                             Catégories
                         </a>
-                    </li>
+                    </li> #}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('profil')}}">
