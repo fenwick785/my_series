@@ -285,6 +285,35 @@ class User implements UserInterface
         return $this;
     }
 
+
+    /**
+     * *
+     * @Route('serie/add/list/{id}/{state}', name="" )
+     * 
+     * 
+     */
+    public function addSerieInList($state, ObjectManager $manager){
+        $user = $this -> getuser();
+        $serie = $manager -> find(Serie::class, $id);
+
+        $listUserSerie = new listUserSerie;
+        $listUserSerie -> addListSeries($serie);
+        $listUserSerie -> setUser($user);
+        $listUserSerie -> setState($state);
+        $listUserSerie -> setEpisode(NULL);
+
+        $user -> addListUserSeries($listUserSerie); 
+
+        $manager -> persist($user);
+        $manager -> persist($listUserSerie);
+        $manager -> flush();
+
+        //felicitations
+        // redirection et tutti cuanti
+    }
+
+
+
     public function removeListUserSeries(ListUserSerie $listUserSeries): self
     {
         if ($this->listUserSeries->contains($listUserSeries)) {
