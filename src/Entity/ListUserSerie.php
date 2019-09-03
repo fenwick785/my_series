@@ -39,6 +39,11 @@ class ListUserSerie
      */
     private $state;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Serie")
+     */
+    private $Serie;
+
     public function __construct()
     {
         $this->ListSeries = new ArrayCollection();
@@ -122,6 +127,18 @@ class ListUserSerie
     public function setState(string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getSerie(): ?Serie
+    {
+        return $this->Serie;
+    }
+
+    public function setSerie(?Serie $Serie): self
+    {
+        $this->Serie = $Serie;
 
         return $this;
     }

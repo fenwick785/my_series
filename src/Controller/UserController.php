@@ -191,35 +191,7 @@ class UserController extends AbstractController
         return $this->render('user/in_progress_list.html.twig', []);
     }
 
-/**
-     * *
-     * @Route("serie/add/list/{id}/{state}", name="serie_add_list" )
-     * 
-     * 
-     */
-    public function addSerieInList($state, $id, ObjectManager $manager){
-        $user = $this -> getuser();
-        $serie = $manager -> find(Serie::class, $id);
 
-        $listUserSerie = new listUserSerie;
-        $listUserSerie -> addListSeries($serie);
-        $listUserSerie -> setIdUser($user);
-        $listUserSerie -> setState($state);
-        // $listUserSerie -> setEpisode(NULL);
-
-        $user -> addListUserSeries($listUserSerie); 
-
-        $manager -> persist($user);
-        $manager -> persist($listUserSerie);
-        $manager -> flush();
-
-        return $this->render('serie/detail.html.twig', [
-            'serie'=>$serie,
-            'user'=>$user,
-            'id'=>$id,
-            'state'=>$state,
-        ]);
-    }
 
 
 
