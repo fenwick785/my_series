@@ -38,14 +38,17 @@
     <br>
     <br>
     <h4>
-        Vos séries favories
+        Vos séries favorites:
     </h4>
     <hr>
 <div class="row">
+
+
     {% for l in app.user.listUserSeries if l.state == 'wish' %}
         
             <div class="col-3">
-                <img src="{{l.serie.photo }}" class="card-img" alt="...">
+            <a href="{{path('serie_detail',{'id':l.serie.id})}}">
+                <img src="{{l.serie.photo }}" class="card-img" alt="..." >
                 {{ l.serie.title }}
                 <p>{{ l.state }}</p>
                 <p>
@@ -54,8 +57,10 @@
                     {{ l.serie.nbEpisode }}
                     Episodes
                 </p>
+                </a>
             </div>
         
+       
     {% endfor %}
 </div>
 
