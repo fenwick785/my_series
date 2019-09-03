@@ -4,13 +4,15 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Entity\Serie;
 use App\Form\UserType;
+use App\Entity\listUserSerie; 
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 
 class UserController extends AbstractController
@@ -188,4 +190,38 @@ class UserController extends AbstractController
 
         return $this->render('user/in_progress_list.html.twig', []);
     }
+
+/**
+     * *
+     * @Route("serie/add/list/{id}/{state}", name="serie_add_list" )
+     * 
+     * 
+     */
+    public function addSerieInList($state, $id, ObjectManager $manager){
+        $user = $this -> getuser();
+        $serie = $manager -> find(Serie::class, $id);
+
+        $listUserSerie = new listUserSerie;
+        $listUserSerie -> addListSeries($serie);
+        $listUserSerie -> setIdUser($user);
+        $listUserSerie -> setState($state);
+        // $listUserSerie -> setEpisode(NULL);
+
+        $user -> addListUserSeries($listUserSerie); 
+
+        $manager -> persist($user);
+        $manager -> persist($listUserSerie);
+        $manager -> flush();
+
+        return $this->render('serie/detail.html.twig', [
+            'serie'=>$serie,
+            'user'=>$user,
+            'id'=>$id,
+            'state'=>$state,
+        ]);
+    }
+
+
+
 }
+

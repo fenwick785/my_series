@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -286,34 +287,7 @@ class User implements UserInterface
     }
 
 
-    /**
-     * *
-     * @Route('serie/add/list/{id}/{state}', name="" )
-     * 
-     * 
-     */
-    public function addSerieInList($state, ObjectManager $manager){
-        $user = $this -> getuser();
-        $serie = $manager -> find(Serie::class, $id);
-
-        $listUserSerie = new listUserSerie;
-        $listUserSerie -> addListSeries($serie);
-        $listUserSerie -> setUser($user);
-        $listUserSerie -> setState($state);
-        $listUserSerie -> setEpisode(NULL);
-
-        $user -> addListUserSeries($listUserSerie); 
-
-        $manager -> persist($user);
-        $manager -> persist($listUserSerie);
-        $manager -> flush();
-
-        //felicitations
-        // redirection et tutti cuanti
-    }
-
-
-
+    
     public function removeListUserSeries(ListUserSerie $listUserSeries): self
     {
         if ($this->listUserSeries->contains($listUserSeries)) {
