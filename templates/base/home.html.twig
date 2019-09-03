@@ -6,20 +6,36 @@
 
     <div class="row">
         {% for s in serie  %}
+		
+		
+			{% set note = 0 %}
+			{% set nbComment = s.commentaries | length %}
+			{% for comment in s.commentaries %}
+					{% set note = note + comment.rating %}
+			{% endfor %} 
+			{% if nbComment %}
+				{% set eval =  (5 * note) / nbComment %}
+			{% else %}
+				{% set eval = 'N/A' %}
+			{% endif %}
             <!-- debut vignette produit -->
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                    <a href=""><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
+                    <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="#" class="text-dark">{{ s.title | upper }}</a>
+                            <a href="{{path('serie_detail', {'id': s.id})}}" class="text-dark">{{ s.title | upper }}</a>
                         </h4>
                         <h5>{{ s.startDate }}</h5>
                         <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+					{% if nbComment %}
+                        NOTE : {{eval}}/5
+					{% else %}
+						{{eval}}
+					{% endif %}
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
@@ -37,23 +53,31 @@
     <h3>Le Top série :</h3><hr>
 
     <div class="row">
-	{% for s in serie  %}
+
         {% for c in commentPopulaire %}
-            
+            {# {{sumPopulaire}} #}
+
+				{% set note = 0 %}
+				{% set nbComment = c.idSerie.commentaries | length %}
+				{% for comment in c.idSerie.commentaries %}
+					{% set note = note + comment.rating %}
+				{% endfor %} 
+				{% set eval =  (5 * note) / nbComment %}
+
 
 
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href=""><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
+                        <a href="{{path('serie_detail', {'id': c.idSerie.id })}}"><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#" class="text-dark">{{ c.idSerie.title | upper }}</a>
+                                <a href="{{path('serie_detail', {'id': c.idSerie.id })}}" class="text-dark">{{ c.idSerie.title | upper }}</a>
                             </h4>
                             <h5>{{ c.idSerie.startDate }}</h5>
                             <p class="card-text">{{ c.idSerie.synopsis | slice(0, 40) }}...</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                          Note : {{ eval }} / 5
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-secondary" href="{{path('serie_detail', {'id': c.idSerie.id })}}">
@@ -63,28 +87,50 @@
                     </div>
                 </div>
             {% endfor %}
-        {% endfor %}
+
+
+			{# Tes series en souhait
+			{% for l in app.user.listUserSeries if l.state == 'wish' %}
+				{{  l.serie.titre }}
+			{% endfor %}
+
+			Tes series en souhait
+			{% for l in app.user.listUserSeries if l.state == 'wish' %}
+				{{  l.serie.titre }}
+			{% endfor %}
+
+			Tes series en souhait
+			{% for l in app.user.listUserSeries if l.state == 'wish' %}
+				{{  l.serie.titre }}
+			{% endfor %} #}
+
     </div>
 
     <h3>Le Flop série :</h3><hr>
 
     <div class="row">
-	{% for s in serie  %}
         {% for c in commentUnpopulaire %}
             
 
+			{% set note = 0 %}
+				{% set nbComment = c.idSerie.commentaries | length %}
+				{% for comment in c.idSerie.commentaries %}
+					{% set note = note + comment.rating %}
+				{% endfor %} 
+				{% set eval =  (5 * note) / nbComment %}
+
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href=""><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
+                        <a href="{{path('serie_detail', {'id': c.idSerie.id })}}"><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#" class="text-dark">{{ c.idSerie.title | upper }}</a>
+                                <a href="{{path('serie_detail', {'id': c.idSerie.id })}}" class="text-dark">{{ c.idSerie.title | upper }}</a>
                             </h4>
                             <h5>{{ c.idSerie.startDate }}</h5>
                             <p class="card-text">{{ c.idSerie.synopsis | slice(0, 40) }}...</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            Note : {{ eval }} / 5
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-secondary" href="{{path('serie_detail', {'id': c.idSerie.id })}}">
@@ -94,7 +140,7 @@
                     </div>
                 </div>
             {% endfor %}
-        {% endfor %}
+
     </div>
 
 {% endblock %}

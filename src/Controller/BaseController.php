@@ -16,16 +16,25 @@ class BaseController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Serie::class);
                                                         // App\Entity\Serie
-        $serie = $repository -> findBy([],['startDate'=>'DESC'], 3, 0);
+        $series = $repository -> findBy([],['startDate'=>'DESC'], 3, 0); // trie par date de sortie (nouveautés)
        
+
+
         $Commentaryrepository = $this->getDoctrine()->getRepository(Commentary::class);
-        $commentPopulaire = $Commentaryrepository -> findCommentaryPopulaire();
         
-        $commentUnpopulaire = $Commentaryrepository -> findCommentaryUnpopulaire();
+
+        $commentsPopulaires = $Commentaryrepository -> findCommentaryPopulaire();// trie les série dans l'ordre des like (TOP)
+
+    
+
+
+        $commentUnpopulaire = $Commentaryrepository -> findCommentaryUnpopulaire();// trie les série dans l'ordre des like (FLOP)
+
+        // $sumPopulaire = $Commentaryrepository->sumPopularity($id);
 
         return $this -> render('base/home.html.twig', [
-            'serie' => $serie,
-            'commentPopulaire' => $commentPopulaire,
+            'serie' => $series,
+            'commentPopulaire' => $commentsPopulaires,
             'commentUnpopulaire' => $commentUnpopulaire,
            ]);
 
