@@ -1,7 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+<div class="row">
     {% for s in series %}
+    {% set note = 0 %}
+			{% set nbComment = s.commentaries | length %}
+			{% for comment in s.commentaries %}
+					{% set note = note + comment.rating %}
+			{% endfor %} 
+			{% if nbComment %}
+				{% set eval =  (5 * note) / nbComment %}
+			{% else %}
+				{% set eval = 'N/A' %}
+			{% endif %}
+
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
@@ -13,13 +25,14 @@
                     <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
                 </div>
                 <div
-                    class="card-footer">{# {% if nbComment %}
+                    class="card-footer">
+                    {% if nbComment %}
                                             NOTE :
                                             {{eval}}/5
                                         {% else %}
                                             NOTE :
                                             {{eval}}
-                                        {% endif %} #}
+                                        {% endif %}
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
@@ -29,6 +42,7 @@
             </div>
         </div>
     {% endfor %}
+    </div>
     {% for searchedactors in actors %}
         {{ searchedactors.firstName }}
         {{ searchedactors.lastName}}
