@@ -5,7 +5,7 @@
 
     <h1 class="display-4 text-center">
         <i class="fas fa-user"></i>
-    
+
         {{ app.user.username }}
     </h1>
     <hr>
@@ -38,11 +38,26 @@
     <br>
     <br>
     <h4>
-        Vos séries préférées
+        Vos séries favories
     </h4>
     <hr>
-   
-    
+<div class="row">
+    {% for l in app.user.listUserSeries if l.state == 'wish' %}
+        
+            <div class="col-3">
+                <img src="{{l.serie.photo }}" class="card-img" alt="...">
+                {{ l.serie.title }}
+                <p>{{ l.state }}</p>
+                <p>
+                    {{ l.serie.nbSeason }}
+                    Saisons |
+                    {{ l.serie.nbEpisode }}
+                    Episodes
+                </p>
+            </div>
+        
+    {% endfor %}
+</div>
 
 
 {% endblock %}

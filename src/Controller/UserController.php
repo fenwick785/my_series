@@ -60,8 +60,11 @@ class UserController extends AbstractController
 
         $user = $this->getUser();
         $id = $user->getId();
+        $user->getListUserSeries();
 
-        return $this->render("user/profil.html.twig", []);
+        return $this->render("user/profil.html.twig", [
+           
+        ]);
     }
 
 

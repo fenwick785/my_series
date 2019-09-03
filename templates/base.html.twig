@@ -115,13 +115,15 @@
                             </li>
                         {% endif %}
                     </ul>
-                    <form class="form-group my-lg-0 d-flex align-items-center">
+                    <form class="form-group my-lg-0 d-flex align-items-center" action="{{ path('recherche') }}" method="get">
                         <div class="input-group cr d-flex align-items-center">
-                           
-                            <input class="form-control form-control-sm rounded-pill my-auto mr-2" type="text" placeholder="Recherche">
+        
+                            <input class="form-control form-control-sm rounded-pill my-auto mr-2" type="text" placeholder="Recherche" name="s" value="">
+                            
                             <button class="input-group-append text-dark p-2 loupe" type="submit" style="background-color:transparent">
                                 <i class="fa fa-search"></i>
                             </button>
+                           
                         </div>
                     </form>
             </nav>

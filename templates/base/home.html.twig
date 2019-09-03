@@ -34,7 +34,7 @@
 					{% if nbComment %}
                         NOTE : {{eval}}/5
 					{% else %}
-						{{eval}}
+						NOTE : {{eval}}
 					{% endif %}
                     </div>
                     <div class="card-footer">
@@ -64,8 +64,6 @@
 				{% endfor %} 
 				{% set eval =  (5 * note) / nbComment %}
 
-
-
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="{{path('serie_detail', {'id': c.idSerie.id })}}"><img class="card-img-top" src="{{ c.idSerie.photo }}" alt=""></a>
@@ -89,20 +87,7 @@
             {% endfor %}
 
 
-			{# Tes series en souhait
-			{% for l in app.user.listUserSeries if l.state == 'wish' %}
-				{{  l.serie.titre }}
-			{% endfor %}
 
-			Tes series en souhait
-			{% for l in app.user.listUserSeries if l.state == 'wish' %}
-				{{  l.serie.titre }}
-			{% endfor %}
-
-			Tes series en souhait
-			{% for l in app.user.listUserSeries if l.state == 'wish' %}
-				{{  l.serie.titre }}
-			{% endfor %} #}
 
     </div>
 

@@ -47,4 +47,20 @@ class SerieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Serie[] Returns an array of Serie objects
+     * Fonction pour récupérrer tous les produits en fonction d'un terme de recherche
+     * 
+     */
+    public function findBySearch($term) {
+        $term = '%' . $term . '%' ;
+        $builder = $this -> createQueryBuilder('s');
+        return $builder 
+            ->orWhere('s.title LIKE :term')
+            ->orWhere('s.synopsis LIKE :term')
+            ->setParameter(':term',$term)
+            ->getQuery()
+            ->getResult();  
+    }
 }

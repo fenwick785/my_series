@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Entity\Actor;
 use App\Entity\ListUserSerie;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -63,6 +64,24 @@ class SerieController extends AbstractController
         $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
         return $this -> redirectToRoute('serie_detail', ['id' => $id]);
 
+    }
+
+    /**
+     * @Route("/recherche",name="recherche")
+     */
+    public function recherche(Request $request) {
+        $term = $request -> query -> get('s');
+        $repo = $this-> getDoctrine() -> getRepository(Serie::class);
+      
+        $series = $repo->findBySearch($term);
+
+        $repo2 = $this->getDoctrine() -> getRepository(Actor::class);
+        $actors = $repo2 -> findBySearch($term);
+        
+        return $this->render('serie/index.html.twig',[
+            'series' => $series,
+            'actors' => $actors,
+        ]);
     }
 
 

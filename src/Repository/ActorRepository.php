@@ -47,4 +47,19 @@ class ActorRepository extends ServiceEntityRepository
         ;
     }
     */
+        /**
+     * @return Actor[] Returns an array of Serie objects
+     * Fonction pour récupérrer tous les produits en fonction d'un terme de recherche
+     * 
+     */
+    public function findBySearch($term) {
+        $term = '%' . $term . '%' ;
+        $builder = $this -> createQueryBuilder('s');
+        return $builder 
+            ->orWhere('s.firstName LIKE :term')
+            ->orWhere('s.lastName LIKE :term')
+            ->setParameter(':term',$term)
+            ->getQuery()
+            ->getResult();  
+    }
 }

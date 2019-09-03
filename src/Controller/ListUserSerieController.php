@@ -12,7 +12,7 @@ class ListUserSerieController extends AbstractController
      */
     public function index()
     {
-        return $this->render('list_user_serie/index.html.twig', [
+        return $this->render('list_user_serie/profil.html.twig', [
             'controller_name' => 'ListUserSerieController',
         ]);
     }
