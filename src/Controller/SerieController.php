@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Serie;
 use App\Entity\ListUserSerie;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SerieController extends AbstractController
 {
@@ -58,7 +58,10 @@ class SerieController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
+
+        
         $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
         return $this -> redirectToRoute('serie_detail', ['id' => $id]);
+
     }
 }
