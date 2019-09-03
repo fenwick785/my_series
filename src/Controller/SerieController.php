@@ -65,6 +65,8 @@ class SerieController extends AbstractController
         $manager->flush();
 
 
+
+        
         
         $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
         return $this -> redirectToRoute('serie_detail', ['id' => $id]);
