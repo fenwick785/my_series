@@ -42,13 +42,14 @@ figure:hover img {
     position: absolute;
     right: 5px;
     top:2px;
+    border-style: none;
+    z-index:9999;
 }
 
 .social-network {
 
     padding: 0;
 }
-
 
 .social-network a {
     background-image: url(../css/social.svg);
@@ -58,44 +59,32 @@ figure:hover img {
     margin: 10px;
 }
 
-.fb{
+#fb{
     background-position: -32px 0 !important;
 }
 
-.fb :hover{
-    background-position: -96px -96px !important;
-}
-
-.yt{
+#yt{
     background-position: -160px -96px !important;
 }
 
-.yt:hover{
-    background-position: -160px -128px;
-}
-
-.tw{
+#tw{
     background-position: -128px -64px;
 }
 
-.pt{
+#pt{
     background-position: 0px -96px;
 }
 
-.insta{
+#insta{
     background-position: -64px 0;
 }
 
-.googleplus {
+#googleplus {
     background-position: 0 -32px; 
 }
 
-.linkedin{
+#linkedin{
     background-position: -96px -32px;
-}
-
-.yt:hover{
-    background-position: -160px -128px;
 }
 
 .inputiD {

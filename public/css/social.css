@@ -9,15 +9,15 @@
     display: none;
 } */
 ​
-.facebook{
+#facebook{
     background-position: -32px 0;            
 }
 ​
-.facebook:hover{
+#facebook:hover{
     background-position: -96px -96px;
 }
 ​
-.youtube{
+youtube{
     background-position: -160px -96px;
 }
 ​

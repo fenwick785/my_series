@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/social.css') }}">
+        
 
         <title>My Series</title>
     </head>
@@ -119,9 +119,9 @@
                         <div class="input-group cr d-flex align-items-center">
                            
                             <input class="form-control form-control-sm rounded-pill my-auto mr-2" type="text" placeholder="Recherche">
-                            <div class="input-group-append text-dark p-2 loupe">
+                            <button class="input-group-append text-dark p-2 loupe" type="submit" style="background-color:transparent">
                                 <i class="fa fa-search"></i>
-                            </div>
+                            </button>
                         </div>
                     </form>
             </nav>
@@ -281,20 +281,20 @@
                 <!-- Social buttons -->
                 <div class="social-network text-center">
                     <p class="text-center">Retrouvez-nous sur les réseaux sociaux</p>
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <a class="fb" href="https://fr-fr.facebook.com" target="_blank" ></a>
+                    <div class="d-flex justify-content-center flex-wrap" id="rs">
+                        <a id="fb" href="https://fr-fr.facebook.com" target="_blank" ></a>
 
-                        <a class="tw" href="https://twitter.com/?lang=fr" target="_blank" ></a>
+                        <a id="tw" href="https://twitter.com/?lang=fr" target="_blank" ></a>
                    
-                        <a class="googleplus" href="https://plus.google.com/about?hl=fr" target="_blank"></a>
+                        <a id="googleplus" href="https://plus.google.com/about?hl=fr" target="_blank"></a>
                     
-                        <a class="linkedin" href="https://fr.linkedin.com/" target="_blank" ></a>
+                        <a id="linkedin" href="https://fr.linkedin.com/" target="_blank" ></a>
 
-                        <a class="pt" href="https://www.pinterest.fr" target="_blank" ></a>
+                        <a id="pt" href="https://www.pinterest.fr" target="_blank" ></a>
                         
-                        <a class="yt" href="https://www.youtube.fr" target="_blank" ></a>
+                        <a id="yt" href="https://www.youtube.fr" target="_blank" ></a>
                         
-                        <a class="insta" href="https://www.instagram.com" target="_blank" ></a>
+                        <a id="insta" href="https://www.instagram.com" target="_blank" ></a>
                     </div>
                 </div>
 
@@ -313,6 +313,8 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="{{asset('scripts/scipthover.js')}}"></script>
+             
         </body>
     </body>
 </html></body></html>
