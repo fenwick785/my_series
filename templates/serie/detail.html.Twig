@@ -1,47 +1,92 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <img src="{{serie.photo}}">
-    <h4>Synopsis</h4> <hr>
-    {{serie.synopsis}}
+
+
+    <h1 class="text-center ">{{serie.title}}</h1>
+    <hr>
+    <img class="rounded mx-auto d-block img-fluid" src="{{serie.photo}}"><br>
+
+    <div class="row">
+        <div class=" offset-5 col-1 ">
+            <a href="">
+                <h2 class="text-success">
+                    <i class="fas fa-thumbs-up"></i>
+                </h2>
+            </a>
+        </div>
+        <div class="col-1">
+            <a href="">
+                <h2 class="text-danger">
+                    <i class="fas fa-thumbs-down"></i>
+                </h2>
+            </a>
+        </div>
+    </div>
+    <h6 class="pl-5">
+     {% if serie.nbSeason > 1 %}
+    {{ serie.nbSeason }} saisons 
+    {% else %}
+    {{ serie.nbSeason }} saison
+    {% endif %}
+     |  {{serie.nbEpisode}} épisodes</h6>
+    <hr>
     
-    {% if serie.nbSeason > 1 %}
-    <h4>Nombre de saisons </h4> <hr>
-    {{ serie.nbSeason }}
-    {% else %}
-    <h4> Saison </h4>
-    <p> Il n'y a qu'une saison pour le moment ! <p> 
-    {% endif %}
-    <h4>nbEpisode</h4> <hr>
-    {{serie.nbEpisode}}
-    {% if serie.startDate != NULL %}
-    <h4>startDate</h4> <hr>
-    {{serie.startDate}}
-    {% else %}
-    <h4>startDate</h4> <hr>
-    <p> La série n'a pas encore commencé ! </p>
-    {% endif %}
-    <h4>Status</h4> <hr>
-    {{serie.status}}
-    <h4>Public</h4> <hr>
-    {{serie.public}}
-    <h4>Nationalité</h4> <hr>
-    {{serie.nationality}}
-    <h4>Durée Episode</h4> <hr>
-    {{serie.public}}
-    <h4>Durée Episode</h4> <hr>
-    {{serie.duration}} minutes
+    <div class="row">
+        <div class="col-9">
+            <h5>Synopsis</h5>
+            <p class="text-justify">{{serie.synopsis}}</p>          
+        </div>
+        <div class="col-3 pt-5">
+            <p class="text-center">
+                <a href="" class="btn btn-success btn-rounded">
+                    <i class="fas fa-plus"></i> Ajouter à ma liste</a>    
+            </p>
+        </div>
+    </div>
 
-    <h4> Donnez nous votre avis ! </h4>
-    <button type="button" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i></button>
-    <button type="button" class="btn btn-outline-danger"><i class="far fa-thumbs-down"></i></button>
+    <div class="row">
+        <div class="col-6">
+            {# {% if serie.nbSeason > 1 %}
+                <hr><h5>Nombre de saisons</h5>
+                {{ serie.nbSeason }}
+            {% else %}
+                <hr><h5> Saison </h5>
+                <p>Il n'y a qu'une saison pour le moment !</p>
+            {% endif %}
+                <hr><h5>Nombre d'épisode</h5>
+                {{serie.nbEpisode}} #}
+            {% if serie.startDate != NULL %}
+                <hr><h5>Année de commencement</h5>
+                {{serie.startDate}}
+            {% else %}
+                <hr><h5>Année de commencement</h5>
+                <p> La série n'a pas encore commencé ! </p>
+            {% endif %}
+                <hr><h5>Status</h5>
+                {{serie.status}}
+                 <hr><h5>Durée d'un épisode</h5>
+                {{serie.duration}}
+                minutes
+            </div>
+            <div class="col-6">
+                <hr><h5>Public</h5>
+                {{serie.public}}
+                <hr><h5>Nationalité</h5>
+                {{serie.nationality}}
+               
+               
+            </div>
+        </div>
+        <br>
+    {# <hr><h4> Donnez nous votre avis ! </h4> #}
+        {# <button type="button" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i></button> #}
+        {# <button type="button" class="btn btn-outline-danger"><i class="far fa-thumbs-down"></i></button> #}
 
-    <h4> Ajouter à mes séries préférés </h4>
-    <button type="button" class="btn btn-outline-success"><i class="far fa-plus-square"></i></button> 
-    <!-- faire un truc genre le mec clique un message s'affiche style la série a été ajoutée a votre profil et que ca s'efface au bout de 3/4 secondes -->
-   
+
+        {# <button type="button" class="btn btn-outline-success"><i class="far fa-plus-square"></i></button>  #}
+
+        <!-- faire un truc genre le mec clique un message s'affiche style la série a été ajoutée a votre profil et que ca s'efface au bout de 3/4 secondes -->
 
 
-
-
-</div>{% endblock %}
+    {% endblock %}
