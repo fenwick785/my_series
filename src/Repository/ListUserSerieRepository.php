@@ -47,4 +47,11 @@ class ListUserSerieRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findUserSeries() {
+        return $this->createQueryBuilder('l')
+            ->groupBy('l.state')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

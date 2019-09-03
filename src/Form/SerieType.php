@@ -58,6 +58,7 @@ class SerieType extends AbstractType
             ->add('photo', FileType::class, [
                 'required' => false,
                 'empty_data' => "",
+                'data_class' => null,
             ])
             ->add('duration', IntegerType::class)
             ->add('nationality', CountryType::class,[
