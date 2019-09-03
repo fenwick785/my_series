@@ -64,4 +64,21 @@ class SerieController extends AbstractController
         return $this -> redirectToRoute('serie_detail', ['id' => $id]);
 
     }
+
+
+    /**
+     * @route("/all", name="serie_all")
+     */
+    public function findAllSerie(){
+    $repository = $this->getDoctrine()->getRepository(Serie::class);
+    // App\Entity\Serie
+    $series = $repository -> findBy([],['title'=>'ASC']); // trie par date de sortie (nouveautés)
+
+    return $this->render('serie/all.html.twig',[
+        'series'=>$series
+    ]);
+    }
+
+
+
 }

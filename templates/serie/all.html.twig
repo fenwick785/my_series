@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <h1>Liste des série:</h1>
+
+
+    <div class="row">
+        {% for s in series  %}
+		
+		{% set note = 0 %}
+			{% set nbComment = s.commentaries | length %}
+			{% for comment in s.commentaries %}
+					{% set note = note + comment.rating %}
+			{% endfor %} 
+			{% if nbComment %}
+				{% set eval =  (5 * note) / nbComment %}
+			{% else %}
+				{% set eval = 'N/A' %}
+			{% endif %}
+			
+            <!-- debut vignette produit -->
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{path('serie_detail', {'id': s.id})}}" class="text-dark">{{ s.title | upper }}</a>
+                        </h4>
+                        <h5>{{ s.startDate }}</h5>
+                        <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
+                    </div>
+                    <div class="card-footer">
+					{% if nbComment %}
+                        NOTE : {{eval}}/5
+					{% else %}
+						{{eval}}
+					{% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
+                            <i class="fas fa-eye"></i>
+                            Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <!-- fin vignette produit -->
+
+    </div>
+
+{% endblock %}
+
+
