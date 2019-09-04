@@ -47,7 +47,7 @@ class CommentaryController extends AbstractController
             $updateRating->setRating($rating);
             $manager->persist($updateRating);
             $manager->flush();
-            $this->addFlash('success', 'Il n\'y a que les cons qui ne change pas d\'avis... :)');
+            $this->addFlash('success', 'Il n\'y a que les $#@%! qui ne change pas d\'avis... :)');
         } 
         else {
         $commentary = new Commentary;
