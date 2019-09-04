@@ -57,13 +57,7 @@ class FooterController extends AbstractController
      */
 
 	public function contact(Request $request, \Swift_Mailer $mailer){
-        $user=false;
-
-        if ($this->getUser()) 
-        {
-            $user= true;
-        }
-		$form = $this -> createForm(ContactType::class, null, array('user' => $user
+		$form = $this -> createForm(ContactType::class, null, array('user' => $this -> getUser()
 		));
 		$form -> handleRequest($request);
 		
@@ -104,8 +98,8 @@ class FooterController extends AbstractController
 		
 		$mail 
 			-> setSubject('Envoyé par boutique: ' . $data['subject'])
-          
-			-> setTo('contact@boutique.com')
+            
+			-> setTo('service-client@myseries.com')
 			-> setBody(
 				$this -> renderView('mail/contact_mail.html.twig', [
 					'data' => $data

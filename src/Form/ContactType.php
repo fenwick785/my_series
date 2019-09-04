@@ -17,12 +17,7 @@ class ContactType extends AbstractType
     {
         $builder
             
-            -> add('lastName', TextType::class,[
-                'label' => 'Nom'
-            ])
-            -> add('firstName', TextType::class,[
-                'label' => 'Prénom'
-            ])
+           
            
             -> add('subject', TextType::class,[
                 'label' => 'Objet'
@@ -34,18 +29,46 @@ class ContactType extends AbstractType
 				'label' => 'Envoyer'
             ));
 
-            if (!($options['user'])){
-                $builder -> add('email', EmailType::class,[
-                    'label' => 'E-mail'
+            if ($options['user'] != NULL){
+                $builder    
+                    -> add('firstName', TextType::class, [
+                        'label' => 'Prénom',
+                        'attr' => array(
+                            'value' => $options['user'] -> getFirstName()
+                        )
+                    ])
+                    -> add('lastName', TextType::class,[
+                        'label' => 'Nom',
+                        'attr' => array(
+                        'value' => $options['user'] -> getLastName()
+                    )
+                    ])
+                    -> add('email', EmailType::class,[
+                    'label' => 'E-mail',
+                    'attr' => array(
+                        'value' => $options['user'] -> getEmail()
+                    )
                 ]);
-                }
+             }
+             else{
+                $builder 
+                    -> add('email', EmailType::class,[
+                        'label' => 'email'
+                    ])
+                    -> add('lastName', TextType::class,[
+                        'label' => 'Nom'
+                    ])
+                    -> add('firstName', TextType::class,[
+                        'label' => 'Prénom'
+                 ]);
+             }
         
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'user' => false,
+            'user' => null,
            
         ]);
     }
