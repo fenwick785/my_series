@@ -34,7 +34,7 @@ class ContactType extends AbstractType
 				'label' => 'Envoyer'
             ));
 
-            if (($options['user'])){
+            if (!($options['user'])){
                 $builder -> add('email', EmailType::class,[
                     'label' => 'E-mail'
                 ]);
