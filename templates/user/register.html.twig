@@ -72,13 +72,13 @@
                 {% endif %}
            </div>
         </div>
-           {% if not is_granted('ROLE_USER') %}
+            {% if not(is_granted('IS_AUTHENTICATED_FULLY')) %}
             <div class="col-12 text-center mt-4">
                 <div>En vous incrivant, vous accepter les <a href='{{path('cgu')}}'>Conditions Générales d'Utilisation (CGU)</a></div>
-                {{ form_row(userForm.cgu) }} 
+                {{ form_widget(userForm.cgu) }} 
             </div>
             {% endif %}
-            <div class="col-12 d-flex justify-content-center text-center">
+            <div class="col-12 d-flex justify-content-center mt-4 text-center">
                 {{form_row(userForm.submit)}}
             </div>
         </div>
