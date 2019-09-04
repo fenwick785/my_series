@@ -24,76 +24,86 @@
         </div>
     </div>
     <h6 class="pl-5">
-     {% if serie.nbSeason > 1 %}
-    {{ serie.nbSeason }} saisons 
-    {% else %}
-    {{ serie.nbSeason }} saison
-    {% endif %}
-     |  {{serie.nbEpisode}} épisodes</h6>
+        {% if serie.nbSeason > 1 %}
+            {{ serie.nbSeason }}
+            saisons
+        {% else %}
+            {{ serie.nbSeason }}
+            saison
+        {% endif %}
+        |
+        {{serie.nbEpisode}}
+        épisodes</h6>
     <hr>
-    
+
     <div class="row">
-        <div class="col-12">
+        <div class="col-9">
             <h5>Synopsis</h5>
-            <p class="text-justify">{{serie.synopsis}}</p>          
+            <p class="text-justify">{{serie.synopsis}}</p>
         </div>
-        <div class="row">
-            <p class="text-center">
-<div class="col-md-3">
-            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded">
-                    <i class="fas fa-plus"></i> Ajouter a mes séries finies</a> <br>
-         </div>   
-         <div class="col-md-3">
-                <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded">
-                    <i class="fas fa-plus"></i> Ajouter à ma liste de souhait</a> 
-</div>
-                    
-            </p>
+        <div class="col-3 ">
+            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded text-center">
+                <i class="fas fa-plus"> </i>
+                     Mes séries finies
+            </a>
+            <br><br>
+            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-info btn-rounded  text-center">
+                <i class="fas fa-plus"></i>
+                Mes séries en cours
+            </a>
+            <br><br>
+            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded text-center">
+                <i class="fas fa-plus"> </i>
+                    Mes séries à voir
+            </a>
+            <br><br>
         </div>
     </div>
 
+
     <div class="row">
-        <div class="col-6">
+        <div
+            class="col-6">
             {# {% if serie.nbSeason > 1 %}
-                <hr><h5>Nombre de saisons</h5>
-                {{ serie.nbSeason }}
-            {% else %}
-                <hr><h5> Saison </h5>
-                <p>Il n'y a qu'une saison pour le moment !</p>
-            {% endif %}
-                <hr><h5>Nombre d'épisode</h5>
-                {{serie.nbEpisode}} #}
+                                                            <hr><h5>Nombre de saisons</h5>
+                                                            {{ serie.nbSeason }}
+                                                        {% else %}
+                                                            <hr><h5> Saison </h5>
+                                                            <p>Il n'y a qu'une saison pour le moment !</p>
+                                                        {% endif %}
+                                                            <hr><h5>Nombre d'épisode</h5>
+                                                            {{serie.nbEpisode}} #}
             {% if serie.startDate != NULL %}
                 <hr><h5>Année de commencement</h5>
                 {{serie.startDate}}
             {% else %}
                 <hr><h5>Année de commencement</h5>
-                <p> La série n'a pas encore commencé ! </p>
+                <p>
+                    La série n'a pas encore commencé !
+                </p>
             {% endif %}
-                <hr><h5>Status</h5>
-                {{serie.status}}
-                 <hr><h5>Durée d'un épisode</h5>
-                {{serie.duration}}
-                minutes
-            </div>
-            <div class="col-6">
-                <hr><h5>Public</h5>
-                {{serie.public}}
-                <hr><h5>Nationalité</h5>
-                {{serie.nationality}}
-               
-               
-            </div>
+            <hr><h5>Status</h5>
+            {{serie.status}}
+            <hr><h5>Durée d'un épisode</h5>
+            {{serie.duration}}
+            minutes
         </div>
-        <br>
-    {# <hr><h4> Donnez nous votre avis ! </h4> #}
-        {# <button type="button" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i></button> #}
-        {# <button type="button" class="btn btn-outline-danger"><i class="far fa-thumbs-down"></i></button> #}
+        <div class="col-6">
+            <hr><h5>Public</h5>
+            {{serie.public}}
+            <hr><h5>Nationalité</h5>
+            {{serie.nationality}}
 
 
-        {# <button type="button" class="btn btn-outline-success"><i class="far fa-plus-square"></i></button>  #}
+        </div>
+    </div>
+    <br>
+{# <hr><h4> Donnez nous votre avis ! </h4> #}
+    {# <button type="button" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i></button> #}
+    {# <button type="button" class="btn btn-outline-danger"><i class="far fa-thumbs-down"></i></button> #}
 
-        <!-- faire un truc genre le mec clique un message s'affiche style la série a été ajoutée a votre profil et que ca s'efface au bout de 3/4 secondes -->
 
+    {# <button type="button" class="btn btn-outline-success"><i class="far fa-plus-square"></i></button>  #}
 
-    {% endblock %}
+    <!-- faire un truc genre le mec clique un message s'affiche style la série a été ajoutée a votre profil et que ca s'efface au bout de 3/4 secondes -->
+{% endblock %}
