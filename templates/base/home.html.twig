@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-footer">
 					{% if nbComment %}
-                        NOTE : {{eval}}/5
+                        NOTE : {{eval | round(1,'floor')}}/5
 					{% else %}
 						NOTE : {{eval}}
 					{% endif %}
@@ -75,7 +75,7 @@
                             <p class="card-text">{{ c.idSerie.synopsis | slice(0, 40) }}...</p>
                         </div>
                         <div class="card-footer">
-                          Note : {{ eval }} / 5
+                          Note : {{ eval | round(1,'floor') }} / 5
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-secondary" href="{{path('serie_detail', {'id': c.idSerie.id })}}">
@@ -115,7 +115,7 @@
                             <p class="card-text">{{ c.idSerie.synopsis | slice(0, 40) }}...</p>
                         </div>
                         <div class="card-footer">
-                            Note : {{ eval }} / 5
+                            Note : {{ eval | round(1,'floor') }} / 5
                         </div>
                         <div class="card-footer">
                             <a class="btn btn-secondary" href="{{path('serie_detail', {'id': c.idSerie.id })}}">

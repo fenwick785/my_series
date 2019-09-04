@@ -45,7 +45,7 @@ class Commentary
     /**
      * @ORM\Column(type="boolean")
      */
-    private $spoil;
+    private $spoil=false;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

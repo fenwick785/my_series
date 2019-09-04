@@ -7,22 +7,64 @@
     <hr>
     <img class="rounded mx-auto d-block img-fluid" src="{{serie.photo}}"><br>
 
-    <div class="row">
-        <div class=" offset-5 col-1 ">
-            <a href="">
-                <h2 class="text-success">
-                    <i class="fas fa-thumbs-up"></i>
-                </h2>
-            </a>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+
+        {% set like = false %}{% set dislike = false %}
+
+        {# Fonctionnement pour checker si mon avis est dislike ou like #}
+
+        {% for rate in app.user.commentaries %}
+            {%  if rate.idSerie == serie and rate.rating == 1  %}
+                {% set like = true %}
+            {% elseif rate.idSerie == serie and rate.rating == 0 %}
+                {% set dislike = true %}
+            {% endif %}
+        {% endfor %}
+
+
+        <div class="row">
+            <div class=" offset-5 col-1 ">
+
+
+                {% if like != true %}
+                    <a href="{{path('like',{'id': serie.id, 'rating':1})}}">
+                        <h2 class="text-success">
+                            <i class="fas fa-thumbs-up"></i>
+                        </h2>
+                    </a>
+                {% else %}
+
+                    <h2 class="text-muted">
+                        <i class="fas fa-thumbs-up"></i>
+                    </h2>
+
+                {% endif %}
+
+            </div>
+            <div class="col-1">
+
+                {% if dislike != true %}
+
+                    <a href="{{path('like',{'id': serie.id, 'rating':0})}}">
+                        <h2 class="text-danger">
+                            <i class="fas fa-thumbs-down"></i>
+                        </h2>
+                    </a>
+
+                {% else %}
+                    <h2 class="text-muted">
+                        <i class="fas fa-thumbs-down"></i>
+                    </h2>
+                {% endif %}
+
+            </div>
         </div>
-        <div class="col-1">
-            <a href="">
-                <h2 class="text-danger">
-                    <i class="fas fa-thumbs-down"></i>
-                </h2>
-            </a>
-        </div>
-    </div>
+        {# FIN DE SI ON EST CONNECTE #}
+    {% endif %}
+
+
     <h6 class="pl-5">
         {% if serie.nbSeason > 1 %}
             {{ serie.nbSeason }}
@@ -35,10 +77,6 @@
         {{serie.nbEpisode}}
         épisodes</h6>
     <hr>
-    
-
-
-
 
 
     <div class="row">
@@ -46,91 +84,93 @@
             <h5>Synopsis</h5>
             <p class="text-justify">{{serie.synopsis}}</p>
         </div>
-        
-        
-        <div class="col-3 ">
-{% set finish = false %}{% set wish = false %}{% set inProgress = false %}
 
- {# Fonctionnement pour checker si ma serie est déjà dans une des 3 listes #}
-            
-            {% for lus in app.user.listUserSeries %}
-                {%  if lus.serie == serie and lus.state == 'finish'  %}
-                    {% set finish = true %}
-                {% elseif lus.serie == serie and lus.state == 'wish' %}
-                    {% set wish = true %}
-                {% elseif lus.serie == serie and lus.state == 'inProgress' %}
-                    {% set inProgress = true %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+            <div class="col-3 ">
+
+                {% set finish = false %}{% set wish = false %}{% set inProgress = false %}
+
+                {# Fonctionnement pour checker si ma serie est déjà dans une des 3 listes #}
+
+                {% for lus in app.user.listUserSeries %}
+                    {%  if lus.serie == serie and lus.state == 'finish'  %}
+                        {% set finish = true %}
+                    {% elseif lus.serie == serie and lus.state == 'wish' %}
+                        {% set wish = true %}
+                    {% elseif lus.serie == serie and lus.state == 'inProgress' %}
+                        {% set inProgress = true %}
+                    {% endif %}
+                {% endfor %}
+
+
+                {% if serie.status != "Continuing" and serie.status != NULL %}
+
+
+                    {#  ----  CHOIX DU BOUTON AJOUT OU REMOVE -----  #}
+                    {% if finish != true %}
+                        <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded text-center">
+                            <i class="fas fa-plus"></i>
+                            Mes séries finies
+                        </a>
+                    {% else %}
+                        <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-danger btn-rounded text-center">
+                            <i class="fas fa-minus"></i>
+                            Mes séries finies
+                        </a>
+                    {% endif %}
+                    {#  -----------  #}
+
                 {% endif %}
-            {% endfor %}
 
+                {% if serie.nbEpisode != NULL %}
 
-        {% if serie.status != "Continuing" and serie.status != NULL %}
+                    <br><br>
+                    {% if inProgress != true %}
+                        <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-info btn-rounded text-center">
+                            <i class="fas fa-plus"></i>
+                            Mes séries en cours
+                        </a>
+                    {% else %}
+                        <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-danger btn-rounded text-center">
+                            <i class="fas fa-minus"></i>
+                            Mes séries en cours
+                        </a>
+                    {% endif %}
 
+                {% endif %}
 
-           
-
-            {#  ----  CHOIX DU BOUTON AJOUT OU REMOVE -----  #}
-            {% if finish != true %}
-            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded text-center">
-                <i class="fas fa-plus"> </i>
-                     Mes séries finies
-            </a>
-            {% else %}
-            <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-danger btn-rounded text-center">
-                <i class="fas fa-minus"> </i>
-                     Mes séries finies
-            </a>
-            {% endif %}
-            {#  -----------  #}
-
+                <br><br>
+                {% if wish != true %}
+                    <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded text-center">
+                        <i class="fas fa-plus"></i>
+                        Mes séries à voir
+                    </a>
+                {% else %}
+                    <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-danger btn-rounded text-center">
+                        <i class="fas fa-minus"></i>
+                        Mes séries à voir
+                    </a>
+                {% endif %}
+                <br><br>
+            </div>
         {% endif %}
-
-        {% if serie.nbEpisode != NULL %}
-        
-            <br><br>
-             {% if inProgress != true %}
-            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-info btn-rounded text-center">
-                <i class="fas fa-plus"> </i>
-                     Mes séries en cours
-            </a>
-            {% else %}
-            <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-danger btn-rounded text-center">
-                <i class="fas fa-minus"> </i>
-                     Mes séries en cours
-            </a>
-            {% endif %}
-
-        {% endif %}
-
-            <br><br>
-             {% if wish != true %}
-            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded text-center">
-                <i class="fas fa-plus"> </i>
-                     Mes séries à voir
-            </a>
-            {% else %}
-            <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-danger btn-rounded text-center">
-                <i class="fas fa-minus"> </i>
-                     Mes séries à voir
-            </a>
-            {% endif %}
-            <br><br>
-        </div>
     </div>
+    {# FIN DE SI ON EST CONNECTE #}
 
 
     <div class="row">
         <div
             class="col-6">
             {# {% if serie.nbSeason > 1 %}
-                                                            <hr><h5>Nombre de saisons</h5>
-                                                            {{ serie.nbSeason }}
-                                                        {% else %}
-                                                            <hr><h5> Saison </h5>
-                                                            <p>Il n'y a qu'une saison pour le moment !</p>
-                                                        {% endif %}
-                                                            <hr><h5>Nombre d'épisode</h5>
-                                                            {{serie.nbEpisode}} #}
+                                                                        <hr><h5>Nombre de saisons</h5>
+                                                                        {{ serie.nbSeason }}
+                                                                    {% else %}
+                                                                        <hr><h5> Saison </h5>
+                                                                        <p>Il n'y a qu'une saison pour le moment !</p>
+                                                                    {% endif %}
+                                                                        <hr><h5>Nombre d'épisode</h5>
+                                                                        {{serie.nbEpisode}} #}
             {% if serie.startDate != NULL %}
                 <hr><h5>Année de commencement</h5>
                 {{serie.startDate}}
@@ -152,6 +192,28 @@
             <hr><h5>Nationalité</h5>
             {{serie.nationality}}
 
+
+            <hr><h5>Note</h5>
+            
+                {% set note = 0 %}
+                {% set nbComment = serie.commentaries | length %}
+
+                {% for comment in serie.commentaries %}
+                    {% set note = note + comment.rating %}
+                {% endfor %}
+                {% if nbComment %}
+                    {% set eval =  (5 * note) / nbComment %}
+                {% else %}
+                    {% set eval = 'N/A' %}
+                {% endif %}
+
+                {% if nbComment %}
+                    {{eval | round(1,'floor')}}/5
+                {% else %}
+                    {{eval}}
+                {% endif %}
+
+            
 
         </div>
     </div>
