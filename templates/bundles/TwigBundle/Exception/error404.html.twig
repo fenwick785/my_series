@@ -3,22 +3,26 @@
     {% block content %}
         
    
-    <head>
+
         <meta charset="{{ _charset }}" />
         <title>An Error Occurred: {{ status_text }}</title>
 
-    </head>
-    <body>
+
         <div class="container">
             <h1>Oops! An Error Occurred</h1>
             <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
             <p>
                 Revenez vers nous en cliquant sur ce <a href="{{path('home')}}">lien</a>
             </p>
-
+            <div class="row">
+            <div class="col-12">
+            <img class="img-fluid" src="{{asset('css/404.png')}}">
+            </div>
+            </div>
                 
 
         </div>
-    </body>
+
+    <br><br>
 
  {% endblock %}
