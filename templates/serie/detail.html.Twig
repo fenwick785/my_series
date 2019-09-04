@@ -5,8 +5,11 @@
 
     <h1 class="text-center ">{{serie.title}}</h1>
     <hr>
+    {% if serie.photo == NULL %}
+    <img class="rounded mx-auto d-block img-fluid" src="{{ asset('css/defaut.jpg') }}"><br>
+    {% else %}
     <img class="rounded mx-auto d-block img-fluid" src="{{serie.photo}}"><br>
-
+    {% endif %}
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
