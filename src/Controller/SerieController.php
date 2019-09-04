@@ -28,10 +28,10 @@ class SerieController extends AbstractController
     //     return $this->render('serie/category.html.twig', []);
     // }
 
-     /**
+    /**
      * @Route("serie/", name="serie")
      */
-    
+
 
     /**
      * @Route("/serie/{id}", name="serie_detail")
@@ -57,35 +57,50 @@ class SerieController extends AbstractController
         $user = $this->getUser();
         $serie = $manager->find(Serie::class, $id);
 
-        $listUserAAjouter = $this 
-            -> getDoctrine() 
-            -> getRepository(ListUserSerie::class)
-            -> findBy([
+        $listUserAAjouter = $this
+            ->getDoctrine()
+            ->getRepository(ListUserSerie::class)
+            ->findBy([
                 'idUser' => $user,
                 'Serie' => $serie,
                 'state' => $state
             ]);
-        if($listUserAAjouter){
-            $this -> addFlash('errors', 'Cette série <b>' . $serie -> getTitle() .  '</b> est déjà dans la liste ' . $state . ' !');
+
+        $listUserAModifier = $this
+            ->getDoctrine()
+            ->getRepository(ListUserSerie::class)
+            ->findOneBy([
+                'idUser' => $user,
+                'Serie' => $serie,
+
+            ]);
+
+        if ($listUserAAjouter) {
+            $this->addFlash('errors', 'Cette série <b>' . $serie->getTitle() .  '</b> est déjà dans la liste ' . $state . ' !');
         }
-        else{
+        if ($listUserAModifier) {
+            
+            $listUserAModifier->setState($state);
+            $manager->persist($listUserAModifier);
+            $manager->flush();
+            $this->addFlash('success', 'Cette série <b>' . $serie->getTitle() .  '</b> est passée dans la liste ' . $state . ' !');
+        } else {
             $listUserSerie = new listUserSerie;
             $listUserSerie->setSerie($serie);
             $listUserSerie->setIdUser($user);
             $listUserSerie->setState($state);
-    
-     
+
+
             $user->addListUserSeries($listUserSerie);
             $manager->persist($listUserSerie);
             $manager->persist($user);
-            $manager->flush();    
-            $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
+            $manager->flush();
+            $this->addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
         }
 
-        return $this -> redirectToRoute('serie_detail', [
+        return $this->redirectToRoute('serie_detail', [
             'id' => $id,
-            ]);
-
+        ]);
     }
 
     /**
@@ -96,25 +111,24 @@ class SerieController extends AbstractController
         $user = $this->getUser();
         $serie = $manager->find(Serie::class, $id);
 
-        $listUserASupp = $this 
-            -> getDoctrine() 
-            -> getRepository(ListUserSerie::class)
-            -> findOneBy([
+        $listUserASupp = $this
+            ->getDoctrine()
+            ->getRepository(ListUserSerie::class)
+            ->findOneBy([
                 'idUser' => $user,
                 'Serie' => $serie,
                 'state' => $state
             ]);
 
-        if($listUserASupp){
-            $this -> addFlash('success', 'Cette série <b>' . $serie -> getTitle() .  '</b> a été supprimée de la liste ' . $state . ' !');
-            $manager -> remove($listUserASupp);
-            $manager -> flush();
+        if ($listUserASupp) {
+            $this->addFlash('success', 'Cette série <b>' . $serie->getTitle() .  '</b> a été supprimée de la liste ' . $state . ' !');
+            $manager->remove($listUserASupp);
+            $manager->flush();
         }
-        
-        return $this -> redirectToRoute('serie_detail', [
-            'id' => $id,
-            ]);
 
+        return $this->redirectToRoute('serie_detail', [
+            'id' => $id,
+        ]);
     }
 
 
@@ -123,16 +137,17 @@ class SerieController extends AbstractController
     /**
      * @Route("/recherche",name="recherche")
      */
-    public function recherche(Request $request) {
-        $term = $request -> query -> get('s');
-        $repo = $this-> getDoctrine() -> getRepository(Serie::class);
-      
+    public function recherche(Request $request)
+    {
+        $term = $request->query->get('s');
+        $repo = $this->getDoctrine()->getRepository(Serie::class);
+
         $series = $repo->findBySearch($term);
 
-        $repo2 = $this->getDoctrine() -> getRepository(Actor::class);
-        $actors = $repo2 -> findBySearch($term);
-        
-        return $this->render('serie/index.html.twig',[
+        $repo2 = $this->getDoctrine()->getRepository(Actor::class);
+        $actors = $repo2->findBySearch($term);
+
+        return $this->render('serie/index.html.twig', [
             'series' => $series,
             'actors' => $actors,
         ]);
@@ -142,16 +157,14 @@ class SerieController extends AbstractController
     /**
      * @route("/all", name="serie_all")
      */
-    public function findAllSerie(){
-    $repository = $this->getDoctrine()->getRepository(Serie::class);
-    // App\Entity\Serie
-    $series = $repository -> findBy([],['title'=>'ASC']); // trie par date de sortie (nouveautés)
+    public function findAllSerie()
+    {
+        $repository = $this->getDoctrine()->getRepository(Serie::class);
+        // App\Entity\Serie
+        $series = $repository->findBy([], ['title' => 'ASC']); // trie par date de sortie (nouveautés)
 
-    return $this->render('serie/all.html.twig',[
-        'series'=>$series
-    ]);
+        return $this->render('serie/all.html.twig', [
+            'series' => $series
+        ]);
     }
-
-
-
 }
