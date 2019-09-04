@@ -47,6 +47,8 @@ class SerieController extends AbstractController
             'serie' => $serie,
         ]);
     }
+
+
     /**
      * @Route("serie/add/list/{id}/{state}", name="serie_add_list" )
      */
@@ -54,24 +56,69 @@ class SerieController extends AbstractController
     {
         $user = $this->getUser();
         $serie = $manager->find(Serie::class, $id);
-        $listUserSerie = new listUserSerie;
-        $listUserSerie->setSerie($serie);
-        $listUserSerie->setIdUser($user);
-        $listUserSerie->setState($state);
-        // $listUserSerie -> setEpisode(NULL);
-        $user->addListUserSeries($listUserSerie);
-        $manager->persist($listUserSerie);
-        $manager->persist($user);
-        $manager->flush();
 
+        $listUserAAjouter = $this 
+            -> getDoctrine() 
+            -> getRepository(ListUserSerie::class)
+            -> findBy([
+                'idUser' => $user,
+                'Serie' => $serie,
+                'state' => $state
+            ]);
+        if($listUserAAjouter){
+            $this -> addFlash('errors', 'Cette série <b>' . $serie -> getTitle() .  '</b> est déjà dans la liste ' . $state . ' !');
+        }
+        else{
+            $listUserSerie = new listUserSerie;
+            $listUserSerie->setSerie($serie);
+            $listUserSerie->setIdUser($user);
+            $listUserSerie->setState($state);
+    
+     
+            $user->addListUserSeries($listUserSerie);
+            $manager->persist($listUserSerie);
+            $manager->persist($user);
+            $manager->flush();    
+            $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
+        }
 
-
-        
-        
-        $this -> addFlash('success', 'La série a été ajoutée à votre list "' . $state . '" !');
-        return $this -> redirectToRoute('serie_detail', ['id' => $id]);
+        return $this -> redirectToRoute('serie_detail', [
+            'id' => $id,
+            ]);
 
     }
+
+    /**
+     * @Route("serie/remove/list/{id}/{state}", name="serie_remove_list" )
+     */
+    public function addSerieRemoveList($state, $id, ObjectManager $manager)
+    {
+        $user = $this->getUser();
+        $serie = $manager->find(Serie::class, $id);
+
+        $listUserASupp = $this 
+            -> getDoctrine() 
+            -> getRepository(ListUserSerie::class)
+            -> findOneBy([
+                'idUser' => $user,
+                'Serie' => $serie,
+                'state' => $state
+            ]);
+
+        if($listUserASupp){
+            $this -> addFlash('success', 'Cette série <b>' . $serie -> getTitle() .  '</b> a été supprimée de la liste ' . $state . ' !');
+            $manager -> remove($listUserASupp);
+            $manager -> flush();
+        }
+        
+        return $this -> redirectToRoute('serie_detail', [
+            'id' => $id,
+            ]);
+
+    }
+
+
+
 
     /**
      * @Route("/recherche",name="recherche")

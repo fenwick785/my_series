@@ -132,11 +132,11 @@
             <div class="container milieu ">
 
                 {% for message in app.flashes('success') %}
-                    <div class="alert alert-success text-center">{{ message }}</div>
+                    <div class="alert alert-success text-center">{{ message | raw }}</div>
                 {% endfor %}
 
                 {% for message in app.flashes('errors') %}
-                    <div class="alert alert-danger text-center m-3">{{ message }}</div>
+                    <div class="alert alert-danger text-center m-3">{{ message  | raw }}</div>
                 {% endfor %}
 
                 {% block content %}{% endblock %}
