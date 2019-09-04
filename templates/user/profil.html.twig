@@ -38,7 +38,7 @@
     <br>
     <br>
     <h4>
-        Vos séries favorites:
+        Votre liste de souhait / wish-list:
     </h4>
     <hr>
 <div class="row">
@@ -63,6 +63,31 @@
        
     {% endfor %}
 </div>
+<hr>
+<h4>
+        Votre liste de série(s) terminée(s) / wish-list:
+</h4>
+<div class="row">
 
+
+    {% for l in app.user.listUserSeries if l.state == 'finish' %}
+        
+            <div class="col-3">
+            <a href="{{path('serie_detail',{'id':l.serie.id})}}">
+                <img src="{{l.serie.photo }}" class="card-img" alt="..." >
+                {{ l.serie.title }}
+                <p>{{ l.state }}</p>
+                <p>
+                    {{ l.serie.nbSeason }}
+                    Saisons |
+                    {{ l.serie.nbEpisode }}
+                    Episodes
+                </p>
+                </a>
+            </div>
+        
+       
+    {% endfor %}
+</div>
 
 {% endblock %}

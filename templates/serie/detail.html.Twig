@@ -33,15 +33,21 @@
     <hr>
     
     <div class="row">
-        <div class="col-9">
+        <div class="col-12">
             <h5>Synopsis</h5>
             <p class="text-justify">{{serie.synopsis}}</p>          
         </div>
-        <div class="col-3 pt-5">
+        <div class="row">
             <p class="text-center">
-            
+<div class="col-md-3">
+            <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded">
+                    <i class="fas fa-plus"></i> Ajouter a mes séries finies</a> <br>
+         </div>   
+         <div class="col-md-3">
                 <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded">
-                    <i class="fas fa-plus"></i> Ajouter à ma liste</a> 
+                    <i class="fas fa-plus"></i> Ajouter à ma liste de souhait</a> 
+</div>
+                    
             </p>
         </div>
     </div>
