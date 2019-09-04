@@ -1,7 +1,5 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
-	transport:        gmail
+    transport:        gmail
     username:         evogue.dev@gmail.com
     password:         Formation2019
     host:             localhost
@@ -10,7 +8,7 @@ swiftmailer:
     auth-mode:        login
     spool: { type: 'memory' }
     stream_options:
-    	ssl:
+        ssl:
             allow_self_signed: true
             verify_peer: false
             verify_peer_name: false

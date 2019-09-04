@@ -103,7 +103,7 @@ class FooterController extends AbstractController
 		// On instancie un objet swiftmailer en précisant l'objet (sujet) du mail. 
 		
 		$mail 
-			-> setSubject('Envoyé par boutique: ' . $data['objet'])
+			-> setSubject('Envoyé par boutique: ' . $data['subject'])
           
 			-> setTo('contact@boutique.com')
 			-> setBody(
@@ -114,13 +114,14 @@ class FooterController extends AbstractController
             
             if($this->getUser())
             {
-               $mail -> setFrom($this->getUser()->getEmail());
+            $data['email'] = $this->getUser()->getEmail();
+              // $mail -> setFrom($this->getUser()->getEmail());
             }
-            else
-            {
-                $mail -> setFrom($data['email']);
-            }
-		;
+            // else
+            // {
+            //     $mail -> setFrom($data['email']);
+            // }
+            $mail -> setFrom($data['email']);
 		
 		if($mailer -> send($mail)){
 			return true;
