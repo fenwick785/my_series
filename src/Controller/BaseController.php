@@ -6,6 +6,8 @@ use App\Entity\Serie;
 use App\Entity\Commentary;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\ContactType;  
 
 class BaseController extends AbstractController
 {
