@@ -79,10 +79,17 @@ class FooterController extends AbstractController
 			}
 		}
 		
-		// Affichage de la vue
+        // Affichage de la vue
+       $user=false;
+
+        if ($this->getUser()) 
+        {
+            $user= true;
+        }
 		
 		return $this->render('footer/contactsupport.html.twig',  [
-			'contactForm' => $form -> createView()
+            'contactForm' => $form -> createView(),
+            'user' => $user
 		]);
 	}
 	
