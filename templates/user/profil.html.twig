@@ -10,6 +10,20 @@
     </h1>
     <hr>
     <br>
+<p class="d-flex justify-content-around">
+  <button class="btn btn-primary col-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Voir mon profil
+  </button>
+  <a class="btn btn-info col-5 " href="{{ path('profil_update') }}">
+        Modifier mon profil
+    </a>
+</p>
+
+    
+
+<div class="collapse" id="collapseExample">
+
+<br>
     <h4>
         Informations générales
     </h4>
@@ -31,9 +45,8 @@
             {{ app.user.birthDate | date('d/m/Y') }}</li>
     </ul>
     <br>
-    <a class="btn btn-danger" href="{{ path('profil_update') }}">
-        Modifier mon profil
-    </a>
+
+    </div>
     <br>
     <br>
     <br>
