@@ -10,14 +10,14 @@
     </h1>
     <hr>
     <br>
-<p class="d-flex justify-content-around">
+<div class="d-flex justify-content-around">
   <button class="btn btn-primary col-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Voir mon profil
+    Voir mon profil<i class="fas fa-caret-down float-right pt-1"></i>
   </button>
   <a class="btn btn-info col-5 " href="{{ path('profil_update') }}">
         Modifier mon profil
     </a>
-</p>
+</div>
 
     
 
@@ -51,10 +51,10 @@
     <br>
     <br>
 
-    <h4>
-        Votre liste de série(s) en cours / in progress:
-    </h4>
-
+    <h6 type="button" class="text-center bg-dark p-3 text-white" data-toggle="collapse" data-target="#collapseprogress" aria-expanded="true" aria-controls="collapseprogress" >
+        Votre liste de série(s) en cours / in progress<i class="fas fa-caret-down float-right"></i>
+    </h6>
+<div class="collapse show" id="collapseprogress">
     <div class="row">
 
 
@@ -79,14 +79,14 @@
 
         {% endfor %}
     </div>
+</div>
+ 
+<br>
 
-<hr>
-    <h4>
-        Votre liste de souhait / wish-list:
-    </h4>
-    
-
-
+    <h6 class="text-center bg-dark p-3 text-white" data-toggle="collapse" data-target="#collapsewish" aria-expanded="false" aria-controls="collapsewish" type="button">
+        Votre liste de souhait / wish-list<i class="fas fa-caret-down float-right"></i>
+    </h6>
+   <div class="collapse" id="collapsewish">
 <div class="row">
         {% for l in app.user.listUserSeries if l.state == 'wish' %}
             <div class="col-3">
@@ -107,14 +107,14 @@
             </div>
         {% endfor %}
     </div>
-
+ </div>
     
-
-    <hr>
-    <h4>
-        Votre liste de série(s) terminée(s) / wish-list:
-    </h4>
-
+<br>
+    
+    <h6 class="text-center bg-dark p-3 text-white" data-toggle="collapse" data-target="#collapsewishlist" aria-expanded="false" aria-controls="collapsewishlist" type="button">
+        Votre liste de série(s) terminée(s) / wish-list <i class="fas fa-caret-down float-right"></i>
+    </h6>
+<div class="collapse" id="collapsewishlist">
     <div class="row">
         {% for l in app.user.listUserSeries if l.state == 'finish' %}
             <div class="col-3">
@@ -135,6 +135,7 @@
             </div>
         {% endfor %}
     </div>
+     </div>
     <br><br>
 </div>
 {% endblock %}
