@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+a.disabled {
+	pointer-events: none;
+	cursor: default;
+    color : grey;
+}
+</style>
+    <h1>Page de redirection vers fonctionnalité API</h1><br><br>
+
+    <h2>1 - Authentification auprès de l'API</h2>
+    <button><a href="app/authorize.php" target="_blank">Obtention du Token</a></button><br>
+    <h2>2 - Récupération des données via l'API (limité à 2000 séries pour le moment)</h2>
+    <button><a href="app/obtSeries.php" target="_blank">Obtention des séries</a></button><br>
+    <button><a href="app/obtSaisons.php" target="_blank">Obtention des saisons</a></button><br>
+    <button disabled="disabled"><a class="disabled" href="app/obtEpisodes.php" target="_blank">Obtention des episodes</a></button>  {HORS SERVICE}<br>
+    <hr>
+    <br>
+    <h2>3 - Injection des données vers la BDD </h2>
+    <button><a href="app/ajoutSeries.php" target="_blank">Insertion des séries</a></button><br>
+    <button disabled="disabled"><a class="disabled" href="app/ajoutSaisons.php" target="_blank">Insertion des saisons</a></button>  {HORS SERVICE}<br>
+    <button disabled="disabled"><a class="disabled" href="app/ajoutEpisodes.php" target="_blank">Insertion des episodes</a></button>  {HORS SERVICE}<br>
+    <h2>4 - Update des données de la BDD avec l'API </h2>
+    <br>
+    <button disabled="disabled"><a class="disabled" href="app/maj.php" target="_blank">Mise à jour des données</a></button>  {HORS SERVICE}<br>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+</html>
