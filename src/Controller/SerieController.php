@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Serie;
 use App\Entity\Actor;
+Use App\Entity\Commentary;
+use App\Entity\Serie;
+use App\Form\CommentaryType;
 use App\Entity\ListUserSerie;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -41,9 +43,21 @@ class SerieController extends AbstractController
         //route permettant d'afficher la fiche technique d'une série par rapport a son id
         $manager = $this->getDoctrine()->getManager();
         $serie = $manager->find(Serie::class, $id);
+        $commentaire = new Commentary;
+        $form = $this->createForm(CommentaryType::class, $commentaire);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+        if($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setIdUser($user);
+            $commentaire->setIdSerie($serie);
+            $commentaire->setRating($commentaire->getRating());
+            $manager->persist($commentaire);
+            $manager->flush();
+        }
 
         return $this->render('serie/detail.html.twig', [
             'serie' => $serie,
+            'commentaryForm' => $form->createView()
         ]);
     }
 

@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Serie;
 use App\Entity\Commentary;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- 
-    
+use App\Form\ContactType;  
+
 class BaseController extends AbstractController
 {
     /**

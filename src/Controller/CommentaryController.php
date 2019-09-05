@@ -22,8 +22,6 @@ class CommentaryController extends AbstractController
         $serie = $manager->find(Serie::class, $id);
         // on récupere les données de la série, par rapport a son id
 
-
-        
         $addRating = $this
         // On cherche en BDD (dans la table Commentary) si il y a une ligne où le champ :
             //id_user_id correspond a l'id du user connecté
@@ -47,9 +45,7 @@ class CommentaryController extends AbstractController
                 'idUser' => $user,
                 'idSerie' => $serie,
             ]);
-
-
-            
+  
         if ($addRating) {
             // si pour un même utilisateur et une même série on essaie de réatribuer la même note alors un message d'erreur s'affichera
             $this->addFlash('errors', 'Vous avez déjà noté la série <b>' . $serie->getTitle() .  ' !');
@@ -88,6 +84,9 @@ class CommentaryController extends AbstractController
         'id' => $id,
     ]);
     }
+
+
+
 
 
 }

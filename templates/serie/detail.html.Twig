@@ -302,7 +302,9 @@
    
     <br>
     <br><hr>
-<h5> Avis sur la série </h5> <hr>
+
+    
+{# <h5> Avis sur la série </h5> <hr>
 
 
 {% for comment in serie.commentaries %}
@@ -317,44 +319,36 @@
                     {% endif %}</h6><hr>
     <p class="lead">{{ comment.content }}</p>  
 </div><br>
-{% endfor %}
+{% endfor %} #}
 
 
 
 
 
 
-    {# <div class="row">
+<div class="row">
     
         {% for comment in serie.commentaries %}
             <div class="col-12">
+            {% if comment.content %}
                 <h6>
                     {{ comment.idUser.userName }}
-                    {% if comment.rating == 1 %}
-                    a liké cette série.
-                    {% elseif comment.rating == 0 %}
-                    n'a pas liké cette série.
-                    {% endif %}
- 
                 </h6>
                 <p class="text-justify">
                     {{ comment.content }}
                 </p>
-            {% endfor %} #}
+            {% endif %}
+            </div>
+        {% endfor %}
 
             <div class="col-12 pb-5">
                 <h5>
                     Laissez un commentaire
                 </h5><hr>
-                <textarea class="form-control" rows="3" placeholder="Votre commentaire..."></textarea>
+                    {{form(commentaryForm)}}
                 <br>
-                <button class="btn btn-primary float-right">
-                    Envoyez votre message
-                </button>
             </div>
 
-     
-    
- 
+ </div>
     <br>
 {% endblock %}
