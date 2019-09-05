@@ -5,6 +5,9 @@
 
     <h1 class="text-center ">{{serie.title}}</h1>
     <hr>
+
+    {# si pas d'image en BDD on afiche une img par défaut #}
+
     {% if serie.photo == NULL %}
     <img class="rounded mx-auto d-block img-fluid" src="{{ asset('css/defaut.jpg') }}"><br>
     {% else %}
@@ -12,16 +15,20 @@
     {% endif %}
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {# si internaute connecté #}
 
-
+        {# on créé nos variable like et dislike #}
         {% set like = false %}{% set dislike = false %}
 
         {# Fonctionnement pour checker si mon avis est dislike ou like #}
-
         {% for rate in app.user.commentaries %}
+            {# si en BDD rating == 1 #}
             {%  if rate.idSerie == serie and rate.rating == 1  %}
+                {# alors la variable like = true #}
                 {% set like = true %}
+            {# si en BDD rating == 0 #}
             {% elseif rate.idSerie == serie and rate.rating == 0 %}
+                {# alors la variable dislike = true #}
                 {% set dislike = true %}
             {% endif %}
         {% endfor %}
@@ -32,12 +39,14 @@
 
 
                 {% if like != true %}
+                {# si le bouton like n'est pas coché, alors on affiche le bouton qui permettra de liké la série #}
                     <a href="{{path('like',{'id': serie.id, 'rating':1})}}">
                         <h2 class="text-success">
                             <i class="fas fa-thumbs-up"></i>
                         </h2>
                     </a>
                 {% else %}
+                {# sinon (si la série est déjà liké), on grise le bouton like et on retire le lien vers la route "like" #}
 
                     <h2 class="text-muted">
                         <i class="fas fa-thumbs-up"></i>
@@ -49,7 +58,7 @@
             <div class="col-1">
 
                 {% if dislike != true %}
-
+                {# si le bouton dislike n'est pas coché, alors on affiche le bouton qui permettra de disliké la série #}
                     <a href="{{path('like',{'id': serie.id, 'rating':0})}}">
                         <h2 class="text-danger">
                             <i class="fas fa-thumbs-down"></i>
@@ -57,6 +66,7 @@
                     </a>
 
                 {% else %}
+                {# sinon (si la série est déjà disliké), on grise le bouton dislike et on retire le lien vers la route "like" #}
                     <h2 class="text-muted">
                         <i class="fas fa-thumbs-down"></i>
                     </h2>
@@ -65,9 +75,42 @@
             </div>
         </div>
         {# FIN DE SI ON EST CONNECTE #}
+
+
+    {% else %}
+    {# si l'internaute n'est pas connecté les bouton "like" et "dislike" renvoie vers la route "login" #}
+
+        
+        <div class="row">
+            <div class=" offset-5 col-1 ">
+
+
+                {# on affiche les boutons "like" et "dislike" mais qui renverront vers la page connexion #}
+                    <a href="{{path('login')}}">
+                        <h2 class="text-success">
+                            <i class="fas fa-thumbs-up"></i>
+                        </h2>
+                    </a>
+
+            </div>
+            <div class="col-1">
+
+
+
+                    <a href="{{path('login')}}">
+                        <h2 class="text-danger">
+                            <i class="fas fa-thumbs-down"></i>
+                        </h2>
+                    </a>
+
+
+            </div>
+        </div>
+
+        {# fin de la condition si l'internaute n'est pas connecté #}
     {% endif %}
 
-
+    {# on affiche les informations de la série #}
     <h6 class="pl-5">
         {% if serie.nbSeason > 1 %}
             {{ serie.nbSeason }}
@@ -88,35 +131,49 @@
             <p class="text-justify">{{serie.synopsis}}</p>
         </div>
 
+
+
+        {# si l'internaute est connecté #}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-            <div class="col-3 ">
 
+
+            <div class="col-3 ">
+                {# on créé les variable "finish", "wish" et "inProgress" #}
                 {% set finish = false %}{% set wish = false %}{% set inProgress = false %}
 
                 {# Fonctionnement pour checker si ma serie est déjà dans une des 3 listes #}
-
                 {% for lus in app.user.listUserSeries %}
+                    {# si dans la table list_user_serie, l'état de la série est "finish" #}
                     {%  if lus.serie == serie and lus.state == 'finish'  %}
+                        {# alors la variable créée finish créée ulterieurement = true #}
                         {% set finish = true %}
+                    {# on fait la même chose pour les 2 autres états #}
                     {% elseif lus.serie == serie and lus.state == 'wish' %}
                         {% set wish = true %}
                     {% elseif lus.serie == serie and lus.state == 'inProgress' %}
                         {% set inProgress = true %}
                     {% endif %}
+                    {# ------------ #}
                 {% endfor %}
 
 
                 {% if serie.status != "Continuing" and serie.status != NULL %}
+                {# si le status de la Série n'est pas "continuing" (en cours) et n'est pas NULL  #}
+                {# on affiche le bouton pour ajouter/retirer dans notre liste de séries terminées #}
 
 
                     {#  ----  CHOIX DU BOUTON AJOUT OU REMOVE -----  #}
                     {% if finish != true %}
+                        {# si la série n'est pas dans la finishList #}
+                        {# le bouton nous permet d'ajouter cette série a notre finishList #}
                         <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-primary btn-rounded text-center col-12">
                             <i class="fas fa-plus"></i>
                             Mes séries finies
                         </a>
                     {% else %}
+                        {# si la série est dans la finishList #}
+                        {# le bouton nous permet de retirer cette série de notre finishList #}
                         <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'finish'}) }}" class="btn btn-danger btn-rounded text-center col-12">
                             <i class="fas fa-minus"></i>
                             Mes séries finies
@@ -127,14 +184,20 @@
                 {% endif %}
 
                 {% if serie.nbEpisode != NULL %}
+                {# si le nombre d'épisode n'est pas null #}
+                {# on affiche le bouton pour ajouter/retirer de notre inProgressList #}
 
                     <br><br>
                     {% if inProgress != true %}
+                        {# si la série n'est pas dans la inProgressList #}
+                        {# le bouton nous permet d'ajouter cette série a notre inProgressList #}
                         <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-info btn-rounded text-center col-12">
                             <i class="fas fa-plus"></i>
                             Mes séries en cours
                         </a>
                     {% else %}
+                        {# si la série est dans la inProgressList #}
+                        {# le bouton nous permet de retirer cette série de notre inProgressList #}
                         <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'inProgress'}) }}" class="btn btn-danger btn-rounded text-center col-12">
                             <i class="fas fa-minus"></i>
                             Mes séries en cours
@@ -145,11 +208,15 @@
 
                 <br><br>
                 {% if wish != true %}
+                    {# si la série n'est pas dans la wishList #}
+                    {# le bouton nous permet d'ajouter cette série a notre wishList #}
                     <a href="{{ path('serie_add_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-success btn-rounded text-center col-12">
                         <i class="fas fa-plus"></i>
                         Mes séries à voir
                     </a>
                 {% else %}
+                    {# si la série est dans la wishList #}
+                    {# le bouton nous permet de retirer cette série de notre wishList #}
                     <a href="{{ path('serie_remove_list',{'id': serie.id, 'state':'wish'}) }}" class="btn btn-danger btn-rounded text-center col-12">
                         <i class="fas fa-minus"></i>
                         Mes séries à voir
@@ -157,23 +224,68 @@
                 {% endif %}
                 <br><br>
             </div>
-        {% endif %}
+
+
+
+
+
+        
+        {% else %}
+        {# si l'internaute n'est pas connecté #}    
+
+
+
+
+
+            <div class="col-3 ">
+            {# nos 3 boutons renverront vers la page login #}
+
+                {% if serie.status != "Continuing" and serie.status != NULL %}
+              
+
+                        <a href="{{path('login')}}" class="btn btn-primary btn-rounded text-center col-12">
+                            <i class="fas fa-plus"></i>
+                            Mes séries finies
+                        </a>
+
+
+                {% endif %}
+
+                {% if serie.nbEpisode != NULL %}
+
+                    <br><br>
+
+                        <a href="{{path('login')}}" class="btn btn-info btn-rounded text-center col-12">
+                            <i class="fas fa-plus"></i>
+                            Mes séries en cours
+                        </a>
+
+
+                {% endif %}
+
+                <br><br>
+
+                    <a href="{{path('login')}}" class="btn btn-success btn-rounded text-center col-12">
+                        <i class="fas fa-plus"></i>
+                        Mes séries à voir
+                    </a>
+
+                <br><br>
+            </div>
+
+
+
+
+
+        {% endif %}{# FIN DE LA CONDITION SI ON EST CONNECTE OU NON #}
     </div>
-    {# FIN DE SI ON EST CONNECTE #}
+    
 
-
+{# caractéristique de la serie #}
     <div class="row">
         <div
             class="col-6">
-            {# {% if serie.nbSeason > 1 %}
-                                                                        <hr><h5>Nombre de saisons</h5>
-                                                                        {{ serie.nbSeason }}
-                                                                    {% else %}
-                                                                        <hr><h5> Saison </h5>
-                                                                        <p>Il n'y a qu'une saison pour le moment !</p>
-                                                                    {% endif %}
-                                                                        <hr><h5>Nombre d'épisode</h5>
-                                                                        {{serie.nbEpisode}} #}
+
             {% if serie.startDate != NULL %}
                 <hr><h5>Année de commencement</h5>
                 {{serie.startDate}}
@@ -197,19 +309,36 @@
 
 
             <hr><h5>Note</h5>
-            
+            {# affichage de la note #}
+
                 {% set note = 0 %}
+                {# on cree la variable note qui = 0 #}
+
                 {% set nbComment = serie.commentaries | length %}
+                {# nbComment = nombre de commentaire #}
 
                 {% for comment in serie.commentaries %}
+                    {# on parcours tous les commentaire (notes) pour une même série #}
+
                     {% set note = note + comment.rating %}
+                    {# on incrémente notre variable note avec toutes les notes que l'on a parcouru #}
+
                 {% endfor %}
+
+
                 {% if nbComment %}
+                    {# si il y a des commentaires #}
+
                     {% set eval =  (5 * note) / nbComment %}
+                    {# on créé la viable eval #}
+                    {# elle renvoie une note sur 5, en multipliant par 5 le total des notes parcouru (les notes sont 1 ou 0), puis on divise le tout par le nombre de note afin d'avoir une moyenne #}
+
                 {% else %}
+                    {# si il n'y a pas de note, on donne la valeur "N/A" a la variable éval #}
                     {% set eval = 'N/A' %}
                 {% endif %}
 
+                {# on affiche le Note / 5 #}
                 {% if nbComment %}
                     {{eval | round(1,'floor')}}/5
                 {% else %}
@@ -221,12 +350,4 @@
         </div>
     </div>
     <br>
-{# <hr><h4> Donnez nous votre avis ! </h4> #}
-    {# <button type="button" class="btn btn-outline-success"><i class="far fa-thumbs-up"></i></button> #}
-    {# <button type="button" class="btn btn-outline-danger"><i class="far fa-thumbs-down"></i></button> #}
-
-
-    {# <button type="button" class="btn btn-outline-success"><i class="far fa-plus-square"></i></button>  #}
-
-    <!-- faire un truc genre le mec clique un message s'affiche style la série a été ajoutée a votre profil et que ca s'efface au bout de 3/4 secondes -->
 {% endblock %}
