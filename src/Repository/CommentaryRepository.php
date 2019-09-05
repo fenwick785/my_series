@@ -22,10 +22,11 @@ class CommentaryRepository extends ServiceEntityRepository
 
     public function findCommentaryPopulaire()
     {
+        // requête qui nous retourne les 3 meilleurs séries
         return $this->createQueryBuilder('c')
-            -> groupBy('c.idSerie')
-            -> orderBy('SUM(c.rating)', 'DESC')
-            -> setMaxResults(3)
+            -> groupBy('c.idSerie') //on regoupe par série
+            -> orderBy('SUM(c.rating)', 'DESC') //par série, on fait la somme des "likes" que l'on trie de manière décroissante
+            -> setMaxResults(3) //on garde les 3 premiers résultats de  notre requête
             -> getQuery()
             -> getResult()
         ;
@@ -33,42 +34,14 @@ class CommentaryRepository extends ServiceEntityRepository
 
     public function findCommentaryUnpopulaire()
     {
+        // requête qui nous retourne les 3 pires séries
         return $this->createQueryBuilder('c')
-        ->groupBy('c.idSerie')
-        ->orderBy('SUM(c.rating)', 'ASC')
-        ->setMaxResults(3)
+        ->groupBy('c.idSerie') //on regoupe par série
+        ->orderBy('SUM(c.rating)', 'ASC') //par série, on fait la somme des "likes" que l'on trie de manière croissante
+        ->setMaxResults(3) //on garde les 3 premiers résultats de  notre requête
         ->getQuery()
         ->getResult()
         ;
     }
 
-
-    // /**
-    //  * @return Commentary[] Returns an array of Commentary objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Commentary
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

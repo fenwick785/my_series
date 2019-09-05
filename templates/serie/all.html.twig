@@ -9,7 +9,7 @@
         {# on parcour toutes les séries #}
 		
 
-        {# on prépare nos variables pour afficher les notes (détail dans : "detail.html.twig") #}
+        {# on prépare nos variables pour afficher les notes (détail dans : "serie/detail.html.twig") #}
 		{% set note = 0 %}
 			{% set nbComment = s.commentaries | length %}
 			{% for comment in s.commentaries %}
@@ -22,7 +22,7 @@
 			{% endif %}
         {# ------------------------------------------------------------------------------------ #}
 			
-            <!-- debut vignette produit -->
+            <!-- debut de la card serie -->
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
@@ -64,7 +64,7 @@
             </div>
 
         
-<!-- fin vignette produit -->
+<!-- fin de la card série -->
 
         {# fin du parcours des séries #}
         {% endfor %}
