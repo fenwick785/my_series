@@ -103,8 +103,8 @@
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
 
-            <div
-                class="col-3 ">
+            <div class="col-3 ">
+                
                 {# on créé les variable "finish", "wish" et "inProgress" #}
                 {% set finish = false %}{% set wish = false %}{% set inProgress = false %}
 
@@ -190,8 +190,8 @@
             {# si l'internaute n'est pas connecté #}
 
 
-            <div
-                class="col-3 ">
+            <div class="col-3 ">
+                
                 {# nos 3 boutons renverront vers la page login #}
 
                 {% if serie.status != "Continuing" and serie.status != NULL %}
@@ -299,10 +299,32 @@
 
         </div>
     </div>
+   
     <br>
-    <br>
+    <br><hr>
 <h5> Avis sur la série </h5> <hr>
-    <div class="row">
+
+
+{% for comment in serie.commentaries %}
+<div class=" border-info card-header p-4">
+
+  
+    <h6 class=""> <span class="badge badge-light p-1">{{ comment.idUser.userName }}</span>
+                    {% if comment.rating == 1 %}
+                    a liké cette série.
+                    {% elseif comment.rating == 0 %}
+                    n'a pas aimé cette série.
+                    {% endif %}</h6><hr>
+    <p class="lead">{{ comment.content }}</p>  
+</div><br>
+{% endfor %}
+
+
+
+
+
+
+    {# <div class="row">
     
         {% for comment in serie.commentaries %}
             <div class="col-12">
@@ -318,11 +340,11 @@
                 <p class="text-justify">
                     {{ comment.content }}
                 </p>
-            {% endfor %}
+            {% endfor %} #}
 
-            <div class="col-12">
+            <div class="col-12 pb-5">
                 <h5>
-                    Laissez un avis
+                    Laissez un commentaire
                 </h5><hr>
                 <textarea class="form-control" rows="3" placeholder="Votre commentaire..."></textarea>
                 <br>
@@ -331,7 +353,8 @@
                 </button>
             </div>
 
-        </div>
-    </div>
+     
+    
+ 
     <br>
 {% endblock %}
