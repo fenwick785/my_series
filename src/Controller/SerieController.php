@@ -38,7 +38,7 @@ class SerieController extends AbstractController
      */
     public function detailSerie($id, Request $request)
     {
-        //route permettant d'afficher la fiche technique d'un série par rapport a son id
+        //route permettant d'afficher la fiche technique d'une série par rapport a son id
         $manager = $this->getDoctrine()->getManager();
         $serie = $manager->find(Serie::class, $id);
 

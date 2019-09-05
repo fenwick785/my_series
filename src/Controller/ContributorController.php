@@ -64,9 +64,11 @@ class ContributorController extends AbstractController
     {
 
         $manager = $this->getDoctrine()->getManager();
-        $serie = $manager->find(Serie::class, $id); //objet rempli
+        $serie = $manager->find(Serie::class, $id);
+        // fiche de la série
 
         $form = $this->createForm(SerieType::class, $serie);
+                                // formulaire Serie
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -184,7 +186,7 @@ class ContributorController extends AbstractController
     {
 
         $manager = $this->getDoctrine()->getManager();
-        $episode = $manager->find(Episode::class, $id); //objet rempli
+        $episode = $manager->find(Episode::class, $id);
 
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
