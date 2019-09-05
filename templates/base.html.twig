@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        
+
 
         <title>My Series</title>
     </head>
@@ -35,11 +35,11 @@
                         </a>
                     </li>
                     {# <li class="nav-item">
-                        <a class="nav-link" href="{{path('category')}}">
-                            <i class="fas fa-th text-info"></i>
-                            Catégories
-                        </a>
-                    </li> #}
+                                                                <a class="nav-link" href="{{path('category')}}">
+                                                                    <i class="fas fa-th text-info"></i>
+                                                                    Catégories
+                                                                </a>
+                                                            </li> #}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('profil')}}">
@@ -79,7 +79,6 @@
                                     </span>
                                 </a>
                             </li>
-
                         {% endif %}
 
                         {% if is_granted('ROLE_CONTRIBUTOR') and not is_granted('ROLE_ADMIN') %}
@@ -117,207 +116,210 @@
                     </ul>
                     <form class="form-group my-lg-0 d-flex align-items-center" action="{{ path('recherche') }}" method="get">
                         <div class="input-group cr d-flex align-items-center">
-        
+
                             <input class="form-control form-control-sm rounded-pill my-auto mr-2" type="text" placeholder="Recherche" name="s" value="">
-                            
+
                             <button class="input-group-append text-dark p-2 loupe" type="submit" style="background-color:transparent">
                                 <i class="fa fa-search"></i>
                             </button>
-                           
+
                         </div>
                     </form>
-            </nav>
+                </nav>
 
 
-            <div class="container milieu ">
+                <div class="container milieu ">
 
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success text-center">{{ message | raw }}</div>
-                {% endfor %}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success text-center">{{ message | raw }}</div>
+                    {% endfor %}
 
-                {% for message in app.flashes('errors') %}
-                    <div class="alert alert-danger text-center m-3">{{ message  | raw }}</div>
-                {% endfor %}
+                    {% for message in app.flashes('errors') %}
+                        <div class="alert alert-danger text-center m-3">{{ message  | raw }}</div>
+                    {% endfor %}
 
-                {% block content %}{% endblock %}
+                    {% block content %}{% endblock %}
 
-            </div>
+                </div>
 
 
-            <!-- Footer -->
-            <footer
-                class="bg-dark page-footer font-small stylish-color-dark">
-                <!-- Footer Links -->
-                <div
-                    class="container text-center text-md-left">
-                    <!-- Grid row -->
+                <!-- Footer -->
+                <footer
+                    class="bg-dark page-footer font-small stylish-color-dark">
+                    <!-- Footer Links -->
                     <div
-                        class="row">
-                        <!-- Grid column -->
+                        class="container text-center text-md-left">
+                        <!-- Grid row -->
                         <div
-                            class="col-md-4 mx-auto">
-                            <!-- Content -->
-                            <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-light">Dashboard Series</h5>
-                            <p>
-                                Le meilleur allié de vos séries : Gérez votre planning, classez vos série par préférence, et découvrez des nouveautés !</p>
-                                                                                                                            
-                        </div>
-                        <!-- Grid column -->
-                        <hr
-                        class="clearfix w-100 d-md-none">
-                        <!-- Grid column -->
-                        <div
-                            class="col-md-2 mx-auto">
-                            <!-- Links -->
-                            <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white ">Pour mieux nous connaître</h5>
-                            <ul class="list-unstyled">
-                                <li class="nav-item m-0">
-                                    <a class="text-secondary" href="{{path('apropos')}}">
-                                        A propos de nous
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="{{path('souteneznous')}}">
-                                        Soutenez MySERIES
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Grid column -->
-                        <hr
-                        class="clearfix w-100 d-md-none">
-                        <!-- Grid column -->
-                        <div
-                            class="col-md-2 mx-auto">
-                            <!-- Links -->
-                            <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">Vos séries</h5>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a class="text-secondary" href="{{ path('serie_all') }}">
-                                        Annuaire des séries
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="{{ path('home') }}">
-                                        Catégorie des séries
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="#!"></a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="#!"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Grid column -->
-                        <hr
-                        class="clearfix w-100 d-md-none">
-                        <!-- Grid column -->
-                        <div
-                            class="col-md-2 mx-auto">
-                            <!-- Links -->
-                            <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">
-                                Politique de confidentialité
-                            </h5>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a class="text-secondary" href="{{path('cgu')}}">CGU</a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="{{path('mentionslegales')}}">Mentions légales
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="{{path('donneesperso')}}">Données personnelles
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="text-secondary" href="{{path('contactsupport')}}"><i class="fas fa-envelope text-white"></i> Contactez nous
-                                    
-                                    </a>
-                                </li>
+                            class="row">
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-4 mx-auto">
+                                <!-- Content -->
+                                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-light">Dashboard Series</h5>
+                                <p>
+                                    Le meilleur allié de vos séries : Gérez votre planning, classez vos série par préférence, et découvrez des nouveautés !</p>
 
-                            </ul>
+                            </div>
+                            <!-- Grid column -->
+                            <hr
+                            class="clearfix w-100 d-md-none">
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-2 mx-auto">
+                                <!-- Links -->
+                                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white ">Pour mieux nous connaître</h5>
+                                <ul class="list-unstyled">
+                                    <li class="nav-item m-0">
+                                        <a class="text-secondary" href="{{path('apropos')}}">
+                                            A propos de nous
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="{{path('souteneznous')}}">
+                                            Soutenez MySERIES
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Grid column -->
+                            <hr
+                            class="clearfix w-100 d-md-none">
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-2 mx-auto">
+                                <!-- Links -->
+                                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">Vos séries</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a class="text-secondary" href="{{ path('serie_all') }}">
+                                            Annuaire des séries
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="{{ path('home') }}">
+                                            Catégorie des séries
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="#!"></a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="#!"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Grid column -->
+                            <hr
+                            class="clearfix w-100 d-md-none">
+                            <!-- Grid column -->
+                            <div
+                                class="col-md-2 mx-auto">
+                                <!-- Links -->
+                                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-white">
+                                    Politique de confidentialité
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a class="text-secondary" href="{{path('cgu')}}">CGU</a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="{{path('mentionslegales')}}">Mentions légales
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="{{path('donneesperso')}}">Données personnelles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="text-secondary" href="{{path('contactsupport')}}">
+                                            <i class="fas fa-envelope text-white"></i>
+                                            Contactez nous
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- Grid column -->
                         </div>
-                        <!-- Grid column -->
+                        <!-- Grid row -->
                     </div>
-                    <!-- Grid row -->
-                </div>
-                <!-- Footer Links -->
-                <hr class="bg-info">
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <!-- Footer Links -->
+                    <hr class="bg-info">
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                    <!-- Call to action -->
-                    <ul class="list-unstyled list-inline text-center py-2">
-                        <li class="list-inline-item">
-                            <h5 class="mb-1 text-white ">
-                                Inscrivez-vous gratuitement
-                            </h5>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{{path('register')}}" class="btn btn-danger btn-rounded mt-3 mt-sm-0 ">
-                                <i class="fas fa-user-plus"></i>
-                                S'inscrire
-                            </a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="list-unstyled list-inline text-center py-2">
-                        <li class="list-inline-item">
-                            <h5 class="mb-1 text-white">
-                                Abonnez-vous à notre Newsletter
-                            </h5>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{{path('profil_update')}}" class="btn btn-success btn-rounded">
-                                <i class="fas fa-user-plus"></i>
-                                S'abonner
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Call to action -->
-                {% endif %}
-                <hr
-                class="bg-info">
+                        <!-- Call to action -->
+                        <ul class="list-unstyled list-inline text-center py-2">
+                            <li class="list-inline-item">
+                                <h5 class="mb-1 text-white ">
+                                    Inscrivez-vous gratuitement
+                                </h5>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{path('register')}}" class="btn btn-danger btn-rounded mt-3 mt-sm-0 ">
+                                    <i class="fas fa-user-plus"></i>
+                                    S'inscrire
+                                </a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="list-unstyled list-inline text-center py-2">
+                            <li class="list-inline-item">
+                                <h5 class="mb-1 text-white">
+                                    Abonnez-vous à notre Newsletter
+                                </h5>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="{{path('profil_update')}}" class="btn btn-success btn-rounded">
+                                    <i class="fas fa-user-plus"></i>
+                                    S'abonner
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Call to action -->
+                    {% endif %}
+                    <hr
+                    class="bg-info">
 
-                <!-- Social buttons -->
-                <div class="social-network text-center">
-                    <p class="text-center">Retrouvez-nous sur les réseaux sociaux</p>
-                    <div class="d-flex justify-content-center flex-wrap" id="rs">
-                        <a id="fb" href="https://fr-fr.facebook.com" target="_blank" ></a>
+                    <!-- Social buttons -->
+                    <div class="social-network text-center">
+                        <p class="text-center">Retrouvez-nous sur les réseaux sociaux</p>
+                        <div class="d-flex justify-content-center flex-wrap" id="rs">
+                            <a id="fb" href="https://fr-fr.facebook.com" target="_blank"></a>
 
-                        <a id="tw" href="https://twitter.com/?lang=fr" target="_blank" ></a>
-                   
-                        <a id="googleplus" href="https://plus.google.com/about?hl=fr" target="_blank"></a>
-                    
-                        <a id="linkedin" href="https://fr.linkedin.com/" target="_blank" ></a>
+                            <a id="tw" href="https://twitter.com/?lang=fr" target="_blank"></a>
 
-                        <a id="pt" href="https://www.pinterest.fr" target="_blank" ></a>
-                        
-                        <a id="yt" href="https://www.youtube.fr" target="_blank" ></a>
-                        
-                        <a id="insta" href="https://www.instagram.com" target="_blank" ></a>
+                            <a id="googleplus" href="https://plus.google.com/about?hl=fr" target="_blank"></a>
+
+                            <a id="linkedin" href="https://fr.linkedin.com/" target="_blank"></a>
+
+                            <a id="pt" href="https://www.pinterest.fr" target="_blank"></a>
+
+                            <a id="yt" href="https://www.youtube.fr" target="_blank"></a>
+
+                            <a id="insta" href="https://www.instagram.com" target="_blank"></a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Social buttons -->
-                <!-- Copyright -->
-                <div class="footer-copyright text-center py-3 bg-primary text-white">© 2019 Copyright:
-                    <a class="text-white" href="https://mdbootstrap.com/education/bootstrap/">
-                        myseries.com
-                    </a>
-                </div>
-                <!-- Copyright -->
-            </footer>
-            <!-- Footer -->
+                    <!-- Social buttons -->
+                    <!-- Copyright -->
+                    <div class="footer-copyright text-center py-3 bg-primary text-white">© 2019 Copyright:
+                        <a class="text-white" href="https://mdbootstrap.com/education/bootstrap/">
+                            myseries.com
+                        </a>
+                    </div>
+                    <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
 
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <script src="{{asset('scripts/scipthover.js')}}"></script>
-             
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                <script src="{{asset('scripts/scipthover.js')}}"></script>
+
+            </body>
         </body>
     </body>
 </html></body></html>

@@ -53,14 +53,14 @@ class SerieRepository extends ServiceEntityRepository
      * Fonction pour récupérrer tous les produits en fonction d'un terme de recherche
      * 
      */
-    public function findBySearch($term) {
-        $term = '%' . $term . '%' ;
-        $builder = $this -> createQueryBuilder('s');
+    public function findBySearch($term) { 
+        $term = '%' . $term . '%' ; // on définit le term pour avoir une recherche plus globale
+        $builder = $this -> createQueryBuilder('s'); 
         return $builder 
-            ->orWhere('s.title LIKE :term')
-            ->orWhere('s.synopsis LIKE :term')
-            ->setParameter(':term',$term)
-            ->getQuery()
-            ->getResult();  
+            ->orWhere('s.title LIKE :term') // on veut récupérer le terme dans le titre
+            ->orWhere('s.synopsis LIKE :term') // ou récuperer le terme dans le synopsis
+            ->setParameter(':term',$term) // on associe :term a $term pour éviter les injections sql et protéger la requete
+            ->getQuery() // on récupère le query
+            ->getResult();  // on récupère le résutat de la query
     }
 }

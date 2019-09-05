@@ -161,13 +161,13 @@ class SerieController extends AbstractController
      */
     public function recherche(Request $request)
     {
-        $term = $request->query->get('s');
-        $repo = $this->getDoctrine()->getRepository(Serie::class);
+        $term = $request->query->get('s'); // on récupère la query dans le form avec un name="s"
+        $repo = $this->getDoctrine()->getRepository(Serie::class); // notre recherche sera dans la classe série
 
-        $series = $repo->findBySearch($term);
+        $series = $repo->findBySearch($term); // on utilise la fonction précédemment crée pour trouver la série grâce au $term
 
-        $repo2 = $this->getDoctrine()->getRepository(Actor::class);
-        $actors = $repo2->findBySearch($term);
+        $repo2 = $this->getDoctrine()->getRepository(Actor::class); // ou dans la classe acteur
+        $actors = $repo2->findBySearch($term); // et on utiliser la fonction précédemment crée pour trouver les acteurs par $term.
 
         return $this->render('serie/index.html.twig', [
             'series' => $series,
@@ -181,9 +181,9 @@ class SerieController extends AbstractController
      */
     public function findAllSerie()
     {
-        $repository = $this->getDoctrine()->getRepository(Serie::class);
+        $repository = $this->getDoctrine()->getRepository(Serie::class); // on récupère dans notre repo un objet serie
         // App\Entity\Serie
-        $series = $repository->findBy([], ['title' => 'ASC']); // trie par date de sortie (nouveautés)
+        $series = $repository->findBy([], ['title' => 'ASC']); // on cherche toutes les séries et on les trie par date de sortie (nouveautés)
 
         return $this->render('serie/all.html.twig', [
             'series' => $series
