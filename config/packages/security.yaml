@@ -28,6 +28,7 @@ security:
                 login_path: login
                 check_path: login_check
                 default_target_path: home
+                use_referer: true
 
             logout:
                 path: deconnection
@@ -39,6 +40,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/contributor, roles: ROLE_CONTRIBUTOR }
         - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/commentary, roles: ROLE_USER }
         - { path: ^/connexion, allow_if: "not is_granted('ROLE_USER')" }
         - { path: ^/inscription, allow_if: "not is_granted('ROLE_USER')" }
 
