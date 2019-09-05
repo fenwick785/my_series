@@ -83,10 +83,7 @@ class AdminController extends AbstractController
                 $manager->persist($serie);
                 // Enregistrer la $serie dans le système 
 
-                // On enregistre la photo en BDD et sur le serveur. 
-                // if($serie -> getFile() != NULL){
-                //     $serie -> uploadFile();
-                // }
+
 
                 $manager->flush();
                 // va enregistrer $serie en BDD
@@ -206,11 +203,6 @@ class AdminController extends AbstractController
             $manager->persist($season);
             // Enregistrer la $saeson dans le système 
 
-            // On enregistre la photo en BDD et sur le serveur. 
-            // if($serie -> getFile() != NULL){
-            //     $serie -> uploadFile();
-            // }
-
             $manager->flush();
             // va enregistrer $serie en BDD
 
@@ -324,10 +316,6 @@ class AdminController extends AbstractController
             $manager->persist($episode);
             // Enregistrer la $saeson dans le système 
 
-            // On enregistre la photo en BDD et sur le serveur. 
-            // if($serie -> getFile() != NULL){
-            //     $serie -> uploadFile();
-            // }
 
             $manager->flush();
             // va enregistrer $serie en BDD

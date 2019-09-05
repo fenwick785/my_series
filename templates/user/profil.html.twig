@@ -5,12 +5,15 @@
 
     <h1 class="display-4 text-center">
         <i class="fas fa-user"></i>
-
+        <!-- récupération du pseudo de l'utilisateur connecté -->
         {{ app.user.username }}
     </h1>
     <hr>
     <br>
 <div class="d-flex justify-content-around">
+
+    <!-- on créé un "collapse" qui permet de masquer les information générale de l'utilisateur -->
+
   <button class="btn btn-primary col-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     Voir mon profil<i class="fas fa-caret-down float-right pt-1"></i>
   </button>
@@ -27,6 +30,7 @@
     <h4>
         Informations générales
     </h4>
+    <!-- on affiche les infos de l'utilisateur connecté -->
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Prenom :
             {{ app.user.firstName }}</li>
@@ -45,8 +49,8 @@
             {{ app.user.birthDate | date('d/m/Y') }}</li>
     </ul>
     <br>
-
-    </div>
+<!-- fin du collapse -->
+    </div> 
     <br>
     <br>
     <br>
@@ -59,6 +63,8 @@
 
 
         {% for l in app.user.listUserSeries if l.state == 'inProgress' %}
+        <!-- on parcour la liste des séries en cours pour cette utilisateur -->
+        <!-- puis on les affiches -->
 
                 <div class="col-3">
                 <div class="card-group">
@@ -89,6 +95,8 @@
    <div class="collapse" id="collapsewish">
 <div class="row">
         {% for l in app.user.listUserSeries if l.state == 'wish' %}
+        <!-- on parcour la liste des séries a voir pour cette utilisateur -->
+        <!-- puis on les affiches -->
             <div class="col-3">
                 <div class="card-group">
                     <div class="card">
@@ -117,6 +125,8 @@
 <div class="collapse" id="collapsewishlist">
     <div class="row">
         {% for l in app.user.listUserSeries if l.state == 'finish' %}
+        <!-- on parcour la liste des séries terminées pour cette utilisateur -->
+        <!-- puis on les affiches -->
             <div class="col-3">
                 <div class="card-group">
                     <div class="card">
