@@ -38,12 +38,11 @@ class SerieController extends AbstractController
      */
     public function detailSerie($id, Request $request)
     {
-
+        //route permettant d'afficher la fiche technique d'un série par rapport a son id
         $manager = $this->getDoctrine()->getManager();
         $serie = $manager->find(Serie::class, $id);
 
         return $this->render('serie/detail.html.twig', [
-
             'serie' => $serie,
         ]);
     }
@@ -54,10 +53,21 @@ class SerieController extends AbstractController
      */
     public function addSerieInList($state, $id, ObjectManager $manager)
     {
+        //fonction permettant d'ajouter une série a sa wishList, inProgressList ou finishList
+
+
         $user = $this->getUser();
+        // on recupère les informations du User
+
         $serie = $manager->find(Serie::class, $id);
+        // on récupère les informations d'une série précise via son id
+
 
         $listUserAAjouter = $this
+        // On cherche en BDD si il y a une ligne où les champs :
+            //id_user_id correspond a l'id du user connecté
+            //serie_id corespond a l'id de la série avec laquelle on interagie
+            //state correspond a l'état que l'on souhaite attribuer a notre série
             ->getDoctrine()
             ->getRepository(ListUserSerie::class)
             ->findBy([
@@ -67,6 +77,9 @@ class SerieController extends AbstractController
             ]);
 
         $listUserAModifier = $this
+        // On cherche en BDD si il y a une ligne où les champs :
+            //id_user_id correspond a l'id du user connecté
+            //serie_id corespond a l'id de la série avec laquelle on interagie
             ->getDoctrine()
             ->getRepository(ListUserSerie::class)
             ->findOneBy([
@@ -76,19 +89,23 @@ class SerieController extends AbstractController
             ]);
 
         if ($listUserAAjouter) {
+            // on affiche un message d'erreur comme quoi notre nous avons déja cette serie dans notre liste
             $this->addFlash('errors', 'Cette série <b>' . $serie->getTitle() .  '</b> est déjà dans la liste ' . $state . ' !');
         }
         if ($listUserAModifier) {
-            
+            // on remplace l'état dans le champ state
             $listUserAModifier->setState($state);
             $manager->persist($listUserAModifier);
             $manager->flush();
             $this->addFlash('success', 'Cette série <b>' . $serie->getTitle() .  '</b> est passée dans la liste ' . $state . ' !');
         } else {
+            // on instancie l'entity ListUserSerie
             $listUserSerie = new listUserSerie;
-            $listUserSerie->setSerie($serie);
-            $listUserSerie->setIdUser($user);
-            $listUserSerie->setState($state);
+            // on lui attribue :
+
+            $listUserSerie->setSerie($serie); // l'id de la série
+            $listUserSerie->setIdUser($user); // l'id du user
+            $listUserSerie->setState($state); // l'état souhaité
 
 
             $user->addListUserSeries($listUserSerie);
@@ -108,10 +125,15 @@ class SerieController extends AbstractController
      */
     public function addSerieRemoveList($state, $id, ObjectManager $manager)
     {
+        // fonction permettant de supprimer une série de sa liste 
         $user = $this->getUser();
         $serie = $manager->find(Serie::class, $id);
 
         $listUserASupp = $this
+        // On cherche en BDD si il y a une ligne où les champs :
+            //id_user_id correspond a l'id du user connecté
+            //serie_id corespond a l'id de la série avec laquelle on interagie
+            //state correspond a l'état que l'on souhaite attribuer a notre série
             ->getDoctrine()
             ->getRepository(ListUserSerie::class)
             ->findOneBy([
