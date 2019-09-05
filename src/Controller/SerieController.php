@@ -42,17 +42,37 @@ class SerieController extends AbstractController
     {
         //route permettant d'afficher la fiche technique d'une série par rapport a son id
         $manager = $this->getDoctrine()->getManager();
-        $serie = $manager->find(Serie::class, $id);
-        $commentaire = new Commentary;
-        $form = $this->createForm(CommentaryType::class, $commentaire);
-        $form->handleRequest($request);
         $user = $this->getUser();
+        $serie = $manager->find(Serie::class, $id);
+
+
+        $CommentaireExistant = $this
+            ->getDoctrine()
+            ->getRepository(Commentary::class)
+            ->findOneBy([
+                'idUser' => $user,
+                'idSerie' => $serie,
+        ]);
+    
+        if($CommentaireExistant){
+            $commentaire = $CommentaireExistant;
+            $rating = $commentaire -> getRating();
+        }
+        else{
+            $commentaire = new Commentary;
+            $rating = NULL;
+        }
+                
+        $form = $this->createForm(CommentaryType::class, $commentaire);        
+        $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()) {
             $commentaire->setIdUser($user);
             $commentaire->setIdSerie($serie);
-            $commentaire->setRating($commentaire->getRating());
+            $commentaire->setRating($rating);
             $manager->persist($commentaire);
             $manager->flush();
+            return $this->redirectToRoute('serie_detail', array('id' => $id));
         }
 
         return $this->render('serie/detail.html.twig', [

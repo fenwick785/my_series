@@ -27,7 +27,7 @@
                 {# alors la variable like = true #}
                 {% set like = true %}
                 {# si en BDD rating == 0 #}
-            {% elseif rate.idSerie == serie and rate.rating == 0 %}
+            {% elseif rate.idSerie == serie and rate.rating is not null and rate.rating == 0 %}
                 {# alors la variable dislike = true #}
                 {% set dislike = true %}
             {% endif %}
@@ -305,6 +305,8 @@
     <br>
     <br><hr>
 
+
+{# <h5> Avis sur la série </h5> <hr>
 
     <h5>
         Avis sur la série
