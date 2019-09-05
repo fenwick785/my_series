@@ -140,11 +140,17 @@ class UserType extends AbstractType
                 $builder
                     ->add('password', RepeatedType::class, [
                         'type' => PasswordType::class,
-                        'invalid_message' => 'Les passwords doivent être identiques',
+                        'invalid_message' => 'Les mots de passe doivent être identiques',
                         'options' => ['attr' => ['class' => 'password-field']],
                         'required' => true,
                         'first_options' => ['label' => 'Mot de passe'],
                         'second_options' => ['label' => 'Confirmer Mot de passe'],
+                        'constraints' => [
+                            new Assert\NotBlank([
+                                'message' => 'Veuillez renseigner ce champ !',
+                            ])
+                           
+                        ]
                        
                         ]
                 )

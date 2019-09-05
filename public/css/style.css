@@ -87,10 +87,9 @@ figure:hover img {
     background-position: -96px -32px;
 }
 
-.inputiD {
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
+.badge-danger {
+    display: none !important;
 }
+
+
 
