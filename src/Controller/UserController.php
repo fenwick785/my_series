@@ -57,7 +57,7 @@ class UserController extends AbstractController
      */
     public function profil(ObjectManager $manager)
     {
-
+        // on recupère les données de l'utilisateur
         $user = $this->getUser();
         $id = $user->getId();
         $user->getListUserSeries();
@@ -74,19 +74,20 @@ class UserController extends AbstractController
      */
     public function profilUpdate(Request $request)
     {
-
+        // on récupère les données de l'utilisateur
         $user = $this->getUser();
 
         $manager = $this->getDoctrine()->getManager();
         $user = $manager->find(User::class, $user);
 
         $form = $this->createForm(UserType::class, $user, ['user'=> true]);
+        // on récupère le formulaire d'inscription
         $password = $user -> getPassword();
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $manager->persist($user);
             $user -> setPassword($password);
 
@@ -101,101 +102,6 @@ class UserController extends AbstractController
             'action' => 'modifier le profil',
         ]);
     }
-
-    //  ---------- WISH LIST -----------
-
-    /**
-     * @route("/wishList", name="wish_list")
-     */
-    public function wishList()
-    {
-
-        return $this->render('user/wish_list.html.twig', []);
-    }
-
-    /**
-     * @route("/wishList/add/{id}", name="wish_list_add")
-     */
-    public function addWishList()
-    {
-
-        return $this->render('user/wish_list.html.twig', []);
-    }
-
-
-    /**
-     * @route("/wishList/delete/{id}", name="wish_list_delete")
-     */
-    public function removeWishList()
-    {
-
-        return $this->render('user/wish_list.html.twig', []);
-    }
-
-
-    // ------------ FINISHED LIST ------------
-
-
-    /**
-     * @route("/finishedList", name="finished_list")
-     */
-    public function finishedList()
-    {
-
-        return $this->render('user/finished_list.html.twig', []);
-    }
-
-    /**
-     * @route("/finishedList/add/{id}", name="finished_list_add")
-     */
-    public function addFinishedList()
-    {
-
-        return $this->render('user/finished_list.html.twig', []);
-    }
-
-    /**
-     * @route("/finishedList/delete/{id}", name="finished_list_delete")
-     */
-    public function removeFinishedList()
-    {
-
-        return $this->render('user/finished_list.html.twig', []);
-    }
-
-
-    // ------------ IN PROGRESS LIST --------------
-
-
-    /**
-     * @route("/inProgressList", name="in_progress_list")
-     */
-    public function inProgressList()
-    {
-
-        return $this->render('user/in_progress_list.html.twig', []);
-    }
-
-    /**
-     * @route("/inProgressList/add/{id}", name="in_progress_list_add")
-     */
-    public function addInProgressList()
-    {
-
-        return $this->render('user/in_progress_list.html.twig', []);
-    }
-
-    /**
-     * @route("/inProgressList/delete/{id}", name="in_progress_list_delete")
-     */
-    public function removeInProgressList()
-    {
-
-        return $this->render('user/in_progress_list.html.twig', []);
-    }
-
-
-
 
 
 }
