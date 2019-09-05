@@ -89,7 +89,7 @@ figure:hover img {
 
 /************* message error dans form********/
 
-.badge-danger {
+.form-error-icon{
     display: none !important;
 }
 
