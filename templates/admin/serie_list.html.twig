@@ -3,8 +3,14 @@
 {% block content %}
 <h1>Liste des series</h1>
 <hr>
+<div class="d-flex justify-content">
 
-<a class="btn btn-success col-md-4 offset-md-4" href="{{ path('admin_add_serie') }}" role="button"><i class="fas fa-plus"></i> Ajouter une serie</a>
+<a class="btn btn-success col-5 " href="{{ path('admin_add_serie') }}" role="button"><i class="fas fa-plus"></i> Ajouter une serie</a>
+
+
+<a class="btn btn-warning col-5 offset-2" href="{{ path('api') }}" role="button"><i class="fas fa-plus"></i> Ajouter une serie depuis l'API</a>
+
+</div>
 <br>
 <br>
  

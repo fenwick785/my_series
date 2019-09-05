@@ -106,10 +106,13 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{path('admin_user_list')}}">Gestion des membres
-                                    </a>
+                                    </a>  
+                                     <a class="dropdown-item" href="{{ path('admin_contributor_list') }}">Gestion des contributeurs</a>
                                     <a class="dropdown-item" href="{{path('admin_serie_list')}}">Gestion des séries
                                     </a>
-                                    <a class="dropdown-item" href="{{ path('admin_contributor_list') }}">Gestion des contributeurs</a>
+                                     <a class="dropdown-item" href="{{path('api')}}">Gestion de l'API
+                                    </a>
+                                 
                                 </div>
                             </li>
                         {% endif %}
