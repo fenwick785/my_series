@@ -87,9 +87,18 @@ figure:hover img {
     background-position: -96px -32px;
 }
 
+/************* message error dans form********/
+
 .badge-danger {
     display: none !important;
 }
 
+/*********************** Carousel ************/
+
+.h5 {
+    background-color:rgba(0, 0, 0, .5);
+    /* padding : 10px 0 !important; */
+
+}
 
 

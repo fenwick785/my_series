@@ -4,7 +4,7 @@
 
 {# debut du carousel #}
 
-{{dump(commentPopulaire)}}
+
 
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -18,9 +18,9 @@
             <div class="carousel-item active">
                 <a href="{{path('serie_detail', {'id': commentPopulaire.0.idSerie.id})}}">
                 <img class="d-block w-100" src="{{commentPopulaire.0.idSerie.photo}}" alt="First slide">                
-                <div class="carousel-caption d-none d-md-block">
-                      <h3>{{commentPopulaire.0.idSerie.title}}</h3>
-                      <p>{{commentPopulaire.0.idSerie.synopsis | slice(0,30)}}...</p>
+                <div class=" carousel-caption d-none d-md-block">
+                     <h3 class="h5 text-white py-3">{{commentPopulaire.0.idSerie.title}}</h3>
+                      {# <p>{{commentPopulaire.0.idSerie.synopsis | slice(0,30)}}...</p> #}
                 </div>
                 </a>                 
             </div>
@@ -29,8 +29,8 @@
                 <a href="{{path('serie_detail', {'id': commentPopulaire.1.idSerie.id})}}">
                 <img class="d-block w-100" src="{{commentPopulaire.1.idSerie.photo}}" alt="Second slide">                    
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>{{commentPopulaire.1.idSerie.title}}</h3>
-                    <p>{{commentPopulaire.1.idSerie.synopsis | slice(0,30)}}...</p>
+                    <h3 class="h5 text-white py-3">{{commentPopulaire.1.idSerie.title}}</h3>
+                    {# <p>{{commentPopulaire.1.idSerie.synopsis | slice(0,30)}}...</p> #}
                 </div>
                 </a>
             </div>
@@ -41,8 +41,8 @@
            
                     
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>{{commentPopulaire.2.idSerie.title}}</h3>
-                    <p>{{commentPopulaire.2.idSerie.synopsis | slice(0,30)}}...</p>
+                    <h3 class="h5 text-white py-3">{{commentPopulaire.2.idSerie.title}}</h3>
+                    {# <p>{{commentPopulaire.2.idSerie.synopsis | slice(0,30)}}...</p> #}
                 </div>
                 </a>
                  
