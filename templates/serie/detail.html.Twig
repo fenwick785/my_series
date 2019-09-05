@@ -103,8 +103,9 @@
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
 
-            <div class="col-3 ">
-                
+            <div
+                class="col-3 ">
+
                 {# on créé les variable "finish", "wish" et "inProgress" #}
                 {% set finish = false %}{% set wish = false %}{% set inProgress = false %}
 
@@ -190,8 +191,9 @@
             {# si l'internaute n'est pas connecté #}
 
 
-            <div class="col-3 ">
-                
+            <div
+                class="col-3 ">
+
                 {# nos 3 boutons renverront vers la page login #}
 
                 {% if serie.status != "Continuing" and serie.status != NULL %}
@@ -299,56 +301,42 @@
 
         </div>
     </div>
-   
+
     <br>
     <br><hr>
 
-    
-{# <h5> Avis sur la série </h5> <hr>
+
+    <h5>
+        Avis sur la série
+    </h5>
+    <hr>
 
 
-{% for comment in serie.commentaries %}
-<div class=" border-info card-header p-4">
+    {% for comment in serie.commentaries %}
+        <div class=" border-info card-header p-4">
 
-  
-    <h6 class=""> <span class="badge badge-light p-1">{{ comment.idUser.userName }}</span>
-                    {% if comment.rating == 1 %}
-                    a liké cette série.
-                    {% elseif comment.rating == 0 %}
-                    n'a pas aimé cette série.
-                    {% endif %}</h6><hr>
-    <p class="lead">{{ comment.content }}</p>  
-</div><br>
-{% endfor %} #}
-
-
-
-
-
-
-<div class="row">
-    
-        {% for comment in serie.commentaries %}
-            <div class="col-12">
             {% if comment.content %}
                 <h6>
-                    {{ comment.idUser.userName }}
-                </h6>
-                <p class="text-justify">
+                    <span class="badge badge-light p-1">
+                        {{ comment.idUser.userName }}</span>
+                </h6><hr>
+                <p class="lead">
                     {{ comment.content }}
                 </p>
             {% endif %}
-            </div>
-        {% endfor %}
+        </div><br>
+    {% endfor %}
 
-            <div class="col-12 pb-5">
-                <h5>
-                    Laissez un commentaire
-                </h5><hr>
-                    {{form(commentaryForm)}}
-                <br>
-            </div>
 
- </div>
+    <div class="col-12 pb-5">
+        <h5>
+            Laissez un commentaire
+        </h5><hr>
+        {{form(commentaryForm)}}
+            <br>
+        </div>
+
+
+    </div>
     <br>
 {% endblock %}
