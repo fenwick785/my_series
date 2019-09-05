@@ -4,8 +4,12 @@
 
 
     <div class="row">
+
         {% for s in series  %}
+        {# on parcour toutes les séries #}
 		
+
+        {# on prépare nos variables pour afficher les notes (détail dans : "detail.html.twig") #}
 		{% set note = 0 %}
 			{% set nbComment = s.commentaries | length %}
 			{% for comment in s.commentaries %}
@@ -16,62 +20,55 @@
 			{% else %}
 				{% set eval = 'N/A' %}
 			{% endif %}
+        {# ------------------------------------------------------------------------------------ #}
 			
             <!-- debut vignette produit -->
-{% if s.photo == NULL %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src="{{ asset('css/defaut.jpg') }}" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{path('serie_detail', {'id': s.id})}}" class="text-dark">{{ s.title | upper }}</a>
-                        </h4>
-                        <h5>{{ s.startDate }}</h5>
-                        <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
-                    </div>
-                    <div class="card-footer">
-					{% if nbComment %}
-                        NOTE : {{eval | round(1,'floor')}}/5
-					{% else %}
-						{{eval}}
-					{% endif %}
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
-                            <i class="fas fa-eye"></i>
-                            Voir les détails</a>
-                    </div>
-                </div>
-            </div>
-{% else %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src="{{ s.photo }}" alt=""></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{path('serie_detail', {'id': s.id})}}" class="text-dark">{{ s.title | upper }}</a>
-                        </h4>
-                        <h5>{{ s.startDate }}</h5>
-                        <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
-                    </div>
-                    <div class="card-footer">
-					{% if nbComment %}
-                        NOTE : {{eval | round(1,'floor')}}/5
-					{% else %}
-						{{eval}}
-					{% endif %}
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
-                            <i class="fas fa-eye"></i>
-                            Voir les détails</a>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
 
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="{{path('serie_detail', {'id': s.id})}}"><img class="card-img-top" src=
+                    
+                    {% if s.photo == NULL %}
+                    {# si la série n'a pas de photo on en affiche une par défaut #}
+                    
+                    "{{ asset('css/defaut.jpg') }}"
+                    
+                    {% else %}
+                    {# si elle a une photo, on l'affiche #}
+
+                    "{{ s.photo }}"
+
+                    {% endif %}
+
+                     alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{path('serie_detail', {'id': s.id})}}" class="text-dark">{{ s.title | upper }}</a>
+                        </h4>
+                        <h5>{{ s.startDate }}</h5>
+                        <p class="card-text">{{ s.synopsis | slice(0, 40) }}...</p>
+                    </div>
+                    <div class="card-footer">
+					{% if nbComment %}
+                        NOTE : {{eval | round(1,'floor')}}/5
+					{% else %}
+						{{eval}}
+					{% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-secondary" href="{{path('serie_detail', {'id': s.id})}}">
+                            <i class="fas fa-eye"></i>
+                            Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+
+        
+<!-- fin vignette produit -->
+
+        {# fin du parcours des séries #}
         {% endfor %}
-        <!-- fin vignette produit -->
+        
 
     </div>
 
