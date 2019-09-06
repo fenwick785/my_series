@@ -66,7 +66,7 @@
         <!-- on parcour la liste des séries en cours pour cette utilisateur -->
         <!-- puis on les affiches -->
 
-                <div class="col-sm-3 col-12">
+                <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card-group">
                     <div class="card">
                     <a href="{{path('serie_detail', {'id': l.serie.id})}}">
@@ -97,7 +97,7 @@
         {% for l in app.user.listUserSeries if l.state == 'wish' %}
         <!-- on parcour la liste des séries a voir pour cette utilisateur -->
         <!-- puis on les affiches -->
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card-group ">
                     <div class="card">
                     <a href="{{path('serie_detail', {'id': l.serie.id})}}">
@@ -127,7 +127,7 @@
         {% for l in app.user.listUserSeries if l.state == 'finish' %}
         <!-- on parcour la liste des séries terminées pour cette utilisateur -->
         <!-- puis on les affiches -->
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card-group ">
                     <div class="card">
                     <a href="{{path('serie_detail', {'id': l.serie.id})}}">
