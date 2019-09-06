@@ -329,16 +329,15 @@
         </div><br>
     {% endfor %}
 
-
+{% if is_granted('ROLE_USER') %}
     <div class="col-12 pb-5">
         <h5>
             Laissez un commentaire
         </h5><hr>
         {{form(commentaryForm)}}
             <br>
-        </div>
-
-
     </div>
+{% endif %}
+</div>
     <br>
 {% endblock %}
