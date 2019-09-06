@@ -112,18 +112,18 @@ class FakerFixtures extends Fixture
             $counterItem = rand (0, 2);
 
 
-            if ($counterItem == 0)
-            {
-                $comment -> setIdSerie($series[rand(0, $countS)]);
-            }
-            elseif ($counterItem == 1)
-            {
-                $comment -> setIdSeason($seasons[rand(0,$countSea)]);
-            }
-            else
-            {
-                $comment -> setIdEpisode($episodes[rand(0,$countE)]);
-            }
+            // if ($counterItem == 0)
+            // {
+               // $comment -> setIdSerie($series[rand(1, $countS)]);
+            // }
+            // elseif ($counterItem == 1)
+            // {
+            //     $comment -> setIdSeason($seasons[rand(0,$countSea)]);
+            // }
+            // else
+            // {
+            //     $comment -> setIdEpisode($episodes[rand(0,$countE)]);
+            // }
 
 
 
