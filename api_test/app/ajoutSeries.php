@@ -8,7 +8,7 @@ ini_set('display_errors','off');
 /* Pré-traitement des données nécéssaires à l'ajout en base de données */
 /***********************************************************************/
 $public = "NA";
-$parsed_json = json_decode($json_series, true);
+$parsed_json = json_decode($data_series, true);
 $image_NULL = "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
 $x=0;$i=1;
 

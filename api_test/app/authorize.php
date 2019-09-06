@@ -12,7 +12,7 @@ if (isset($_POST['valider'])) {
         CURLOPT_POSTFIELDS => "3.0",
         CURLOPT_HTTPHEADER => array('Accept: application/json', 'X-BetaSeries-Version: 3.0', 'X-BetaSeries-Key: 2ca9f109bca9'),
         CURLOPT_ENCODING => "",
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT => 9999,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_RETURNTRANSFER => true,

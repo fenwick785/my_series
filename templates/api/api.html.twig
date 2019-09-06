@@ -11,59 +11,36 @@
 
     <div class="text-center">
         <button class="btn btn-primary col-3 mt-2 mb-2">
-            <a class="text-white" href="app/authorize.php" target="_blank">Obtention du Token</a>
+            <a class="text-white" href="{{ path('authorize') }}">Obtention du Token</a>
         </button><br>
     </div>
     <hr><h5>2 - Récupération des données via l'API (limité à 2000 séries pour le moment)</h5><hr>
 <div class="d-flex justify-content-around">
     
         <button class="btn btn-primary col-3 mt-2 mb-2">
-            <a class="text-white" href="app/obtSeries.php" target="_blank">Obtention des séries</a>
+            <a class="text-white" href="{{ path('addseries') }}">Obtention et Insertion des séries</a>
         </button><br>
   
 
    
         <button class="btn btn-primary col-3 mt-2 mb-2 offset-1">
-            <a class="text-white" href="app/obtSaisons.php" target="_blank">Obtention des saisons</a>
+            <a class="text-white" href="{{ path('addsaisons') }}">Obtention et Insertion des saisons</a>
         </button><br>
     
     
         <button class="btn btn-primary col-3 mt-2 mb-2 offset-1" disabled="disabled">
-            <a class="text-white" class="disabled" href="app/obtEpisodes.php" target="_blank">Obtention des episodes {HORS SERVICE}</a>
+            <a class="text-white"  href="{# {{ path('addepisodes') }} #}">Obtention et Insertion des episodes</a>
         </button>
  
 </div>
     <br>
-    <br>
-   <hr><h5>3 - Injection des données vers la BDD</h5><hr>
-
-<div class="d-flex justify-content-around">
-   
-        <button class="btn btn-primary col-3 mt-2 mb-2">
-            <a class="text-white" href="app/ajoutSeries.php" target="_blank">Insertion des séries</a>
-        </button><br>
-    
-
-   
-        <button class="btn btn-primary col-3 mt-2 mb-2  offset-1" disabled="disabled">
-            <a class="text-white" class="disabled" href="app/ajoutSaisons.php" target="_blank">Insertion des saisons {HORS SERVICE}</a>
-        </button>
-    
-    <br>
-
-   
-        <button class="btn btn-primary col-3 mt-2 mb-2 offset-1" disabled="disabled">
-            <a class="text-white" class="disabled" href="app/ajoutEpisodes.php" target="_blank">Insertion des episodes {HORS SERVICE}</a>
-        </button>
-    </div>
-    <br>
-    <hr><h5>4 - Update des données de la BDD avec l'API
+    <hr><h5>3 - Update des données de la BDD avec l'API
     </h5><hr>
     <br>
 
    <div class="text-center">
         <button class="btn btn-primary col-3 mt-2 mb-2" disabled="disabled">
-            <a class="text-white" class="disabled" href="app/maj.php" target="_blank">Mise à jour des données   {HORS SERVICE}</a>
+            <a class="text-white" class="disabled" href="app/maj.php">Mise à jour des données {HORS SERVICE}</a>
         </button>
     </div>
     <br>

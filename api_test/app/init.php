@@ -13,10 +13,10 @@ $file_series = "../data/data_series.json";
 $file_seasons = "../data/data_seasons.json";
 $file_episodes = "../data/data_episodes.json";
 
-$json_token = file_get_contents("../data/token.txt");
-$json_series = file_get_contents("../data/data_series.json");
-$json_seasons = file_get_contents("../data/data_seasons.json");
-$json_episodes = file_get_contents("../data/data_episodes.json");
+$data_token = file_get_contents("../data/token.txt");
+$data_series = file_get_contents("../data/data_series.json");
+$data_seasons = file_get_contents("../data/data_seasons.json");
+$data_episodes = file_get_contents("../data/data_episodes.json");
 
 
 $pdo = new PDO('mysql:host=localhost;dbname=my_series', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
