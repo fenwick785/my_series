@@ -49,6 +49,12 @@ class Episode
      */
     private $listUserSeries;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Serie", inversedBy="episodes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $serie;
+
     public function __construct()
     {
         $this->commentaries = new ArrayCollection();
@@ -163,6 +169,18 @@ class Episode
             $this->listUserSeries->removeElement($listUserSeries);
             $listUserSeries->removeEpisode($this);
         }
+
+        return $this;
+    }
+
+    public function getSerie(): ?Serie
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(?Serie $serie): self
+    {
+        $this->serie = $serie;
 
         return $this;
     }

@@ -43,10 +43,11 @@ if (isset($_POST['valider'])) {
         foreach ($parsed_json['episodes'] as $episodes) {
             
             $obt_episodes = $pdo->prepare("INSERT INTO episode (id_season_id, title, synopsis, order_episode) VALUES (:id_season_id, :title, :synopsis, :order_episode)");
-            $obt_episodes->bindValue(':id_season_id', $id_serie, PDO::PARAM_INT);
+            $obt_episodes->bindValue(':id_season_id', $episodes['season'], PDO::PARAM_INT);
             $obt_episodes->bindValue(':order_episode', $episodes['episode'], PDO::PARAM_INT);
             $obt_episodes->bindValue(':title', $episodes['title'], PDO::PARAM_STR);
             $obt_episodes->bindValue(':synopsis', $episodes['description'], PDO::PARAM_STR);
+            $obt_episodes->bindValue(':serie_id', $id_serie, PDO::PARAM_STR);
             if ($episodes['image'] !== null) {
                 $obt_episodes->bindValue(':photo', $episodes['image'], PDO::PARAM_STR);
             } else {

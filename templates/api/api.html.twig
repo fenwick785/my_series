@@ -14,7 +14,7 @@
             <a class="text-white" href="{{ path('authorize') }}">Obtention du Token</a>
         </button><br>
     </div>
-    <hr><h5>2 - Récupération des données via l'API (limité à 2000 séries pour le moment)</h5><hr>
+    <hr><h5>2 - Récupération des données via l'API (limité à 500 séries pour le moment)</h5><hr>
 <div class="d-flex justify-content-around">
     
         <button class="btn btn-primary col-3 mt-2 mb-2">
@@ -28,8 +28,8 @@
         </button><br>
     
     
-        <button class="btn btn-primary col-3 mt-2 mb-2 offset-1" disabled="disabled">
-            <a class="text-white"  href="{# {{ path('addepisodes') }} #}">Obtention et Insertion des episodes</a>
+        <button class="btn btn-primary col-3 mt-2 mb-2 offset-1">
+            <a class="text-white"  href="{{ path('addepisodes') }}">Obtention et Insertion des episodes</a>
         </button>
  
 </div>

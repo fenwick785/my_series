@@ -100,6 +100,11 @@ class Serie
      */
     private $banner;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Episode", mappedBy="serie", orphanRemoval=true)
+     */
+    private $episodes;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -107,6 +112,7 @@ class Serie
         $this->actors = new ArrayCollection();
         $this->commentaries = new ArrayCollection();
         $this->listUserSeries = new ArrayCollection();
+        $this->episodes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -392,6 +398,37 @@ class Serie
     public function setBanner(?string $banner): self
     {
         $this->banner = $banner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Episode[]
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->episodes;
+    }
+
+    public function addEpisode(Episode $episode): self
+    {
+        if (!$this->episodes->contains($episode)) {
+            $this->episodes[] = $episode;
+            $episode->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episode $episode): self
+    {
+        if ($this->episodes->contains($episode)) {
+            $this->episodes->removeElement($episode);
+            // set the owning side to null (unless already changed)
+            if ($episode->getSerie() === $this) {
+                $episode->setSerie(null);
+            }
+        }
 
         return $this;
     }

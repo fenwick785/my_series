@@ -52,6 +52,10 @@ class ApiController extends AbstractController
      */
     public function ajoutSeriesApi()
     {
+        /*************************************************************************/
+        /*     Récupération des saisons directement via une requête GET à l'API   */
+        /*************************************************************************/
+        
         $pdo = new PDO('mysql:host=localhost;dbname=my_series', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
         $request = "";
         $id_series = [];
@@ -72,8 +76,8 @@ class ApiController extends AbstractController
         $public = "NA";
         $parsed_json = json_decode($data, true);
         $image_NULL = "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png";
-        $x = 0;
-        $i = 1;
+
+        /* AJOUT DES SAISONS DANS LA BASE DE DONNEES */
 
         foreach ($parsed_json['shows'] as $series) {
             $titre_serie = $pdo->prepare("INSERT INTO serie (id, title, nb_season, nb_episode, start_date, public, synopsis, photo, nationality, duration, status)VALUES(:id, :title, :nb_season, :nb_episode, :start_date, :public, :synopsis, :photo, :nationality, :duration, :status)");
@@ -101,11 +105,10 @@ class ApiController extends AbstractController
             $titre_serie->bindValue(':duration', $duration, PDO::PARAM_INT);
             $titre_serie->bindValue(':status', $status, PDO::PARAM_STR);
             if ($series['images']['poster'] !== null) {
-                $titre_serie->bindValue(':photo', $series['images']['poster'], PDO::PARAM_STR);} else {
+                $titre_serie->bindValue(':photo', $series['images']['banner'], PDO::PARAM_STR);} else {
                 $titre_serie->bindValue(':photo', $image_NULL, PDO::PARAM_STR);
             }
             $titre_serie->execute();
-            $nbEntrees = ($i++);
         }
 
         $this->addFlash('success','Séries ajoutées dans la base de données depuis Beta-Series !');
@@ -118,7 +121,7 @@ class ApiController extends AbstractController
     public function ajoutSaisonsApi()
     {
         /*************************************************************************/
-        /*     Récupération des séries directement via une requête GET à l'API   */
+        /*     Récupération des saisons directement via une requête GET à l'API   */
         /*************************************************************************/
 
         $pdo = new PDO('mysql:host=localhost;dbname=my_series', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
@@ -173,4 +176,72 @@ class ApiController extends AbstractController
         $this->addFlash('success','Saisons ajoutées dans la base de données depuis Beta-Series !');
         return $this->redirectToRoute('api');
     }
+
+    /**
+     * @Route("/api/episodes", name="addepisodes")
+     */
+    public function ajoutEpisodesApi()
+    {
+        /*************************************************************************/
+        /*     Récupération des episodes directement via une requête GET à l'API   */
+        /*************************************************************************/
+
+        $pdo = new PDO('mysql:host=localhost;dbname=my_series', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+        /* $query = "SELECT * FROM serie"; */
+        $query = "SELECT * FROM serie LIMIT 0, 20";
+
+        $response = $pdo->query($query);
+        
+    while ($series = $response->fetch(PDO::FETCH_ASSOC)) {
+        
+        $id_serie = $series['id'];
+        $url = "https://api.betaseries.com/shows/episodes?id=$id_serie";
+        $curl = curl_init($url);
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => "3.0",
+            CURLOPT_HTTPHEADER => array('Accept: application/json', 'X-BetaSeries-Version: 3.0', 'X-BetaSeries-Key: 2ca9f109bca9'),
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+        ));
+        $data = curl_exec($curl);
+       
+
+        /* AJOUT DES EPISODES DANS LA BASE DE DONNEES */
+
+        $parsed_json = json_decode($data, true);
+
+        $result = $pdo -> query("select id from season WHERE id_serie_id = $id_serie");
+        $nb = $result -> rowCount();
+        $ids = $result -> fetchAll(PDO::FETCH_ASSOC);
+
+        $limit = 0;
+        foreach ($parsed_json['episodes'] as $episodes) {
+
+
+            
+            $episode = (isset($episodes['episode'])) ? $episodes['episode'] : null;
+            $title = (isset($episodes['title'])) ? $episodes['title'] : null;
+            $synopsis = (isset($episodes['description'])) ? $episodes['description'] : null;
+            $nb_season = (isset($episodes['seasons'])) ? $episodes['seasons'] : null;
+
+            $seasonrand = rand(0, $nb-1);
+
+
+            $obt_episodes = $pdo->prepare("INSERT INTO episode (id_season_id, title, synopsis, order_episode, serie_id) VALUES (:id_season_id, :title, :synopsis, :order_episode, :serie_id)");
+            $obt_episodes->bindValue(':id_season_id', $ids[$seasonrand]['id'], PDO::PARAM_INT);
+            $obt_episodes->bindValue(':order_episode', $episode, PDO::PARAM_INT);
+            $obt_episodes->bindValue(':title', $title, PDO::PARAM_STR);
+            $obt_episodes->bindValue(':synopsis', $synopsis, PDO::PARAM_STR);
+            $obt_episodes->bindValue(':serie_id', $id_serie, PDO::PARAM_INT);
+            $obt_episodes->execute();
+        }
+    }
+    curl_close($curl);
+    $this->addFlash('success','Episodes ajoutés dans la base de données depuis Beta-Series !');
+    return $this->redirectToRoute('api');
+    
+}
 }

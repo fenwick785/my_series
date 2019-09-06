@@ -412,9 +412,7 @@ class AdminController extends AbstractController
 
         //2 : Afficher une vue (admin/user_list.html.twig), dans laquelle on va faire un dump() de tous les user
         return $this->render('admin/user_list.html.twig', [
-            'user' => $user,
-            // 'contributor' => $contributor,
-            // 'admin' => $admin
+            'user' => $user
         ]);
     }
 
