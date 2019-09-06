@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+{% if series == NULL %}
+<h5> Oops... Aucune série n'a été trouvée </h5>
+{% else %}
+
 <div class="row">
     {% for s in series %}
     {% set note = 0 %}
@@ -47,4 +51,7 @@
         {{ searchedactors.firstName }}
         {{ searchedactors.lastName}}
     {% endfor %}
+
+    {% endif %}
+
 {% endblock %}
