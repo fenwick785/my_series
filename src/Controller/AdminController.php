@@ -405,7 +405,7 @@ class AdminController extends AbstractController
         //1 : Récupérer tous les user
         $repo = $this->getDoctrine()->getRepository(User::class);
         $user = $repo->findBy(
-            ['role'=> 'ROLE_USER','ROLE_CONTRIBUTOR','ROLE_ADMIN'],
+            ['role'=> 'ROLE_USER'],
             ['username' => 'ASC']
         );
 
@@ -413,8 +413,8 @@ class AdminController extends AbstractController
         //2 : Afficher une vue (admin/user_list.html.twig), dans laquelle on va faire un dump() de tous les user
         return $this->render('admin/user_list.html.twig', [
             'user' => $user,
-            'contributor' => $contributor,
-            'admin' => $admin
+            // 'contributor' => $contributor,
+            // 'admin' => $admin
         ]);
     }
 
